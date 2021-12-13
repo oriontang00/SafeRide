@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeRide", "SafeRide.csproj", "{33931BFA-3685-4F9B-8E21-364F9C975C12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33931BFA-3685-4F9B-8E21-364F9C975C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33931BFA-3685-4F9B-8E21-364F9C975C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33931BFA-3685-4F9B-8E21-364F9C975C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33931BFA-3685-4F9B-8E21-364F9C975C12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50018463-C5EA-4BAB-A3DE-F4473955C87E}
+	EndGlobalSection
+EndGlobal
