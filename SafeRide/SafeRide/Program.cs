@@ -8,13 +8,8 @@ var app = builder.Build();
 
 IUserDAO testDao = new UserSQLServerDAO();
 
-User user = new User();
-Console.WriteLine(user);
-
-Console.WriteLine($"User firstname = {user.FirstName}");
-user.FirstName = "test";
-
-Console.WriteLine(user);
+User user = new User("Leon", "Chen", "Apple", "wowapassword?Crazy", "wowTestUsdId", "0001112222");
+Console.WriteLine(testDao.Create(user));
 
 Console.WriteLine("Testing string");
 

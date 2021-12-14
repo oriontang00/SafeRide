@@ -8,12 +8,12 @@
         private string password;
         private string userId;
         private string phoneNum;
-        public string FirstName { get { return firstName; } set { this.firstName=value; } }
-        public string LastName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string UserId { get; set; }
-        public string PhoneNum { get; set; }
+        public string FirstName { get { return firstName; } set { this.firstName = value; } }
+        public string LastName { get { return lastName; } set { this.lastName = value; } }
+        public string UserName { get { return userName; } set { this.userName = value; } }
+        public string Password { get { return password; } set { this.password = value; } }
+        public string UserId { get { return userId; } set { this.userId = value; } }
+        public string PhoneNum { get { return phoneNum; } set { this.phoneNum = value; } }
 
         public User()
         {
@@ -42,7 +42,6 @@
                 $"UserId : {UserId}\n" +
                 $"PhoneNum : {PhoneNum}";
         }
-
         public override int GetHashCode()
         {
             return this.UserId.GetHashCode();
