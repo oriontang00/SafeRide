@@ -3,6 +3,11 @@
     public class User
     {
         private string firstName;
+        private string lastName;
+        private string userName;
+        private string password;
+        private string userId;
+        private string phoneNum;
         public string FirstName { get { return firstName; } set { this.firstName=value; } }
         public string LastName { get; set; }
         public string UserName { get; set; }
@@ -28,7 +33,6 @@
             UserId = userId;
             PhoneNum = phoneNum;
         }
-
         public override string ToString()
         {
             return $"User : \n" +

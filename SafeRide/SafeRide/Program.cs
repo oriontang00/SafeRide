@@ -11,7 +11,8 @@ IUserDAO testDao = new UserSQLServerDAO();
 User user = new User();
 Console.WriteLine(user);
 
-Console.WriteLine(user.FirstName = "test");
+Console.WriteLine($"User firstname = {user.FirstName}");
+user.FirstName = "test";
 
 Console.WriteLine(user);
 
