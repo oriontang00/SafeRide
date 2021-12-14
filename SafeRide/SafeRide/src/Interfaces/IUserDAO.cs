@@ -1,6 +1,6 @@
 ﻿namespace SafeRide.src.Interfaces
 {
-    public class IUserDAO
+    public interface IUserDAO
     {
     }
 }
