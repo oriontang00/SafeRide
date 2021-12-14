@@ -39,11 +39,10 @@ namespace SafeRide.src.DataAccess
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message); // logger here
                 return false;
             }
         }
-
         public bool Create(User User)
         {
             string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password) VALUES" +
@@ -54,7 +53,40 @@ namespace SafeRide.src.DataAccess
 
         public User Read(String UserId)
         {
-            return new User();
+            string query = $"SELECT * FROM Users WHERE userID='{UserId}'";
+
+            string firstName = "";
+            string lastName = "";
+            string userName = "";
+            string phoneNum = "";
+            string password = "";
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(query, sqlConn))
+                {
+                    cmd.Connection.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            firstName = reader["firstName"].ToString() ?? "";
+                            lastName = reader["lastName"].ToString() ?? "";
+                            userName = reader["userName"].ToString() ?? "";
+                            phoneNum = reader["phoneNum"].ToString() ?? "";
+                            password = reader["password"].ToString() ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new User();
+            }
+
+            return new User(firstName, lastName, userName, password, UserId, phoneNum);
         }
 
         public bool Update(String UserId, User User)
