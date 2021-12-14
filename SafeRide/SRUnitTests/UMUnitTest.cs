@@ -2,7 +2,7 @@ using Xunit;
 
 namespace SRUnitTests
 {
-    public class UnitTest1
+    public class UMUnitTest
     {
         [Fact]
         public void Test1()
