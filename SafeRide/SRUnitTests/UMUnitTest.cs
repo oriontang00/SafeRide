@@ -39,8 +39,8 @@ namespace SRUnitTests
             Assert.Equal("TPW", testUser2.Password);
             Assert.Equal("T_ID_0", testUser2.UserId);
             Assert.Equal("TPhoneNum", testUser2.PhoneNum);
-            Assert.Equal("False", testUser2.IsAdmin);
-            Assert.Equal("True", testUser2.Enabled);
+            Assert.Equal("0", testUser2.IsAdmin);
+            Assert.Equal("1", testUser2.Enabled);
 
             User testUser3 = new User("TFN_NEW", "TLN_NEW", "TUN_NEW", "TPW", "T_ID_0", "TPhoneNum", "0", "0");
             bool updateSuccess = testDAO.Update("T_ID_0", testUser3);
@@ -49,19 +49,19 @@ namespace SRUnitTests
             User testUser4 = testDAO.Read("T_ID_0"); // test only 3 new fields
             Assert.Equal("TFN_NEW", testUser4.FirstName);
             Assert.Equal("TLN_NEW", testUser4.LastName);
-            Assert.Equal("False", testUser4.Enabled);
+            Assert.Equal("0", testUser4.Enabled);
 
             bool enableSuccess = testDAO.Enable("T_ID_0");
             Assert.True(enableSuccess);
 
             User testUser5 = testDAO.Read("T_ID_0");
-            Assert.Equal("True", testUser5.Enabled);
+            Assert.Equal("1", testUser5.Enabled);
 
             bool disableSuccess = testDAO.Disable("T_ID_0");
             Assert.True(disableSuccess);
 
             User testUser6 = testDAO.Read("T_ID_0");
-            Assert.Equal("False", testUser6.Enabled);
+            Assert.Equal("0", testUser6.Enabled);
 
             bool deleteSuccess = testDAO.Delete("T_ID_0");
             Assert.True(deleteSuccess);
@@ -83,8 +83,8 @@ namespace SRUnitTests
             Assert.Equal("catpw", testUser1.Password);
             Assert.Equal("1234", testUser1.UserId);
             Assert.Equal("51231234", testUser1.PhoneNum);
-            Assert.Equal("False", testUser1.IsAdmin);
-            Assert.Equal("True", testUser1.Enabled);
+            Assert.Equal("0", testUser1.IsAdmin);
+            Assert.Equal("1", testUser1.Enabled);
 
             Assert.True(testDAO.Delete("1234"));
 

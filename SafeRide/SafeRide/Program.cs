@@ -6,11 +6,13 @@ using SafeRide.src.Models;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+string db_name = "SafeRide_DB";
+
 DatabaseCheck checker = new DatabaseCheck();
-if (!checker.CheckDatabaseExists("SafeRide_DB"))
+if (!checker.CheckDatabaseExists(db_name))
 {
-    checker.CreateDatabase("SafeRide_DB");
-    checker.CreateTables();
+    checker.CreateDatabase(db_name);
+    checker.CreateTables(db_name);
 }
 /*
 ILogService logService = new DBLogService();
@@ -47,7 +49,7 @@ foreach (LogMessage log in logList)
 }
 
 **/
-IUserDAO testDao = new UserSQLServerDAO();
+/*IUserDAO testDao = new UserSQLServerDAO();
 
 User user = new User("Andy", "Ta", "Orange", "wowapassword", "wowTestUsdId", "00112233", "0", "1");
 
@@ -65,8 +67,8 @@ Console.WriteLine(testDao.Read("wowTestUsdId").UserName);
 //Console.WriteLine(testDao.BulkOp(fileName));
 //Console.WriteLine(testDao.Read("wowTestUsdId"));
 
-Console.WriteLine("Testing string");*/
-
+Console.WriteLine("Testing string");
+*/
 
 
 
