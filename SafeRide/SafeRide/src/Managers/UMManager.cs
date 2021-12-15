@@ -126,7 +126,7 @@ namespace SafeRide.src.Managers
 
             if (checkUserName.Equals(userName) && checkPassword.Equals(password))
                 {
-                return true;
+                    return true;
                 }
 
             return false;
@@ -138,7 +138,7 @@ namespace SafeRide.src.Managers
 
             String check = testUser.IsAdmin;
 
-            if (check.Equals("true"))
+            if (check.Equals("1"))
             {
                 return true;
             }
