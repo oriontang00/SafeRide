@@ -104,12 +104,14 @@ namespace SafeRide.src.DataAccess
 
         public bool Enable(String UserId)
         {
-            return false;
+            string query = $"UPDATE Users SET enabled = 1 WHERE userId = {UserId}";
+            return ExecuteCommand(query);
         }
 
         public bool Disable(String UserId)
         {
-            return false;
+            string query = $"UPDATE Users SET enabled = 0 WHERE userId = {UserId}";
+            return ExecuteCommand(query);
         }
     }
 }
