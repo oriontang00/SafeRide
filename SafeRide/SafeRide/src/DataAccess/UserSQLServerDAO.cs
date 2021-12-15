@@ -59,6 +59,8 @@ namespace SafeRide.src.DataAccess
             string userName = "";
             string phoneNum = "";
             string password = "";
+            string isAdmin = "";
+            string enabled = "";
 
             try
             {
@@ -75,6 +77,8 @@ namespace SafeRide.src.DataAccess
                             userName = reader["userName"].ToString() ?? "";
                             phoneNum = reader["phoneNum"].ToString() ?? "";
                             password = reader["password"].ToString() ?? "";
+                            isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
+                            enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
                         }
                     }
                 }
@@ -85,7 +89,7 @@ namespace SafeRide.src.DataAccess
                 return new User();
             }
 
-            return new User(firstName, lastName, userName, password, UserId, phoneNum);
+            return new User(firstName, lastName, userName, password, UserId, phoneNum, isAdmin, enabled);
         }
 
         public bool Update(String UserId, User User)
@@ -103,62 +107,9 @@ namespace SafeRide.src.DataAccess
             return false;
         }
 
-        public bool Disable(String UserId) 
-        { 
-            return false; 
-        }
-
-        public List<bool> BulkOp(String path)
+        public bool Disable(String UserId)
         {
-            List<bool> result = new List<bool>();
-           
-
-            try
-            {
-                foreach (String line in System.IO.File.ReadLines(path))
-                {
-                    var value = line.Split(",");
-
-                    if (value[0].Equals("create"))
-                    {
-                        User user = new User();
-                        user.FirstName = value[1];
-                        user.LastName = value[2];
-                        user.UserName = value[3];
-                        user.UserId = value[4];
-                        user.PhoneNum = value[5];
-                        user.Password = value[6];
-
-                        result.Append(Create(user));
-                        
-                    }
-                    else if (value[0].Equals("update"))
-                    {
-
-                    }
-                    else if (value[0].Equals("delete"))
-                    {
-
-                    }
-                    else if (value[0].Equals("enable"))
-                    {
-
-                    }
-                    else if (value[0].Equals("disable"))
-                    { 
-                    
-                    }
-                    
-                }
-            }
-            catch (FileNotFoundException e)
-            {
-                Console.WriteLine("File is not found.");
-            }
-
-         
-            
-            return result;
+            return false;
         }
     }
 }

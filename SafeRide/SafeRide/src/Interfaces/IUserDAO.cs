@@ -11,6 +11,5 @@ namespace SafeRide.src.Interfaces
         public bool Enable(String UserId);
         public bool Disable(String UserId);
 
-        public List<bool> BulkOp(String path);
     }
 }
