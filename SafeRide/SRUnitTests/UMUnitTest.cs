@@ -1,5 +1,6 @@
 using SafeRide.src.DataAccess;
 using SafeRide.src.Interfaces;
+using SafeRide.src.Managers;
 using SafeRide.src.Models;
 using Xunit;
 
@@ -63,6 +64,15 @@ namespace SRUnitTests
 
             bool deleteSuccess = testDAO.Delete("T_ID_0");
             Assert.True(deleteSuccess);
+        }
+
+        [Fact]
+        public void TestFile()
+        {
+            string filepath = "../SafeRide/src/test.csv";
+            var testDAO = new UserSQLServerDAO();
+            var testManager = new UMManager(testDAO);
+
         }
     }
 }
