@@ -11,13 +11,24 @@ namespace SafeRide.src.Managers
         {
             this.userDao = userDao;
         }
-        public List<bool> BulkOp(String path)
+
+        public List<bool> BulkOps(String pathOrStr, bool isFile)
         {
             List<bool> result = new List<bool>();
+            IEnumerable<string> readLines;
+
+            if (isFile)
+            {
+                readLines = File.ReadLines(pathOrStr);
+            }
+            else
+            {
+                readLines = pathOrStr.Split("\n");
+            }
 
             try
             {
-                foreach (String line in System.IO.File.ReadLines(path))
+                foreach (String line in readLines)
                 {
                     var value = line.Split(",");
 
@@ -44,11 +55,14 @@ namespace SafeRide.src.Managers
                     }
                     else if (value[0].Equals("enable"))
                     {
+                        string userId = value[1];
+                        result.Append(userDao.Enable(userId));
 
                     }
                     else if (value[0].Equals("disable"))
                     {
-
+                        string userId = value[1];
+                        result.Append(userDao.Enable(userId));
                     }
 
                 }
