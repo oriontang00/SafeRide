@@ -61,9 +61,9 @@ namespace SafeRide.src.DataAccess
         }
 
         //https://www.completecsharptutorial.com/ado-net/c-ado-net-create-rename-alter-and-delete-table.php
-        public void CreateTables()
+        public void CreateTables(string db_name)
         {
-            SqlConnection myConn = new SqlConnection(@"server=(local)\SQLExpress;database=master;integrated Security=SSPI;");
+            SqlConnection myConn = new SqlConnection(@$"server=(local)\SQLExpress;database={db_name};integrated Security=SSPI;");
             string query =
             @"CREATE TABLE Logs
             (
