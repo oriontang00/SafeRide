@@ -19,7 +19,7 @@ namespace SafeRide.src.Managers
 
             return true;
         }
-        static bool CheckFile(string filePath)
+        private static bool CheckFile(string filePath)
         {
             long fileSize = 0;
             long lineCount = 0;
