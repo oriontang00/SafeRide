@@ -99,7 +99,8 @@ namespace SafeRide.src.DataAccess
 
         public bool Delete(String UserId)
         {
-            return false;
+            String query = $"DELETE FROM Users WHERE userID = '{UserId}'";
+            return ExecuteCommand(query);
         }
 
         public bool Enable(String UserId)
