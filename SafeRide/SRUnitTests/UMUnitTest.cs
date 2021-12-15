@@ -89,5 +89,27 @@ namespace SRUnitTests
             Assert.True(testDAO.Delete("1234"));
 
         }
+
+        [Fact]
+        public void TestString()
+        {
+            string testString = "create,andy,lee,dog,1234,51231234,catpw,0,1\n";
+            var testDAO = new UserSQLServerDAO();
+            var testManager = new UMManager(testDAO);
+
+            List<bool> results = testManager.BulkOps(testString, false);
+
+            User testUser1 = testDAO.Read("1234"); // hard coded id
+            Assert.Equal("andy", testUser1.FirstName);
+            Assert.Equal("lee", testUser1.LastName);
+            Assert.Equal("dog", testUser1.UserName);
+            Assert.Equal("catpw", testUser1.Password);
+            Assert.Equal("1234", testUser1.UserId);
+            Assert.Equal("51231234", testUser1.PhoneNum);
+            Assert.Equal("0", testUser1.IsAdmin);
+            Assert.Equal("1", testUser1.Enabled);
+
+            Assert.True(testDAO.Delete("1234"));
+        }
     }
 }
