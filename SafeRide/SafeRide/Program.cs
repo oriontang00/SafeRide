@@ -10,6 +10,7 @@ DatabaseCheck checker = new DatabaseCheck();
 if (!checker.CheckDatabaseExists("SafeRide_DB"))
 {
     checker.CreateDatabase("SafeRide_DB");
+    checker.CreateTables();
 }
 /*
 ILogService logService = new DBLogService();

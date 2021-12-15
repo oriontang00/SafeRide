@@ -49,7 +49,7 @@ namespace SafeRide.src.DataAccess
         //https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/create-sql-server-database-programmatically
         public void CreateDatabase(string db_name)
         {
-            SqlConnection myConn = new SqlConnection("Server=localhost;Integrated security=SSPI;database=master");
+            SqlConnection myConn = new SqlConnection(@"server=(local)\SQLExpress;database=master;integrated Security=SSPI;");
 
             string cmd = $"CREATE DATABASE {db_name} ON PRIMARY " +
              "(NAME = MyDatabase_Data, " +
@@ -77,6 +77,49 @@ namespace SafeRide.src.DataAccess
                 {
                     myConn.Close();
                 }
+            }
+        }
+
+        //https://www.completecsharptutorial.com/ado-net/c-ado-net-create-rename-alter-and-delete-table.php
+        public void CreateTables()
+        {
+            SqlConnection myConn = new SqlConnection(@"server=(local)\SQLExpress;database=master;integrated Security=SSPI;");
+            string query =
+            @"CREATE TABLE Logs
+            (
+                Level        INT        NOT NULL,
+                Text        VARCHAR(255)    NOT NULL,
+                timeLogged     datetime    NOT NULL,
+
+            );
+
+            CREATE TABLE Users
+            (
+                firstName    VARCHAR(32)    NOT NULL,
+                lastName    VARCHAR(32)    NOT NULL,
+                userName    VARCHAR(32)    NOT NULL,
+                userID        VARCHAR(32)    NOT  NULL,
+                phoneNum    VARCHAR(32)    NOT NULL,
+                password    VARCHAR(32)    NOT NULL, 
+                isAdmin    BIT              NOT NULL,
+                enabled     BIT             NOT NULL,
+
+            );";
+            SqlCommand cmd = new SqlCommand(query, myConn);
+            try
+            {
+                myConn.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Tables Created Successfully");
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                myConn.Close();
+                Console.ReadKey();
             }
         }
     }
