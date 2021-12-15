@@ -116,5 +116,34 @@ namespace SafeRide.src.Managers
 
             return result;
         }
+
+        public bool UserAuthenticate(String userName, String userID, String password)
+        {
+            User testUser = userDao.Read(userID);
+
+            String checkUserName = testUser.UserName;
+            String checkPassword = testUser.Password;
+
+            if (checkUserName.Equals(userName) && checkPassword.Equals(password))
+                {
+                return true;
+                }
+
+            return false;
+        }
+
+        public bool UserAuthorize(String userID)
+        {
+            User testUser = userDao.Read(userID);
+
+            String check = testUser.IsAdmin;
+
+            if (check.Equals("true"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
