@@ -42,8 +42,9 @@ namespace SafeRide.src.DataAccess
         }
         public bool Create(User User)
         {
-            string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password) VALUES" +
-                $" ('{User.FirstName}', '{User.LastName}', '{User.UserName}', '{User.UserId}', '{User.PhoneNum}', '{User.Password}');";
+            string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password, isAdmin, enabled) VALUES" +
+                $" ('{User.FirstName}', '{User.LastName}', '{User.UserName}', '{User.UserId}', '{User.PhoneNum}', '{User.Password}'" +
+                $" ,'{User.IsAdmin}', '{User.Enabled}');";
             Console.WriteLine(query);
             return ExecuteCommand(query);
         }
