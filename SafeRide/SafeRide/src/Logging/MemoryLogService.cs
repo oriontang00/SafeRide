@@ -7,6 +7,10 @@ using SafeRide.src.Models;
 
 namespace SafeRide.src.Logging
 {
+
+    /// <summary>
+    /// This class simulates a logger in memory by storing logs in a list. No database required.
+    /// </summary>
     public class MemoryLogService : ILogService
     {
         private List<LogMessage> _logList;
@@ -16,11 +20,19 @@ namespace SafeRide.src.Logging
             get { return _logList; }
         }
 
+        /// <summary>
+        /// Constructor which instantiates the log list.
+        /// </summary>
         public MemoryLogService()
         {
             _logList = new List<LogMessage>();
         }
 
+        /// <summary>
+        /// Adds the specified log message to the in-memory list.
+        /// </summary>
+        /// <param name="message">The message to be logged</param>
+        /// <returns>A boolean value representing the success status of the insertion</returns>
         public bool Write(LogMessage message)
         {
             int lengthBefore = _logList.Count;

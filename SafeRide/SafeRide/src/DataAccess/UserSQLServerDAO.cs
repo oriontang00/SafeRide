@@ -7,7 +7,6 @@ namespace SafeRide.src.DataAccess
     public class UserSQLServerDAO : IUserDAO
     {
         private const string CONNECTION_STRING = @"server=(local)\SQLExpress;database=SafeRide_DB;integrated Security=SSPI;";
-        private SqlConnection sqlConn;
         private User User;
         private string UserId;
 
@@ -15,20 +14,18 @@ namespace SafeRide.src.DataAccess
         {
             this.User = new User();
             this.UserId = "";
-            this.sqlConn = new SqlConnection(CONNECTION_STRING);
         }
         public UserSQLServerDAO(User User, String UserId)
         {
             this.User = User;
             this.UserId = UserId;
-            this.sqlConn = new SqlConnection(CONNECTION_STRING);
         }
 
         private bool ExecuteCommand(string queryStr)
         {
             try
             {
-                using (sqlConn)
+                using (var sqlConn = new SqlConnection(CONNECTION_STRING))
                 {
                     SqlCommand cmd = new SqlCommand(queryStr, sqlConn);
                     cmd.Connection.Open();
@@ -37,7 +34,7 @@ namespace SafeRide.src.DataAccess
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // logger here
                 return false;
@@ -45,8 +42,9 @@ namespace SafeRide.src.DataAccess
         }
         public bool Create(User User)
         {
-            string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password) VALUES" +
-                $" ('{User.FirstName}', '{User.LastName}', '{User.UserName}', '{User.UserId}', '{User.PhoneNum}', '{User.Password}');";
+            string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password, isAdmin, enabled) VALUES" +
+                $" ('{User.FirstName}', '{User.LastName}', '{User.UserName}', '{User.UserId}', '{User.PhoneNum}', '{User.Password}'" +
+                $" ,'{User.IsAdmin}', '{User.Enabled}');";
             Console.WriteLine(query);
             return ExecuteCommand(query);
         }
@@ -64,25 +62,31 @@ namespace SafeRide.src.DataAccess
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand(query, sqlConn))
+                using (var sqlConn = new SqlConnection(CONNECTION_STRING))
                 {
-                    cmd.Connection.Open();
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand(query, sqlConn))
                     {
-                        while (reader.Read())
+                        cmd.Connection.Open();
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            firstName = reader["firstName"].ToString() ?? "";
-                            lastName = reader["lastName"].ToString() ?? "";
-                            userName = reader["userName"].ToString() ?? "";
-                            phoneNum = reader["phoneNum"].ToString() ?? "";
-                            password = reader["password"].ToString() ?? "";
-                            isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
-                            enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
+                            while (reader.Read())
+                            {
+                                firstName = reader["firstName"].ToString() ?? "";
+                                lastName = reader["lastName"].ToString() ?? "";
+                                userName = reader["userName"].ToString() ?? "";
+                                phoneNum = reader["phoneNum"].ToString() ?? "";
+                                password = reader["password"].ToString() ?? "";
+                                isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
+                                if (isAdmin.Equals("True")) { isAdmin = "1"; } else { isAdmin = "0"; }
+                                enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
+                                if (enabled.Equals("True")) { enabled = "1"; } else { enabled = "0"; };
+                            }
                         }
                     }
                 }
             }
+           
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -95,7 +99,8 @@ namespace SafeRide.src.DataAccess
         public bool Update(String UserId, User User)
         {
             string query = "update Users set " +
-                $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}' " +
+                $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}'," +
+                $" password='{User.Password}', isAdmin='{User.IsAdmin}', enabled='{User.Enabled}' " +
                 $"where userID= '{UserId}'";
 
             Console.WriteLine(query);
@@ -110,13 +115,13 @@ namespace SafeRide.src.DataAccess
 
         public bool Enable(String UserId)
         {
-            string query = $"UPDATE Users SET enabled = 1 WHERE userId = {UserId}";
+            string query = $"UPDATE Users SET enabled = 1 WHERE userId = '{UserId}'";
             return ExecuteCommand(query);
         }
 
         public bool Disable(String UserId)
         {
-            string query = $"UPDATE Users SET enabled = 0 WHERE userId = {UserId}";
+            string query = $"UPDATE Users SET enabled = 0 WHERE userId = '{UserId}'";
             return ExecuteCommand(query);
         }
     }

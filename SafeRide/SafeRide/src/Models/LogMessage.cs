@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace SafeRide.src.Models
 {
+    /// <summary>
+    /// Enum which represents the Level/Severity of a log.
+    /// </summary>
     public enum Level
     {
         Debug,
@@ -14,6 +17,9 @@ namespace SafeRide.src.Models
         Fatal
     };
 
+    /// <summary>
+    /// This class models a log message object. 
+    /// </summary>
     public class LogMessage
     {
         private string _text;
@@ -34,6 +40,11 @@ namespace SafeRide.src.Models
             get { return _logLevel; }
         }
 
+        /// <summary>
+        /// Constructor for a log message that automatically sets the date to when the constructor was called.
+        /// </summary>
+        /// <param name="text">The textual decription of a log</param>
+        /// <param name="level">The level/severity of a log</param>
         public LogMessage(string text, Level level)
         {
             this._text = text;
@@ -41,6 +52,12 @@ namespace SafeRide.src.Models
             this._time = DateTime.Now;
         }
 
+        /// <summary>
+        /// Constructor for a log message with a specified date.
+        /// </summary>
+        /// <param name="text">The textual decription of a log</param>
+        /// <param name="level">The level/severity of a log</param>
+        /// <param name="time">The time to be set for this log message</param>
         public LogMessage(string text, Level level, DateTime time)
         {
             this._text = text;
@@ -48,6 +65,10 @@ namespace SafeRide.src.Models
             this._time = time;
         }
 
+        /// <summary>
+        /// ToString method for a LogMessage object.
+        /// </summary>
+        /// <returns>A string representing the object</returns>
         public override string ToString()
         {
             string level = "";
