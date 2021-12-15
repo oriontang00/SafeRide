@@ -10,5 +10,7 @@ namespace SafeRide.src.Interfaces
         public bool Delete(String UserId);
         public bool Enable(String UserId);
         public bool Disable(String UserId);
+
+        public List<bool> BulkOp(String path);
     }
 }

@@ -51,44 +51,6 @@ namespace SafeRide.src.DataAccess
             return ExecuteCommand(query);
         }
 
-        public User Read(String UserId)
-        {
-            string query = $"SELECT * FROM Users WHERE userID='{UserId}'";
-
-            string firstName = "";
-            string lastName = "";
-            string userName = "";
-            string phoneNum = "";
-            string password = "";
-
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand(query, sqlConn))
-                {
-                    cmd.Connection.Open();
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            firstName = reader["firstName"].ToString() ?? "";
-                            lastName = reader["lastName"].ToString() ?? "";
-                            userName = reader["userName"].ToString() ?? "";
-                            phoneNum = reader["phoneNum"].ToString() ?? "";
-                            password = reader["password"].ToString() ?? "";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new User();
-            }
-
-            return new User(firstName, lastName, userName, password, UserId, phoneNum);
-        }
-
         public bool Update(String UserId, User User)
         {
             return false;
@@ -107,6 +69,59 @@ namespace SafeRide.src.DataAccess
         public bool Disable(String UserId) 
         { 
             return false; 
+        }
+
+        public List<bool> BulkOp(String path)
+        {
+            List<bool> result = new List<bool>();
+           
+
+            try
+            {
+                foreach (String line in System.IO.File.ReadLines(path))
+                {
+                    var value = line.Split(",");
+
+                    if (value[0].Equals("create"))
+                    {
+                        User user = new User();
+                        user.FirstName = value[1];
+                        user.LastName = value[2];
+                        user.UserName = value[3];
+                        user.UserId = value[4];
+                        user.PhoneNum = value[5];
+                        user.Password = value[6];
+
+                        result.Append(Create(user));
+                        
+                    }
+                    else if (value[0].Equals("update"))
+                    {
+
+                    }
+                    else if (value[0].Equals("delete"))
+                    {
+
+                    }
+                    else if (value[0].Equals("enable"))
+                    {
+
+                    }
+                    else if (value[0].Equals("disable"))
+                    { 
+                    
+                    }
+                    
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine("File is not found.");
+            }
+
+         
+            
+            return result;
         }
     }
 }
