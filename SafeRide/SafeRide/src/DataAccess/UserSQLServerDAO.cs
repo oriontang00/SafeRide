@@ -94,28 +94,12 @@ namespace SafeRide.src.DataAccess
 
         public bool Update(String UserId, User User)
         {
-            /*string query = "Update User set" +
-                $" (FirstName=' " + User.FirstName + "', LastName='" + User.LastName + "', Phone Number='" + User.PhoneNum + " )" +
-                $" where userID={UserId}";
-            string query = "UPDATE database.SafeRide_DB SET firstName= '" + User.FirstName + "', lastName='" + User.LastName + "', userName='" + User.UserName + "', UserId= '" + User.UserId + "', phoneNum='" + User.PhoneNum + "', password='" + User.Password +
-                 " 'where userID='" + UserId ;
-  
-            sqlConn = new SqlConnection(CONNECTION_STRING);
-            sqlConn.Open();
-            SqlCommand _cmd = new SqlCommand("UPDATE Users SET firstName=@FirstName WHERE userID=UserId", sqlConn);
-            _cmd.Parameters.Add(User.FirstName );
-            _cmd.ExecuteNonQuery(); */
-
             string query = "update Users set " +
                 $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}' " +
                 $"where userID= '{UserId}'";
-            //SqlConnection _con = new SqlConnection(CONNECTION_STRING);
-            //SqlCommand _cmd = new SqlCommand(query, _con);
-            //_con.Open();
-            //_cmd.ExecuteNonQuery();
+
             Console.WriteLine(query);
             return ExecuteCommand(query);
-            //return true;
         }
 
         public bool Delete(String UserId)
