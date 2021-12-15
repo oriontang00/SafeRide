@@ -2,6 +2,7 @@ using SafeRide.src.DataAccess;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Managers;
 using SafeRide.src.Models;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SRUnitTests
@@ -69,9 +70,23 @@ namespace SRUnitTests
         [Fact]
         public void TestFile()
         {
-            string filepath = "../SafeRide/src/test.csv";
+            string filepath = @"..\..\..\..\SafeRide\src\test.csv";
             var testDAO = new UserSQLServerDAO();
             var testManager = new UMManager(testDAO);
+
+            List<bool> results = testManager.BulkOps(filepath, true);
+
+            User testUser1 = testDAO.Read("1234"); // hard coded id
+            Assert.Equal("andy", testUser1.FirstName);
+            Assert.Equal("lee", testUser1.LastName);
+            Assert.Equal("dog", testUser1.UserName);
+            Assert.Equal("catpw", testUser1.Password);
+            Assert.Equal("1234", testUser1.UserId);
+            Assert.Equal("51231234", testUser1.PhoneNum);
+            Assert.Equal("False", testUser1.IsAdmin);
+            Assert.Equal("True", testUser1.Enabled);
+
+            Assert.True(testDAO.Delete("1234"));
 
         }
     }
