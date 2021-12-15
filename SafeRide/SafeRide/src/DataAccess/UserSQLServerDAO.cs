@@ -99,7 +99,8 @@ namespace SafeRide.src.DataAccess
         public bool Update(String UserId, User User)
         {
             string query = "update Users set " +
-                $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}' " +
+                $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}'," +
+                $" password='{User.Password}', isAdmin='{User.IsAdmin}', enabled='{User.Enabled}' " +
                 $"where userID= '{UserId}'";
 
             Console.WriteLine(query);
@@ -114,13 +115,13 @@ namespace SafeRide.src.DataAccess
 
         public bool Enable(String UserId)
         {
-            string query = $"UPDATE Users SET enabled = 1 WHERE userId = {UserId}";
+            string query = $"UPDATE Users SET enabled = 1 WHERE userId = '{UserId}'";
             return ExecuteCommand(query);
         }
 
         public bool Disable(String UserId)
         {
-            string query = $"UPDATE Users SET enabled = 0 WHERE userId = {UserId}";
+            string query = $"UPDATE Users SET enabled = 0 WHERE userId = '{UserId}'";
             return ExecuteCommand(query);
         }
     }
