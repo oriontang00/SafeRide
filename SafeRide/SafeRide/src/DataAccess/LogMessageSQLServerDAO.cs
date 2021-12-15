@@ -10,15 +10,21 @@ using System.Configuration;
 
 namespace SafeRide.src.DataAccess
 {
+    /// <summary>
+    /// This class defines functionality dealing with accessing log messages from a SQL Server database.
+    /// </summary>
     public class LogMessageSQLServerDAO : ILogMessageDAO
     {
-        private string _cs;
+        /// <summary>
+        /// The connection string is retrieved from the App.config file so it can be easily changed without having to refactor this code.
+        /// </summary>
+        private string _cs = System.Configuration.ConfigurationManager.ConnectionStrings["SafeRideDB"].ConnectionString;
         
-        public LogMessageSQLServerDAO()
-        {
-            this._cs = System.Configuration.ConfigurationManager.ConnectionStrings["SafeRideDB"].ConnectionString;
-        }
-        
+        /// <summary>
+        /// Inserts a log message into the database's "Logs" table
+        /// </summary>
+        /// <param name="message">The message to be inserted</param>
+        /// <returns>An integer representing the number of rows affected</returns>
         public int Create(LogMessage message)
         {
             int numRowsAffected;
@@ -39,6 +45,11 @@ namespace SafeRide.src.DataAccess
             return numRowsAffected;
         }
 
+        /// <summary>
+        /// Gets all logs with the specified level from "Logs" table.
+        /// </summary>
+        /// <param name="desiredLevel">The level which logs must have to be returned</param>
+        /// <returns>A list of log messages with the desired level</returns>
         public List<LogMessage> GetByLevel(Level desiredLevel)
         {
             List<LogMessage> logList = new List<LogMessage>();
@@ -66,6 +77,12 @@ namespace SafeRide.src.DataAccess
             return logList;
         }
 
+        /// <summary>
+        /// Gets all logs within the specified time range from "Logs" table
+        /// </summary>
+        /// <param name="start">The start of the range</param>
+        /// <param name="end">The end of the range</param>
+        /// <returns>A list of log messages within the specified time range</returns>
         public List<LogMessage> GetByTimeRange(DateTime start, DateTime end)
         {
             List<LogMessage> logList = new List<LogMessage>();
@@ -94,6 +111,11 @@ namespace SafeRide.src.DataAccess
             return logList;
         }
 
+        /// <summary>
+        /// Deletes log messages with the specified level from "Logs" table.
+        /// </summary>
+        /// <param name="level">The level which log messages must have to be deleted.</param>
+        /// <returns>An integer representing the number of rows affected.</returns>
         public int DeleteByLevel(Level level)
         {
             int numRowsAffected;
@@ -111,6 +133,12 @@ namespace SafeRide.src.DataAccess
             return numRowsAffected;
         }
 
+        /// <summary>
+        /// Deletes all logs within the specified range from the "Logs" table.
+        /// </summary>
+        /// <param name="start">The start of the range</param>
+        /// <param name="end">The end of the range</param>
+        /// <returns>An integer representing the number of rows affected</returns>
         public int DeleteByTimeRange(DateTime start, DateTime end)
         {
             int numRowsAffected;
@@ -129,6 +157,10 @@ namespace SafeRide.src.DataAccess
             return numRowsAffected;
         }
 
+        /// <summary>
+        /// Gets all log messages from the "Logs" table
+        /// </summary>
+        /// <returns>A list of all log messages</returns>
         public List<LogMessage> GetAllLogs()
         {
             List<LogMessage> logList = new List<LogMessage>();
