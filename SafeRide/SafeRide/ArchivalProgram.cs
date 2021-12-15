@@ -6,6 +6,11 @@ using System.IO.Compression;
 /// <summary>
 /// This file provides the code which will be run to archive log messages by compressing any log messages older than 30 days
 /// into a zip files, and deleting said logs from the database.
+/// 
+/// For development, the machine that is running the archive service can schedule a task using Windows Task Scheduler 
+/// by using commandline argument "schtasks". Per requirements, this program should be run on the first of every single month.
+/// I figured this is a better solution than constantly running a timer that checks the current time and only runs when conditions match,
+/// or using third-party task scheduler libraries.
 /// </summary>
 
 ILogArchiveService archiver = new LogArchiveService();
