@@ -16,6 +16,10 @@ Console.WriteLine(testDao.Update("wowTestUsdId", user));
 
 Console.WriteLine(testDao.Read("wowTestUsdId"));
 
+String fileName = @"D:\School Stuff\GitHub\SafeRide\SafeRide\SafeRide\src\test.csv";
+//Console.WriteLine(testDao.BulkOp(fileName));
+//Console.WriteLine(testDao.Read("wowTestUsdId"));
+
 Console.WriteLine("Testing string");
 
 app.MapGet("/", () => "Hello World!");

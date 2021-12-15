@@ -50,7 +50,6 @@ namespace SafeRide.src.DataAccess
             Console.WriteLine(query);
             return ExecuteCommand(query);
         }
-
         public User Read(String UserId)
         {
             string query = $"SELECT * FROM Users WHERE userID='{UserId}'";
@@ -60,6 +59,8 @@ namespace SafeRide.src.DataAccess
             string userName = "";
             string phoneNum = "";
             string password = "";
+            string isAdmin = "";
+            string enabled = "";
 
             try
             {
@@ -76,6 +77,8 @@ namespace SafeRide.src.DataAccess
                             userName = reader["userName"].ToString() ?? "";
                             phoneNum = reader["phoneNum"].ToString() ?? "";
                             password = reader["password"].ToString() ?? "";
+                            isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
+                            enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
                         }
                     }
                 }
@@ -86,7 +89,7 @@ namespace SafeRide.src.DataAccess
                 return new User();
             }
 
-            return new User(firstName, lastName, userName, password, UserId, phoneNum);
+            return new User(firstName, lastName, userName, password, UserId, phoneNum, isAdmin, enabled);
         }
 
         public bool Update(String UserId, User User)
@@ -117,17 +120,20 @@ namespace SafeRide.src.DataAccess
 
         public bool Delete(String UserId)
         {
-            return false;
+            String query = $"DELETE FROM Users WHERE userID = '{UserId}'";
+            return ExecuteCommand(query);
         }
 
         public bool Enable(String UserId)
         {
-            return false;
+            string query = $"UPDATE Users SET enabled = 1 WHERE userId = {UserId}";
+            return ExecuteCommand(query);
         }
 
-        public bool Disable(String UserId) 
-        { 
-            return false; 
+        public bool Disable(String UserId)
+        {
+            string query = $"UPDATE Users SET enabled = 0 WHERE userId = {UserId}";
+            return ExecuteCommand(query);
         }
     }
 }
