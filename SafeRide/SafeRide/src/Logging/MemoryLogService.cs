@@ -11,9 +11,25 @@ namespace SafeRide.src.Logging
     {
         private List<LogMessage> _logList;
 
+        public List<LogMessage> LogList
+        {
+            get { return _logList; }
+        }
+
+        public MemoryLogService()
+        {
+            _logList = new List<LogMessage>();
+        }
+
         public bool Write(LogMessage message)
         {
-            return null;
+            int lengthBefore = _logList.Count;
+            _logList.Add(message);
+            int lengthAfter = _logList.Count;
+
+            if (lengthAfter - lengthBefore == 1)
+                return true;
+            return false;
         }
     }
 }

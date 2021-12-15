@@ -19,7 +19,13 @@ namespace SafeRide.src.Logging
 
         public bool Write(LogMessage message)
         {
-            return null;
+
+            //if the Create method of the data access object only affects one row, return true
+            if (_logMessageDAO.Create(message) == 1)
+                return true;
+            //else operation failed, return false
+            return false;
+
         }
     } 
 }

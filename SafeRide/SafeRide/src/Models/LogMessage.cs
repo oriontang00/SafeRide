@@ -48,5 +48,32 @@ namespace SafeRide.src.Models
             this._time = time;
         }
 
+        public override string ToString()
+        {
+            string level = "";
+            switch (this._logLevel)
+            {
+                case Level.Debug:
+                    level = "Debug";
+                    break;
+                case Level.Information:
+                    level = "Information";
+                    break;
+                case Level.Warn:
+                    level = "Warn";
+                    break;
+                case Level.Error:
+                    level = "Error";
+                    break;
+                case Level.Fatal:
+                    level = "Fatal";
+                    break;
+            }
+
+            string s = String.Format("{0} {1}: {2}", this._time, level, this._text);
+            return s;
+      
+        }
+
     }
 }
