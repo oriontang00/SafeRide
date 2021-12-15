@@ -1,4 +1,4 @@
-﻿using SafeRide.src.Interfaces;
+﻿/*using SafeRide.src.Interfaces;
 using SafeRide.src.Archiving;
 using SafeRide.src.Models;
 using System.IO.Compression;
@@ -50,3 +50,4 @@ foreach (LogMessage log in logList)
 {
     Console.WriteLine(log + "\n");
 }
+*/
