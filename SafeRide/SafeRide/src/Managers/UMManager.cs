@@ -59,7 +59,7 @@ namespace SafeRide.src.Managers
                 foreach (String line in readLines)
                 {
                     var value = line.Split(",");
-
+                    Console.WriteLine(value);
                     if (value[0].Equals("create"))
                     {
                         User user = new User();
@@ -69,17 +69,31 @@ namespace SafeRide.src.Managers
                         user.UserId = value[4];
                         user.PhoneNum = value[5];
                         user.Password = value[6];
+                        user.IsAdmin = value[7];
+                        user.Enabled = value[8];
 
                         result.Append(userDao.Create(user));
-
                     }
                     else if (value[0].Equals("update"))
                     {
+                        string userId = value[1];
 
+                        User user = new User();
+                        user.FirstName = value[2];
+                        user.LastName = value[3];
+                        user.UserName = value[4];
+                        user.UserId = value[5];
+                        user.PhoneNum = value[6];
+                        user.Password = value[7];
+                        user.IsAdmin = value[8];
+                        user.Enabled = value[9];
+
+                        result.Append(userDao.Update(userId, user));
                     }
                     else if (value[0].Equals("delete"))
                     {
-
+                        string userId = value[1];
+                        result.Append(userDao.Delete(userId));
                     }
                     else if (value[0].Equals("enable"))
                     {
