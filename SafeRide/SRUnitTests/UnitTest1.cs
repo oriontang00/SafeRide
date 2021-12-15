@@ -24,18 +24,16 @@ namespace SRUnitTests
 
             Assert.True(testDAO.Delete("TUID"));
         }
-
+        [Fact]
         public void AuthenticateTestFail()
         {
-            string testString = "create,TFN,TLN,TUN,TUID,UPHONE,UPW,0,1\n";
+            string testString = "create,TFN,TLN,TUN,TUID,UPHONE,UPW,1,1\n";
             var testDAO = new UserSQLServerDAO();
             var testmanager = new UMManager(testDAO);
             testmanager.BulkOps(testString, false);
-            User testAdmin = testDAO.Read("TUID"); // hard coded id
-            string testPW = testAdmin.Password;
-            string testUN = testAdmin.UserName;
+            User testAdmin = testDAO.Read("TUID"); // hard coded id      
             string testID = testAdmin.UserId;
-            Assert.False(testmanager.UserAuthenticate(testUN, testID, testPW));
+            Assert.False(testmanager.UserAuthenticate("NotSAME", testID, "WRONGPW"));
 
             Assert.True(testDAO.Delete("TUID"));
         }
