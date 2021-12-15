@@ -9,6 +9,7 @@ var app = builder.Build();
 ILogService logService = new DBLogService();
 ILogMessageDAO logDAO = new LogMessageSQLServerDAO();
 
+/**
 LogMessage message1 = new LogMessage("this is a test log", Level.Information);
 LogMessage message2 = new LogMessage("this is a test log", Level.Debug);
 
@@ -37,16 +38,23 @@ foreach (LogMessage log in logList)
 {
     Console.WriteLine(log + "\n");
 }
-
+**/
 IUserDAO testDao = new UserSQLServerDAO();
 
-//User user = new User("Leon", "Chen", "Apple", "wowapassword?Crazy", "wowTestUsdId", "0001112222");
-//Console.WriteLine(testDao.Create(user));
+
+
 
 User user = new User("Andy", "Ta", "Orange", "wowapassword", "wowTestUsdId", "00112233", "0", "1");
-Console.WriteLine(testDao.Create(user));
 
-Console.WriteLine(testDao.Read("wowTestUsdId"));
+Console.WriteLine(testDao.Read("wowTestUsdId").IsAdmin);
+
+String check = user.IsAdmin;
+
+Console.WriteLine(check);
+
+
+Console.WriteLine(testDao.Read("wowTestUsdId").UserName);
+
 
 //String fileName = @"D:\School Stuff\GitHub\SafeRide\SafeRide\SafeRide\src\test.csv";
 //Console.WriteLine(testDao.BulkOp(fileName));

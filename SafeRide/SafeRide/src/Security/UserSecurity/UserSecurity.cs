@@ -11,11 +11,12 @@ namespace SafeRide.src.Security
         public UserSecurity(User user)
         {
             this.user = user;
-            bool isAuthenticate = Authenticate(UserAuthenticate, user);
+            
             bool isAuthorized = Authorize(UserAuthorize, user);
         }
-        private bool UserAuthenticate(object user)
+        private bool UserAuthenticate(String userName, String userID, String password)
         {
+
             return user != null;
         }
 

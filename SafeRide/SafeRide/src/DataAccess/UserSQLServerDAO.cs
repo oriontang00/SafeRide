@@ -34,7 +34,7 @@ namespace SafeRide.src.DataAccess
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); // logger here
                 return false;
@@ -78,12 +78,15 @@ namespace SafeRide.src.DataAccess
                                 phoneNum = reader["phoneNum"].ToString() ?? "";
                                 password = reader["password"].ToString() ?? "";
                                 isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
+                                if (isAdmin.Equals("True")) { isAdmin = "1"; } else { isAdmin = "0"; }
                                 enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
+                                if (enabled.Equals("True")) { enabled = "1"; } else { enabled = "0"; };
                             }
                         }
                     }
                 }
             }
+           
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
