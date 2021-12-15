@@ -72,12 +72,12 @@ namespace SafeRide.src.DataAccess
                         {
                             while (reader.Read())
                             {
-                                firstName = reader["firstName"].ToString() ?? "";
-                                lastName = reader["lastName"].ToString() ?? "";
-                                userName = reader["userName"].ToString() ?? "";
-                                phoneNum = reader["phoneNum"].ToString() ?? "";
-                                password = reader["password"].ToString() ?? "";
-                                isAdmin = reader["isAdmin"].ToString() ?? "0"; // defaults to false
+                                firstName = (reader["firstName"].ToString() ?? "").Trim();
+                                lastName = (reader["lastName"].ToString() ?? "").Trim();
+                                userName = (reader["userName"].ToString() ?? "").Trim();
+                                phoneNum = (reader["phoneNum"].ToString() ?? "").Trim();
+                                password = (reader["password"].ToString() ?? "").Trim();
+                                isAdmin = (reader["isAdmin"].ToString() ?? "0").Trim(); // defaults to false
                                 if (isAdmin.Equals("True")) { isAdmin = "1"; } else { isAdmin = "0"; }
                                 enabled = reader["enabled"].ToString() ?? "1"; // defaults to true
                                 if (enabled.Equals("True")) { enabled = "1"; } else { enabled = "0"; };

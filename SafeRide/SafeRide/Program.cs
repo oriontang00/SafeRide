@@ -65,7 +65,7 @@ Console.WriteLine(testDao.Read("wowTestUsdId").UserName);
 //Console.WriteLine(testDao.BulkOp(fileName));
 //Console.WriteLine(testDao.Read("wowTestUsdId"));
 
-Console.WriteLine("Testing string");*/
+Console.WriteLine("Testing string");
 
 
 
