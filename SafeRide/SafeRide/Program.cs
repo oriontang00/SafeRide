@@ -47,7 +47,7 @@ foreach (LogMessage log in logList)
 }
 
 **/
-IUserDAO testDao = new UserSQLServerDAO();
+/*IUserDAO testDao = new UserSQLServerDAO();
 
 User user = new User("Andy", "Ta", "Orange", "wowapassword", "wowTestUsdId", "00112233", "0", "1");
 
@@ -66,7 +66,7 @@ Console.WriteLine(testDao.Read("wowTestUsdId").UserName);
 //Console.WriteLine(testDao.Read("wowTestUsdId"));
 
 Console.WriteLine("Testing string");
-
+*/
 
 
 

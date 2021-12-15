@@ -46,37 +46,17 @@ namespace SafeRide.src.DataAccess
             return result;
         }
 
-        //https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/create-sql-server-database-programmatically
+        //https://stackoverflow.com/questions/9015142/creating-a-database-programmatically-in-sql-server
         public void CreateDatabase(string db_name)
         {
             SqlConnection myConn = new SqlConnection(@"server=(local)\SQLExpress;database=master;integrated Security=SSPI;");
 
-            string cmd = $"CREATE DATABASE {db_name} ON PRIMARY " +
-             "(NAME = MyDatabase_Data, " +
-             "FILENAME = 'C:\\MyDatabaseData.mdf', " +
-             "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%)" +
-             "LOG ON (NAME = MyDatabase_Log, " +
-             "FILENAME = 'C:\\MyDatabaseLog.ldf', " +
-             "SIZE = 1MB, " +
-             "MAXSIZE = 5MB, " +
-             "FILEGROWTH = 10%)";
-
-            SqlCommand myCommand = new SqlCommand(cmd, myConn);
-            try
+            using (myConn)
             {
                 myConn.Open();
-                myCommand.ExecuteNonQuery();
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                if (myConn.State == ConnectionState.Open)
-                {
-                    myConn.Close();
-                }
+                var command = myConn.CreateCommand();
+                command.CommandText = $"CREATE DATABASE {db_name}";
+                command.ExecuteNonQuery();
             }
         }
 
