@@ -93,23 +93,23 @@ namespace SRUnitTests
         [Fact]
         public void TestString()
         {
-            string testString = "create,andy,lee,dog,1234,51231234,catpw,0,1\n";
+            string testString = "create,andy,lee,dog,12345,51231234,catpw,0,1\n";
             var testDAO = new UserSQLServerDAO();
             var testManager = new UMManager(testDAO);
 
             List<bool> results = testManager.BulkOps(testString, false);
 
-            User testUser1 = testDAO.Read("1234"); // hard coded id
+            User testUser1 = testDAO.Read("12345"); // hard coded id
             Assert.Equal("andy", testUser1.FirstName);
             Assert.Equal("lee", testUser1.LastName);
             Assert.Equal("dog", testUser1.UserName);
             Assert.Equal("catpw", testUser1.Password);
-            Assert.Equal("1234", testUser1.UserId);
+            Assert.Equal("12345", testUser1.UserId);
             Assert.Equal("51231234", testUser1.PhoneNum);
             Assert.Equal("0", testUser1.IsAdmin);
             Assert.Equal("1", testUser1.Enabled);
 
-            Assert.True(testDAO.Delete("1234"));
+            Assert.True(testDAO.Delete("12345"));
         }
     }
 }
