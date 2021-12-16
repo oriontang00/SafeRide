@@ -2,9 +2,15 @@ using SafeRide.src.Logging;
 using SafeRide.src.Interfaces;
 using SafeRide.src.DataAccess;
 using SafeRide.src.Models;
+using SafeRide.src.Managers;
+using SafeRide.src.Archiving;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+
+
+IUserDAO testDao = new UserSQLServerDAO();
+UMManager manager = new UMManager(testDao);
 
 string db_name = "SafeRide_DB";
 
@@ -14,61 +20,72 @@ if (!checker.CheckDatabaseExists(db_name))
     checker.CreateDatabase(db_name);
     checker.CreateTables(db_name);
 }
-/*
-ILogService logService = new DBLogService();
-ILogMessageDAO logDAO = new LogMessageSQLServerDAO();
 
-/**
-LogMessage message1 = new LogMessage("this is a test log", Level.Information);
-LogMessage message2 = new LogMessage("this is a test log", Level.Debug);
+Console.WriteLine("Enter username please");
+string? userName = Console.ReadLine();
 
-Console.WriteLine(logService.Write(message1));
-Console.WriteLine(logService.Write(message2));
+Console.WriteLine("Enter userId please");
+string? userId = Console.ReadLine();
 
-List<LogMessage> logList = new List<LogMessage>();
+Console.WriteLine("Enter password please");
+string? passWord = Console.ReadLine();
 
-DateTime start = new DateTime(2021, 12, 14, 19, 15, 0);
-DateTime end = new DateTime(2021, 12, 14, 20, 0, 0);
+bool userAuthorized = false;
 
-logList = logDAO.GetAllLogs();
-
-foreach (LogMessage log in logList)
+if(manager.UserAuthenticate(userName, userId, passWord))
 {
-    Console.WriteLine(log + "\n");
+    if (manager.UserAuthorize(userId))
+    {
+        userAuthorized = true;
+    }
 }
 
-Console.WriteLine("Deleting Logs between 7:15 and 8:00 ....\n");
-
-logDAO.DeleteByTimeRange(start, end);
-
-logList = logDAO.GetAllLogs();
-
-foreach (LogMessage log in logList)
+if (userAuthorized)
 {
-    Console.WriteLine(log + "\n");
-}
+    ILogArchiveService archiver = new LogArchiveService();
+    List<LogMessage> logListArchives = archiver.GetArchiveableLogs();
+    List<LogMessage> logListLogs = new List<LogMessage>();
+
+    ILogService logService = new DBLogService();
+    ILogMessageDAO logDAO = new LogMessageSQLServerDAO();
+    
+    LogMessage message1 = new LogMessage("this is a test log", Level.Information);
+    LogMessage message2 = new LogMessage("this is a test log", Level.Debug);
+
+    Console.WriteLine(logService.Write(message1));
+    Console.WriteLine(logService.Write(message2));
+
+    DateTime start = new DateTime(2021, 12, 14, 19, 15, 0);
+    DateTime end = new DateTime(2021, 12, 14, 20, 0, 0);
+
+
+    logListLogs = logDAO.GetAllLogs();
 
 **/
 /*IUserDAO testDao = new UserSQLServerDAO();
 
-User user = new User("Andy", "Ta", "Orange", "wowapassword", "wowTestUsdId", "00112233", "0", "1");
 
-Console.WriteLine(testDao.Read("wowTestUsdId").IsAdmin);
+    foreach (LogMessage log in logListLogs)
+    {
+            Console.WriteLine(log + "\n");
+    }
 
-String check = user.IsAdmin;
+    Console.WriteLine("Deleting Logs between 7:15 and 8:00 ....\n");
 
-Console.WriteLine(check);
+    logDAO.DeleteByTimeRange(start, end);
 
+    logListLogs = logDAO.GetAllLogs();
 
-Console.WriteLine(testDao.Read("wowTestUsdId").UserName);
+    foreach (LogMessage log in logListLogs)
+    {
+            Console.WriteLine(log + "\n");
+    }
 
+    User user = new User("Andy", "Ta", "Orange", "mypassword123", "myUserId123", "00112233", "0", "1");
+    Console.WriteLine(testDao.Create(user)); // test create
 
-//String fileName = @"D:\School Stuff\GitHub\SafeRide\SafeRide\SafeRide\src\test.csv";
-//Console.WriteLine(testDao.BulkOp(fileName));
-//Console.WriteLine(testDao.Read("wowTestUsdId"));
-
-Console.WriteLine("Testing string");
-*/
+    Console.WriteLine(testDao.Read("myUserId123")); // test read
+}
 
 
 

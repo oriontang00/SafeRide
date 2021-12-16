@@ -126,7 +126,7 @@ namespace SafeRide.src.Managers
 
             if (checkUserName.Equals(userName) && checkPassword.Equals(password))
                 {
-                return true;
+                    return true;
                 }
 
             return false;
