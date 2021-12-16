@@ -61,9 +61,6 @@ if (userAuthorized)
 
     logListLogs = logDAO.GetAllLogs();
 
-**/
-/*IUserDAO testDao = new UserSQLServerDAO();
-
 
     foreach (LogMessage log in logListLogs)
     {
