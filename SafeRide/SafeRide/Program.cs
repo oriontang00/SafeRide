@@ -4,6 +4,7 @@ using SafeRide.src.DataAccess;
 using SafeRide.src.Models;
 using SafeRide.src.Managers;
 using SafeRide.src.Archiving;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -76,6 +77,42 @@ if (userAuthorized)
     foreach (LogMessage log in logListLogs)
     {
             Console.WriteLine(log + "\n");
+    }
+
+    List<LogMessage> logList = archiver.GetArchiveableLogs();
+
+    //First, create a file to write the log messages to. This file will be added to a zip later.
+    using (StreamWriter writer = File.AppendText(archiver.FilePath))
+    {
+        foreach (LogMessage message in logList)
+        {
+            writer.WriteLine(message);
+        }
+    }
+
+    //Get the path to the zip file we are adding the log message file to.
+    string zipPath = System.Configuration.ConfigurationManager.AppSettings["ZipPath"];
+
+    //Append the log message file to the zip file.
+    using (ZipArchive zipArchive = ZipFile.Open(zipPath, ZipArchiveMode.Update))
+    {
+        zipArchive.CreateEntryFromFile(archiver.FilePath, archiver.FilePath);
+    }
+
+    //Remove the plain text file, we don't need it anymore.
+    if (File.Exists(archiver.FilePath))
+        File.Delete(archiver.FilePath);
+
+    //Remove the logs.
+    int numLogsRemoved = archiver.RemoveArchivedLogs();
+
+    //If the number of logs removed does not equal the number of logs archived, throw exception.
+    if (numLogsRemoved != logList.Count)
+        throw new Exception("Logs archived incorrectly");
+
+    foreach (LogMessage log in logList)
+    {
+        Console.WriteLine(log + "\n");
     }
 
     User user = new User("Andy", "Ta", "Orange", "mypassword123", "myUserId123", "00112233", "0", "1");
