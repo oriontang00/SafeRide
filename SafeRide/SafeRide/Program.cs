@@ -43,41 +43,33 @@ if(manager.UserAuthenticate(userName, userId, passWord))
 
 if (userAuthorized)
 {
+
     ILogArchiveService archiver = new LogArchiveService();
     List<LogMessage> logListArchives = archiver.GetArchiveableLogs();
     List<LogMessage> logListLogs = new List<LogMessage>();
 
     ILogService logService = new DBLogService();
     ILogMessageDAO logDAO = new LogMessageSQLServerDAO();
-    
+
+    //Create new log messages to insert
+    //
+    Console.WriteLine("Testing adding logs....\n");
     LogMessage message1 = new LogMessage("this is a test log", Level.Information);
     LogMessage message2 = new LogMessage("this is a test log", Level.Debug);
 
     Console.WriteLine(logService.Write(message1));
     Console.WriteLine(logService.Write(message2));
 
-    DateTime start = new DateTime(2021, 12, 14, 19, 15, 0);
-    DateTime end = new DateTime(2021, 12, 14, 20, 0, 0);
-
-
     logListLogs = logDAO.GetAllLogs();
 
-
+    Console.WriteLine("Here are all the logs in the database...\n");
     foreach (LogMessage log in logListLogs)
     {
             Console.WriteLine(log + "\n");
     }
+    Console.WriteLine("------------------------------------\n");
 
-    Console.WriteLine("Deleting Logs between 7:15 and 8:00 ....\n");
-
-    logDAO.DeleteByTimeRange(start, end);
-
-    logListLogs = logDAO.GetAllLogs();
-
-    foreach (LogMessage log in logListLogs)
-    {
-            Console.WriteLine(log + "\n");
-    }
+    Console.WriteLine("Testing archive service...\n");
 
     List<LogMessage> logList = archiver.GetArchiveableLogs();
 
@@ -110,6 +102,8 @@ if (userAuthorized)
     if (numLogsRemoved != logList.Count)
         throw new Exception("Logs archived incorrectly");
 
+
+    Console.WriteLine("Here are the logs that were archived..\n");
     foreach (LogMessage log in logList)
     {
         Console.WriteLine(log + "\n");
