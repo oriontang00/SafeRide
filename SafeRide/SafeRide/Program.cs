@@ -8,14 +8,17 @@ using SafeRide.src.Archiving;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+
 IUserDAO testDao = new UserSQLServerDAO();
 UMManager manager = new UMManager(testDao);
 
+string db_name = "SafeRide_DB";
+
 DatabaseCheck checker = new DatabaseCheck();
-if (!checker.CheckDatabaseExists("SafeRide_DB"))
+if (!checker.CheckDatabaseExists(db_name))
 {
-    checker.CreateDatabase("SafeRide_DB");
-    checker.CreateTables();
+    checker.CreateDatabase(db_name);
+    checker.CreateTables(db_name);
 }
 
 Console.WriteLine("Enter username please");
@@ -55,7 +58,12 @@ if (userAuthorized)
     DateTime start = new DateTime(2021, 12, 14, 19, 15, 0);
     DateTime end = new DateTime(2021, 12, 14, 20, 0, 0);
 
+
     logListLogs = logDAO.GetAllLogs();
+
+**/
+/*IUserDAO testDao = new UserSQLServerDAO();
+
 
     foreach (LogMessage log in logListLogs)
     {
@@ -78,10 +86,6 @@ if (userAuthorized)
 
     Console.WriteLine(testDao.Read("myUserId123")); // test read
 }
-
-
-
-
 
 
 
