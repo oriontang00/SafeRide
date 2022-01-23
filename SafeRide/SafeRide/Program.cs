@@ -7,9 +7,28 @@ using SafeRide.src.Archiving;
 using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSpaStaticFiles(options => { options.RootPath = "wwwroot"; });
+builder.Services.AddControllers();
+
+var env = builder.Environment;
 var app = builder.Build();
 
-Console.WriteLine("test");
+
+if (env.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseRouting();
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.UseSpaStaticFiles();
+app.UseSpa(builder =>
+{
+    if (env.IsDevelopment())
+    {
+        builder.UseProxyToSpaDevelopmentServer("http://localhost:5002");
+    }
+});
 
 app.Run();
 
