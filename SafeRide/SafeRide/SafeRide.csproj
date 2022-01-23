@@ -26,6 +26,7 @@
    
   <ItemGroup>
     <Folder Include="obj\Debug\net6.0\staticwebassets\" />
+    <Folder Include="Controllers\" />
     <Folder Include="src\Security\" />
   </ItemGroup>
    
@@ -74,6 +75,10 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.22" />
+
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
 
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />

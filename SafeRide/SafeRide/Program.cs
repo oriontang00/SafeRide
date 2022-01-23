@@ -9,7 +9,11 @@ using System.IO.Compression;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+Console.WriteLine("test");
 
+app.Run();
+
+/*
 IUserDAO testDao = new UserSQLServerDAO();
 UMManager manager = new UMManager(testDao);
 
@@ -114,6 +118,7 @@ if (userAuthorized)
 
     Console.WriteLine(testDao.Read("myUserId123")); // test read
 }
+*/
 
 
 
