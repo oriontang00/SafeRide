@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRUnitTests", "..\SRUnitTes
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "vuetestfrontend", "..\vuetestfrontend\vuetestfrontend.esproj", "{B9081E2B-0B17-443A-9753-CDF9C392E081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuthBackend", "..\TestAuthBackend\TestAuthBackend.csproj", "{A95E734C-3178-4DBF-9FF1-E0FF678F614A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reactauthtest", "..\reactauthtest\reactauthtest.csproj", "{AA3854EF-5EF9-42B9-8D28-BC54DAACBA7F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +29,6 @@ Global
 		{B9081E2B-0B17-443A-9753-CDF9C392E081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9081E2B-0B17-443A-9753-CDF9C392E081}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9081E2B-0B17-443A-9753-CDF9C392E081}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{A95E734C-3178-4DBF-9FF1-E0FF678F614A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A95E734C-3178-4DBF-9FF1-E0FF678F614A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A95E734C-3178-4DBF-9FF1-E0FF678F614A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A95E734C-3178-4DBF-9FF1-E0FF678F614A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA3854EF-5EF9-42B9-8D28-BC54DAACBA7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA3854EF-5EF9-42B9-8D28-BC54DAACBA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA3854EF-5EF9-42B9-8D28-BC54DAACBA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA3854EF-5EF9-42B9-8D28-BC54DAACBA7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,7 +13,7 @@
             <div v-if="!registerActive" class="card login" v-bind:class="{ error: emptyFields }">
               <h1>Sign In</h1>
               <form class="form-group">
-                <input v-model="emailLogin" type="email" class="form-control" placeholder="Email" required>
+                <input v-model="emailLogin" type="email" class="form-control" placeholder="emailtest2" required>
                 <input v-model="passwordLogin" type="password" class="form-control" placeholder="Password" required>
                 <input type="submit" class="btn btn-primary" @click="doLogin">
                 <p>
