@@ -81,18 +81,8 @@ app.UseRouting();
 
 app.UseCors();
 
-// we start authentication here maybe
-app.Use(async (ctx, next) =>
-{
-    var authToken = ctx.Request.Headers["SafeRide-Auth-Token"].ToString();
-
-    await next();
-});
-
 app.UseAuthentication(); // auth
 app.UseAuthorization(); // auth
-
-
 
 app.MapControllers();
 
