@@ -8,7 +8,7 @@ namespace SafeRide.src.Services
 {
     [Route("api")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
         private readonly ITokenService tokenService;
@@ -36,7 +36,7 @@ namespace SafeRide.src.Services
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
                 if (generatedToken != null)
                 {
-                    response = Ok(new {token=generatedToken});
+                    response = Ok(new { token = generatedToken });
                 }
             }
 

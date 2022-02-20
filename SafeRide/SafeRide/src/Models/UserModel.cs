@@ -1,6 +1,6 @@
 ﻿namespace SafeRide.src.Models
 {
-    public class User
+    public class UserModel
     {
         private string firstName;
         private string lastName;
@@ -19,7 +19,7 @@
         public string IsAdmin { get { return isAdmin; } set { isAdmin = value; } }
         public string Enabled { get { return enabled; } set { enabled = value; } }
 
-        public User()
+        public UserModel()
         {
             FirstName = "";
             LastName = "";
@@ -30,7 +30,7 @@
             isAdmin = "";
             enabled = "";
         }
-        public User(string firstName, string lastName, string userName, string password, string userId, string phoneNum, string isAdmin, string enabled)
+        public UserModel(string firstName, string lastName, string userName, string password, string userId, string phoneNum, string isAdmin, string enabled)
         {
             FirstName = firstName;
             LastName = lastName;

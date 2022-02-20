@@ -50,6 +50,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+/*builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("TokenAuth", policy => policy.Requirements.Add(new )
+});*/
+
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 
@@ -76,19 +81,33 @@ app.UseRouting();
 
 app.UseCors();
 
+// we start authentication here maybe
+app.Use(async (ctx, next) =>
+{
+    var authToken = ctx.Request.Headers["SafeRide-Auth-Token"].ToString();
+
+    await next();
+});
+
 app.UseAuthentication(); // auth
 app.UseAuthorization(); // auth
 
-//app.MapControllers();
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-app.UseSpa(builder =>
+
+app.MapControllers();
+
+
+//app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+/*app.UseSpa(builder =>
 {
     if (env.IsDevelopment())
     {
         builder.UseProxyToSpaDevelopmentServer("http://localhost:5002");
     }
-});
+});*/
+
+
 
 app.Run();
 
