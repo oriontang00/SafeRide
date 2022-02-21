@@ -8,7 +8,7 @@ namespace SafeRide.Controllers
     [ApiController]
     public class TestAuth : ControllerBase
     {
-        [Authorize]
+        [Authorize(Roles = "test")]
         [HttpGet]
         [Route("test1")]
         public IActionResult Test1()
@@ -16,10 +16,18 @@ namespace SafeRide.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
+        [Authorize()]
         [HttpGet]
         [Route("test2")]
         public IActionResult Test2()
+        {
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("test3")]
+        public IActionResult Test3()
         {
             return Ok();
         }

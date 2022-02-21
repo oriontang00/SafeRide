@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
+//https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
+
 var SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
 var ISSUER = "www.saferide.net";
 
@@ -27,7 +29,8 @@ builder.Services.AddCors(options =>
                           builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                       });
 });
-builder.Services.AddSpaStaticFiles(options => { options.RootPath = "wwwroot"; });
+
+/*builder.Services.AddSpaStaticFiles(options => { options.RootPath = "wwwroot"; });*/
 
 
 /*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";*/
@@ -43,10 +46,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         ValidIssuer = ISSUER,
         ValidAudience = ISSUER,
-        IssuerSigningKey = new
-        SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes
-        (SECRET_KEY))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SECRET_KEY))
     };
 });
 
@@ -76,7 +76,7 @@ if (env.IsDevelopment())
     await next();
 });*/
 app.UseHttpsRedirection();
-app.UseSpaStaticFiles();
+/*app.UseSpaStaticFiles();*/
 app.UseRouting();
 
 app.UseCors();

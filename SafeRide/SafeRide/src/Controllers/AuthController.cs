@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace SafeRide.src.Services
@@ -41,6 +42,22 @@ namespace SafeRide.src.Services
             }
 
             return response;
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getToken")]
+        public IActionResult GetToken([FromHeader] string authorization)
+        {
+            if (AuthenticationHeaderValue.TryParse(authorization, out var headerValue))
+            {
+                var scheme = headerValue.Scheme;
+                var parameter = headerValue.Parameter;
+
+                return Ok(new { scheme, parameter });
+
+            }
+            return BadRequest();
         }
 
         private UserSecurityDTO GetUser(UserSecurityModel user)

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
     <Compile Include="obj\Debug\net6.0\SafeRide.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0\SafeRide.GlobalUsings.g.cs" />
@@ -25,7 +32,6 @@
   </ItemGroup>
    
   <ItemGroup>
-    <Folder Include="NewFolder\" />
     <Folder Include="obj\Debug\net6.0\staticwebassets\" />
     <Folder Include="src\Services\" />
     <Folder Include="wwwroot\" />
