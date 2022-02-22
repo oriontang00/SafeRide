@@ -62,7 +62,7 @@ namespace SafeRide.src.Managers
                     Console.WriteLine(value);
                     if (value[0].Equals("create"))
                     {
-                        User user = new User();
+                        UserModel user = new UserModel();
                         user.FirstName = value[1];
                         user.LastName = value[2];
                         user.UserName = value[3];
@@ -78,7 +78,7 @@ namespace SafeRide.src.Managers
                     {
                         string userId = value[1];
 
-                        User user = new User();
+                        UserModel user = new UserModel();
                         user.FirstName = value[2];
                         user.LastName = value[3];
                         user.UserName = value[4];
@@ -119,7 +119,7 @@ namespace SafeRide.src.Managers
 
         public bool UserAuthenticate(String userName, String userID, String password)
         {
-            User testUser = userDao.Read(userID);
+            UserModel testUser = userDao.Read(userID);
 
             String checkUserName = testUser.UserName;
             String checkPassword = testUser.Password;
@@ -134,7 +134,7 @@ namespace SafeRide.src.Managers
 
         public bool UserAuthorize(String userID)
         {
-            User testUser = userDao.Read(userID);
+            UserModel testUser = userDao.Read(userID);
 
             String check = testUser.IsAdmin;
 

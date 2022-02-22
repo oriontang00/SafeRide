@@ -16,7 +16,7 @@ namespace SRUnitTests
             var testDAO = new UserSQLServerDAO();
             var testmanager = new UMManager(testDAO);
             testmanager.BulkOps(testString, false);
-            User testAdmin = testDAO.Read("TUID0"); // hard coded id
+            UserModel testAdmin = testDAO.Read("TUID0"); // hard coded id
 
             Assert.True(testmanager.UserAuthenticate("TUN", "TUID0", "UPW0"));
 
@@ -29,7 +29,7 @@ namespace SRUnitTests
             var testDAO = new UserSQLServerDAO();
             var testmanager = new UMManager(testDAO);
             testmanager.BulkOps(testString, false);
-            User testAdmin = testDAO.Read("TUID2"); // hard coded id      
+            UserModel testAdmin = testDAO.Read("TUID2"); // hard coded id      
             string testID = testAdmin.UserId;
             Assert.False(testmanager.UserAuthenticate("NotSAME", testID, "WRONGPW"));
 
@@ -43,7 +43,7 @@ namespace SRUnitTests
             var testDAO = new UserSQLServerDAO();
             var testmanager = new UMManager(testDAO);
             testmanager.BulkOps(testString, false);
-            User testAdmin = testDAO.Read("TUID3"); // hard coded id
+            UserModel testAdmin = testDAO.Read("TUID3"); // hard coded id
             
             string testID = testAdmin.UserId;
             Assert.True(testmanager.UserAuthorize(testID));
@@ -57,7 +57,7 @@ namespace SRUnitTests
             var testDAO = new UserSQLServerDAO();
             var testmanager = new UMManager(testDAO);
             testmanager.BulkOps(testString, false);
-            User testAdmin = testDAO.Read("TUID4"); // hard coded id
+            UserModel testAdmin = testDAO.Read("TUID4"); // hard coded id
 
             string testID = testAdmin.UserId;
             Assert.False(testmanager.UserAuthorize(testID));

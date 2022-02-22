@@ -10,19 +10,12 @@
   "profiles": {
     "SafeRide": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:7192;http://localhost:5224",
+      "applicationUrl": "https://localhost:5001;http://localhost:5003",
       "dotnetRunMessages": true
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
     }
   }
 }

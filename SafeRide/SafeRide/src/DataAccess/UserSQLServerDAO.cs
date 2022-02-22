@@ -7,15 +7,15 @@ namespace SafeRide.src.DataAccess
     public class UserSQLServerDAO : IUserDAO
     {
         private const string CONNECTION_STRING = @"server=(local)\SQLExpress;database=SafeRide_DB;integrated Security=SSPI;";
-        private User User;
+        private UserModel User;
         private string UserId;
 
         public UserSQLServerDAO()
         {
-            this.User = new User();
+            this.User = new UserModel();
             this.UserId = "";
         }
-        public UserSQLServerDAO(User User, String UserId)
+        public UserSQLServerDAO(UserModel User, String UserId)
         {
             this.User = User;
             this.UserId = UserId;
@@ -40,7 +40,7 @@ namespace SafeRide.src.DataAccess
                 return false;
             }
         }
-        public bool Create(User User)
+        public bool Create(UserModel User)
         {
             string query = "INSERT INTO Users (firstName, lastName, userName, userID, phoneNum, password, isAdmin, enabled) VALUES" +
                 $" ('{User.FirstName}', '{User.LastName}', '{User.UserName}', '{User.UserId}', '{User.PhoneNum}', '{User.Password}'" +
@@ -48,7 +48,7 @@ namespace SafeRide.src.DataAccess
             Console.WriteLine(query);
             return ExecuteCommand(query);
         }
-        public User Read(String UserId)
+        public UserModel Read(String UserId)
         {
             string query = $"SELECT * FROM Users WHERE userID='{UserId}'";
 
@@ -90,13 +90,13 @@ namespace SafeRide.src.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return new User();
+                return new UserModel();
             }
 
-            return new User(firstName, lastName, userName, password, UserId, phoneNum, isAdmin, enabled);
+            return new UserModel(firstName, lastName, userName, password, UserId, phoneNum, isAdmin, enabled);
         }
 
-        public bool Update(String UserId, User User)
+        public bool Update(String UserId, UserModel User)
         {
             string query = "update Users set " +
                 $"firstName='{User.FirstName}',lastName='{ User.LastName} ',userName= '{ User.UserName} ',phoneNum= '{ User.PhoneNum}'," +
