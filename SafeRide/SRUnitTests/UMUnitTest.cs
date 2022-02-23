@@ -12,7 +12,7 @@ namespace SRUnitTests
         [Fact]
         public void UserTest()
         {
-            User testUser = new User();
+            UserModel testUser = new UserModel();
 
             Assert.NotNull(testUser);
             Assert.NotNull(testUser.FirstName);
@@ -26,13 +26,13 @@ namespace SRUnitTests
         [Fact]
         public void UserTest1()
         {
-            User testUser = new User("TFN", "TLN", "TUN", "TPW", "T_ID_0", "TPhoneNum", "0", "1");
+            UserModel testUser = new UserModel("TFN", "TLN", "TUN", "TPW", "T_ID_0", "TPhoneNum", "0", "1");
             var testDAO = new UserSQLServerDAO();
 
             bool createSuccess = testDAO.Create(testUser);
             Assert.True(createSuccess);
 
-            User testUser2 = testDAO.Read("T_ID_0");
+            UserModel testUser2 = testDAO.Read("T_ID_0");
             Assert.Equal("TFN", testUser2.FirstName);
             Assert.Equal("TLN", testUser2.LastName);
             Assert.Equal("TUN", testUser2.UserName);
@@ -42,11 +42,11 @@ namespace SRUnitTests
             Assert.Equal("0", testUser2.IsAdmin);
             Assert.Equal("1", testUser2.Enabled);
 
-            User testUser3 = new User("TFN_NEW", "TLN_NEW", "TUN_NEW", "TPW", "T_ID_0", "TPhoneNum", "0", "0");
+            UserModel testUser3 = new UserModel("TFN_NEW", "TLN_NEW", "TUN_NEW", "TPW", "T_ID_0", "TPhoneNum", "0", "0");
             bool updateSuccess = testDAO.Update("T_ID_0", testUser3);
             Assert.True(updateSuccess);
 
-            User testUser4 = testDAO.Read("T_ID_0"); // test only 3 new fields
+            UserModel testUser4 = testDAO.Read("T_ID_0"); // test only 3 new fields
             Assert.Equal("TFN_NEW", testUser4.FirstName);
             Assert.Equal("TLN_NEW", testUser4.LastName);
             Assert.Equal("0", testUser4.Enabled);
@@ -54,13 +54,13 @@ namespace SRUnitTests
             bool enableSuccess = testDAO.Enable("T_ID_0");
             Assert.True(enableSuccess);
 
-            User testUser5 = testDAO.Read("T_ID_0");
+            UserModel testUser5 = testDAO.Read("T_ID_0");
             Assert.Equal("1", testUser5.Enabled);
 
             bool disableSuccess = testDAO.Disable("T_ID_0");
             Assert.True(disableSuccess);
 
-            User testUser6 = testDAO.Read("T_ID_0");
+            UserModel testUser6 = testDAO.Read("T_ID_0");
             Assert.Equal("0", testUser6.Enabled);
 
             bool deleteSuccess = testDAO.Delete("T_ID_0");
@@ -76,7 +76,7 @@ namespace SRUnitTests
 
             List<bool> results = testManager.BulkOps(filepath, true);
 
-            User testUser1 = testDAO.Read("1234"); // hard coded id
+            UserModel testUser1 = testDAO.Read("1234"); // hard coded id
             Assert.Equal("andy", testUser1.FirstName);
             Assert.Equal("lee", testUser1.LastName);
             Assert.Equal("dog", testUser1.UserName);
@@ -99,7 +99,7 @@ namespace SRUnitTests
 
             List<bool> results = testManager.BulkOps(testString, false);
 
-            User testUser1 = testDAO.Read("12345"); // hard coded id
+            UserModel testUser1 = testDAO.Read("12345"); // hard coded id
             Assert.Equal("andy", testUser1.FirstName);
             Assert.Equal("lee", testUser1.LastName);
             Assert.Equal("dog", testUser1.UserName);
