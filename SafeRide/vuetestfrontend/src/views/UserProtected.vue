@@ -5,10 +5,10 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  export default {
-    getUserInfo() {
-      axios.get()
-    }
+import axios from 'axios'
+export default {
+  getUserInfo () {
+    axios.get()
   }
+}
 </script>

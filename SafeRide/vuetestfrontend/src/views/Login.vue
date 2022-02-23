@@ -16,11 +16,6 @@ export default {
   name: 'Home',
   methods: {
     doLogin () {
-      const data = JSON.stringify({
-      })
-
-      console.log(data)
-
       if (this.userLogin !== undefined && this.passwordLogin !== undefined) {
         axios.post('https://localhost:5001/api/login', {
           UserName: this.userLogin,
