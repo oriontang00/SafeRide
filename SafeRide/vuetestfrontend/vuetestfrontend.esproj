@@ -3,7 +3,7 @@
     <ProjectGuid>b9081e2b-0b17-443a-9753-cdf9c392e081</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <StartupCommand>npm run serve -- --port 5002</StartupCommand>
+    <StartupCommand>npm run serve -- --port 5002 --fix</StartupCommand>
     <JavaScriptTestRoot>.\</JavaScriptTestRoot>
     <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
   </PropertyGroup>
