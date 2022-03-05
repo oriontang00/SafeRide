@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SafeRide.src.Models
+﻿namespace SafeRide.src.Models
 {
     public class UserSecurityModel
     {
-        [Required]
         public string UserName { get; set; }
-
-        [Required]
-        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public bool Valid { get; set; }
     }
 }

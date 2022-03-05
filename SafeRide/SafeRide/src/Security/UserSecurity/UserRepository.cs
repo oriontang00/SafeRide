@@ -1,22 +1,35 @@
-﻿using SafeRide.src.Models;
+﻿using System.Text.RegularExpressions;
+using SafeRide.src.DataAccess;
+using SafeRide.src.Interfaces;
+using SafeRide.src.Models;
 
 internal class UserRepository : IUserRepository
 {
-    private readonly List<UserSecurityDTO> users = new List<UserSecurityDTO>();
-    public UserRepository()
+    private IUserSecurityDAO _userSecurityDao;
+    public UserRepository(IUserSecurityDAO userSecurityDao)
     {
-        users.Add(new UserSecurityDTO
-        {
-            UserName = "apple123",
-            Password = "apple123pw",
-            Role = "admin"
-        });
+        _userSecurityDao = userSecurityDao;
     }
 
-    public UserSecurityDTO GetUser(UserSecurityModel user)
+    public bool CreateUser(UserSecurityModel user)
     {
-        #pragma warning disable CS8603 // Possible null reference return.
-        return users.Where(x => x.UserName.ToLower() == user.UserName.ToLower() && x.Password == user.Password).FirstOrDefault();
-        #pragma warning restore CS8603 // Possible null reference return.
+        if (!Regex.IsMatch(user.UserName, "^[a-zA-Z0-9.,@!]*$"))
+        {
+            return false;
+        }
+        return _userSecurityDao.Create(user);
+    }
+
+    public bool AuthorizeUser(string otp, string username)
+    {
+        var user = _userSecurityDao.Read(username);
+        /*user.Valid = true
+        _userSecurityDao.Update(username, )*/
+        return false;
+    }
+
+    public UserSecurityModel GetUser(UserSecurityModel user)
+    {
+        return _userSecurityDao.Read(user.UserName);
     }
 }

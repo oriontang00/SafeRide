@@ -55,8 +55,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.AddPolicy("TokenAuth", policy => policy.Requirements.Add(new )
 });*/
 
+builder.Services.AddTransient<IUserSecurityDAO, UserSQLSecurityDAO>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+
 
 var env = builder.Environment;
 var app = builder.Build();
@@ -75,11 +77,22 @@ if (env.IsDevelopment())
     }
     await next();
 });*/
+
 app.UseHttpsRedirection();
 /*app.UseSpaStaticFiles();*/
 app.UseRouting();
 
 app.UseCors();
+
+/*app.Use(async (context, next) =>
+{
+    var token = context.Session.GetString("Token");
+    if (!string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Add("Authorization", "Bearer " + token);
+    }
+    await next();
+});*/
 
 app.UseAuthentication(); // auth
 app.UseAuthorization(); // auth
