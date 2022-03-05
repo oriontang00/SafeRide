@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
@@ -60,15 +61,18 @@ namespace SafeRide.src.Services
         [Route("getToken")]
         public IActionResult GetToken([FromHeader] string authorization)
         {
-            if (AuthenticationHeaderValue.TryParse(authorization, out var headerValue))
+            authorization = authorization.Replace("\"", "");
+            try
             {
-                var scheme = headerValue.Scheme;
-                var parameter = headerValue.Parameter;
-
-                return Ok(new { scheme, parameter });
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(authorization);
+                return Ok(new {jsonToken});
 
             }
-            return BadRequest();
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
     }
 }
