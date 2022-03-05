@@ -6,7 +6,7 @@ using System.Text;
 
 internal class TokenService : ITokenService
 {
-    public string BuildToken(string key, string issuer, UserSecurityDTO user)
+    public string BuildToken(string key, string issuer, UserSecurityModel user)
     {
         var claims = new[] {
             new Claim(ClaimTypes.Name, user.UserName),

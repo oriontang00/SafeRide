@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using SafeRide.src.Interfaces;
 
 namespace SafeRide.src.Services
 {
@@ -18,10 +19,10 @@ namespace SafeRide.src.Services
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
         private readonly string ISSUER = "www.saferide.net";
 
-        public AuthController()
+        public AuthController(ITokenService tokenService, IUserRepository userRepository)
         {
-            this.userRepository = new UserRepository();
-            this.tokenService = new TokenService();
+            this.userRepository = userRepository;
+            this.tokenService = tokenService;
         }
 
         [AllowAnonymous]
@@ -30,9 +31,19 @@ namespace SafeRide.src.Services
         public IActionResult Login([FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
-            var validUser = GetUser(user);
+            var valid = true;
+            UserSecurityModel validUser = null;
+            try
+            {
+                validUser = this.userRepository.GetUser(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                valid = false;
+            }
 
-            if (validUser != null)
+            if (valid && validUser != null)
             {
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
                 if (generatedToken != null)
@@ -45,7 +56,7 @@ namespace SafeRide.src.Services
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("getToken")]
         public IActionResult GetToken([FromHeader] string authorization)
         {
@@ -59,11 +70,5 @@ namespace SafeRide.src.Services
             }
             return BadRequest();
         }
-
-        private UserSecurityDTO GetUser(UserSecurityModel user)
-        {
-            return userRepository.GetUser(user);
-        }
-
     }
 }

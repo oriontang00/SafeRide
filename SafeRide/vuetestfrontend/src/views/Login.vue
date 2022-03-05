@@ -3,7 +3,7 @@
     <h1>Sign In</h1>
     <form class="form-group">
       <input v-model="userLogin" type="text" class="form-control" placeholder="Username" required>
-      <input v-model="passwordLogin" type="password" class="form-control" placeholder="Password" required>
+      <input v-model="emailLogin" type="text" class="form-control" placeholder="Email" required>
       <input type="submit" class="btn btn-primary" @click="doLogin">
     </form>
   </div>
@@ -16,25 +16,22 @@ export default {
   name: 'Home',
   methods: {
     doLogin () {
-      const data = JSON.stringify({
-      })
-
-      console.log(data)
-
-      if (this.userLogin !== undefined && this.passwordLogin !== undefined) {
+      if (this.userLogin !== undefined && this.emailLogin !== undefined) {
         axios.post('https://localhost:5001/api/login', {
           UserName: this.userLogin,
-          Password: this.passwordLogin
+          Email: this.emailLogin,
+          Role: 'Admin',
+          Valid: true
         })
           .then(function (response) {
             var token = response.data.token
-            axios.defaults.headers.common.Authorization = 'Bearer ' + response.data.token
             localStorage.setItem('token', JSON.stringify(token))
             console.log(response)
             window.alert('login success with token = ' + localStorage.getItem('token'))
           })
           .catch(function (error) {
             console.log(error)
+            window.alert('Login error')
           })
       }
     }
