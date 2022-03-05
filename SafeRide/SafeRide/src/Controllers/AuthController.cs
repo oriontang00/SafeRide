@@ -31,9 +31,19 @@ namespace SafeRide.src.Services
         public IActionResult Login([FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
-            var validUser = this.userRepository.GetUser(user);
+            var valid = true;
+            UserSecurityModel validUser = null;
+            try
+            {
+                validUser = this.userRepository.GetUser(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                valid = false;
+            }
 
-            if (validUser != null)
+            if (valid && validUser != null)
             {
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
                 if (generatedToken != null)
@@ -46,7 +56,7 @@ namespace SafeRide.src.Services
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("getToken")]
         public IActionResult GetToken([FromHeader] string authorization)
         {

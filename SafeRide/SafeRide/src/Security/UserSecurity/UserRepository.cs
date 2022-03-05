@@ -8,13 +8,7 @@ internal class UserRepository : IUserRepository
     private IUserSecurityDAO _userSecurityDao;
     public UserRepository(IUserSecurityDAO userSecurityDao)
     {
-        userSecurityDao.Create(new UserSecurityModel
-        {
-            UserName = "apple123",
-            Email = "myemail@email.com",
-            Role = "admin",
-            Valid = true
-        });
+        _userSecurityDao = userSecurityDao;
     }
 
     public bool CreateUser(UserSecurityModel user)
