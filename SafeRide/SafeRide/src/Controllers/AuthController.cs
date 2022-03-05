@@ -19,10 +19,10 @@ namespace SafeRide.src.Services
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
         private readonly string ISSUER = "www.saferide.net";
 
-        public AuthController(IUserSecurityDAO userSecurityDao)
+        public AuthController(ITokenService tokenService, IUserRepository userRepository)
         {
-            this.userRepository = new UserRepository(userSecurityDao);
-            this.tokenService = new TokenService();
+            this.userRepository = userRepository;
+            this.tokenService = tokenService;
         }
 
         [AllowAnonymous]
