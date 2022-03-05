@@ -1,6 +1,7 @@
-﻿using SafeRide.src.Models;
+﻿using SafeRide.src.Interfaces;
+using SafeRide.src.Models;
 
 internal interface IUserRepository
 {
-    UserSecurityDTO GetUser(UserSecurityModel user);
+    UserSecurityModel GetUser(UserSecurityModel user);
 }

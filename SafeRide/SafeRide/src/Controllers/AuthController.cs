@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using SafeRide.src.Interfaces;
 
 namespace SafeRide.src.Services
 {
@@ -18,9 +19,9 @@ namespace SafeRide.src.Services
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
         private readonly string ISSUER = "www.saferide.net";
 
-        public AuthController()
+        public AuthController(IUserSecurityDAO userSecurityDao)
         {
-            this.userRepository = new UserRepository();
+            this.userRepository = new UserRepository(userSecurityDao);
             this.tokenService = new TokenService();
         }
 
@@ -30,7 +31,7 @@ namespace SafeRide.src.Services
         public IActionResult Login([FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
-            var validUser = GetUser(user);
+            var validUser = this.userRepository.GetUser(user);
 
             if (validUser != null)
             {
@@ -59,11 +60,5 @@ namespace SafeRide.src.Services
             }
             return BadRequest();
         }
-
-        private UserSecurityDTO GetUser(UserSecurityModel user)
-        {
-            return userRepository.GetUser(user);
-        }
-
     }
 }

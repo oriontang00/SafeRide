@@ -55,8 +55,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.AddPolicy("TokenAuth", policy => policy.Requirements.Add(new )
 });*/
 
+builder.Services.AddTransient<IUserSecurityDAO, UserSQLSecurityDAO>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+
 
 var env = builder.Environment;
 var app = builder.Build();

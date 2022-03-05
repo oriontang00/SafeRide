@@ -2,5 +2,5 @@
 
 internal interface ITokenService
 {
-    public string BuildToken(string key, string issuer, UserSecurityDTO user);
+    public string BuildToken(string key, string issuer, UserSecurityModel user);
 }

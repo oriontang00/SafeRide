@@ -10,26 +10,32 @@
 </template>
 
 <script>
-import axios from 'axios'
+import fetch from 'fetch'
 export default {
   el: '#app',
   name: 'Home',
   methods: {
     doLogin () {
       if (this.userLogin !== undefined && this.passwordLogin !== undefined) {
-        axios.post('https://localhost:5001/api/login', {
-          UserName: this.userLogin,
-          Password: this.passwordLogin
+        fetch('https://localhost:5001/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {
+            UserName: this.userLogin,
+            Password: this.passwordLogin
+          }
         })
           .then(function (response) {
-            var token = response.data.token
-            axios.defaults.headers.common.Authorization = 'Bearer ' + response.data.token
+            const token = response.data.token
             localStorage.setItem('token', JSON.stringify(token))
             console.log(response)
             window.alert('login success with token = ' + localStorage.getItem('token'))
           })
           .catch(function (error) {
             console.log(error)
+            window.alert('Login error')
           })
       }
     }
