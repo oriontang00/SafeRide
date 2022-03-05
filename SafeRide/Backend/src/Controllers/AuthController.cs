@@ -1,15 +1,15 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using SafeRide.src.Interfaces;
 
 namespace SafeRide.src.Services
 {
-    [Route("api")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace SafeRide.src.Services
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
-        public IActionResult Login([FromBody] UserSecurityModel user)
+        public IActionResult Login([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
             var valid = true;
@@ -61,6 +61,7 @@ namespace SafeRide.src.Services
         [Route("getToken")]
         public IActionResult GetToken([FromHeader] string authorization)
         {
+            authorization = authorization.Replace("Bearer ", "");
             authorization = authorization.Replace("\"", "");
             try
             {

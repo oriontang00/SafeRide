@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SafeRide\SafeRide.csproj" />
+    <ProjectReference Include="..\SafeRide\Backend.csproj" />
   </ItemGroup>
 
 </Project>
