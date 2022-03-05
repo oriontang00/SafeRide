@@ -8,7 +8,7 @@ namespace SafeRide.Controllers
     [ApiController]
     public class TestAuth : ControllerBase
     {
-        [Authorize(Roles = "test")]
+        [Authorize(Roles = "test")] // change to "admin"
         [HttpGet]
         [Route("test1")]
         public IActionResult Test1()
