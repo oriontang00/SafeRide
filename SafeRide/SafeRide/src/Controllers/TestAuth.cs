@@ -31,5 +31,13 @@ namespace SafeRide.Controllers
         {
             return Ok();
         }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        [Route("test4")]
+        public IActionResult Test4()
+        {
+            return Ok();
+        }
     }
 }

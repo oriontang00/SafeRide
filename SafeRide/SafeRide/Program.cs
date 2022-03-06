@@ -77,11 +77,22 @@ if (env.IsDevelopment())
     }
     await next();
 });*/
+
 app.UseHttpsRedirection();
 /*app.UseSpaStaticFiles();*/
 app.UseRouting();
 
 app.UseCors();
+
+/*app.Use(async (context, next) =>
+{
+    var token = context.Session.GetString("Token");
+    if (!string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Add("Authorization", "Bearer " + token);
+    }
+    await next();
+});*/
 
 app.UseAuthentication(); // auth
 app.UseAuthorization(); // auth
