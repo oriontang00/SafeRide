@@ -6,6 +6,7 @@ using SafeRide.src.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using SafeRide.src.Interfaces;
+using SafeRide.src.Security.Interfaces;
 
 namespace SafeRide.src.Services
 {
@@ -15,6 +16,7 @@ namespace SafeRide.src.Services
     {
         private readonly IUserRepository userRepository;
         private readonly ITokenService tokenService;
+        private readonly IOTPService otpService;
         private string generatedToken = null;
 
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
