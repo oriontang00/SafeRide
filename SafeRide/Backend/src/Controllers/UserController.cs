@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SafeRide.src.DataAccess;
+﻿using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
+using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttribute;
 
 namespace SafeRide.Controllers
 {
-    [Route("user")]
+    [Microsoft.AspNetCore.Mvc.Route("user")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -21,9 +22,9 @@ namespace SafeRide.Controllers
             _userSecurityDao = userSecurityDao;
             this.tokenService = new TokenService();
         }
-        [Route("createUser")]
-        [HttpPost]
-        public IActionResult CreateUser([FromBody] UserSecurityModel user)
+        [Microsoft.AspNetCore.Mvc.Route("createUser")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public IActionResult CreateUser([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
         {
             user.Role = "user";
             user.Valid = true;
@@ -32,6 +33,28 @@ namespace SafeRide.Controllers
             if (_userSecurityDao.Create(user))
             {
                 response = Ok();
+            }
+
+            return response;
+        }
+        
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
+        [Microsoft.AspNetCore.Mvc.Route("updateUser")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public IActionResult UpdateUser([FromUri] string username, [Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
+        {
+            IActionResult response = BadRequest();
+
+            if (!username.Equals(user.UserName))
+            {
+                response = BadRequest("username must be equal");
+            }
+            else
+            {
+                if (_userSecurityDao.Update(username, user))
+                {
+                    response = Ok();
+                }
             }
 
             return response;
