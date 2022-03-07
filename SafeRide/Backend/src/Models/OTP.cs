@@ -54,8 +54,9 @@ namespace SafeRide.src.Models
                 Passphrase += current.ToString();
             }
             // start the timer when OTP is generated
-            Console.WriteLine(Passphrase);
+            //Console.WriteLine(Passphrase);
             Timer.Start();
+            //SendEmail(_generatedOTP);
         }
 
         // compares a string OTP value provided by the user to this OTP's string value
@@ -63,9 +64,9 @@ namespace SafeRide.src.Models
             // find elapsed time since the OTP was generated
             Timer.Stop();
             TimeSpan timespan = Timer.Elapsed;
-            Console.WriteLine("provided: " + providedOTP);
-            Console.WriteLine("actual: " + Passphrase);  
-            Console.WriteLine("Time elapsed since OTP generation" + timespan);  
+            // Console.WriteLine("provided: " + providedOTP);
+            // Console.WriteLine("actual: " + Passphrase);  
+            // Console.WriteLine("Time elapsed since OTP generation" + timespan);  
             
             if (timespan.TotalSeconds > 120) {
                 Console.WriteLine("Original OTP has expired, new OTP will be generated and sent out");

@@ -17,22 +17,25 @@ public class OTPService : IOTPService
     private int _attempts;
     private Stopwatch _authTimer;
     
-    public OTPService(string email) {
+    public OTPService(UserSecurityModel user) {
         //_userSecurityDao userSecurityDao= ;
-        _userEmail = email;
+        _userEmail = user.Email;
         _generatedOTP = new OTP();
         _attempts = 0;
         _authTimer = new Stopwatch();
+        _disableAcct = false; 
+        _isValidated = ValidateOTP(_generatedOTP);  
         
-
-
         // continously check OTP to see if it has expired or been used 
-        // while (true) {
-        //     // if so, create a new OTP
-        //     if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
-        //         _generatedOTP = new OTP();
-        //     }
-        // }
+        while (true) {
+            // if so, create a new OTP
+            if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
+                _generatedOTP = new OTP();
+            }
+            else {
+                continue;
+            }
+        }
     }
 
     public void SendEmail() {
@@ -71,22 +74,46 @@ public class OTPService : IOTPService
         }
     }
 
-    public bool ValidateOTP(string providedOTP)
+    public void ValidateOTP()
     {
-        // // only start the timer on the first attempt
-        // if (_attempts == 0) {
-        //     _authTimer.Start();
-        // }
-        // _attempts += 1; //increment attempts every time Validate is called
-
-        // TimeSpan limit = _authTimer.Elapsed;
-
-        // return _generatedOTP.Compare(providedOTP);
-        if (_generatedOTP.Compare(providedOTP) && !_generatedOTP.IsExpired && !_generatedOTP.IsUsed) {
-            return true;
+        // if current otp is expired or has been used, create a new OTP before sending 
+        if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
+            _generatedOTP = new OTP();
         }
-        else {
-            return false;
+
+        SendEmail();
+
+        Console.WriteLine("Please enter the OTP sent to your email: ");
+        string providedOTP = Console.ReadLine();
+        
+        // only start the 24timer on the first attempt
+        if (_attempts == 0) {
+            _authTimer.Start();
+        }
+
+        _attempts += 1; //increment attempts every time Validate is called
+        TimeSpan limit = _authTimer.Elapsed;
+
+        if (_attempts > 5 && limit.TotalHours >= 24) {
+            _disableAcct = true; 
+        }        
+        
+
+        if (_generatedOTP.Compare(providedOTP)) {
+            _isValidated = true; 
+            _generatedOTP.IsUsed = true;  // set IsUsed to true so that the OTP cannot be used again
+        }    
+        // continue calling ValidateOTP until user successfuly completes validation 
+        while (!_isValidated) {
+            // stop validating if the user has reached the 24hr limit
+            if (_disableAcct) {
+                Console.WriteLine("User has failed 5 consecutive authentication attempts in the last 24hrs. Account must be disabled");
+                // TODO: figure out how to disable the account at this point
+                break; 
+            }
+            else {
+                ValidateOTP();
+            }
         }
     }
 }

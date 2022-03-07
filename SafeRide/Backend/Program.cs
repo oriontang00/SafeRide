@@ -114,20 +114,20 @@ app.MapControllers();
 
 
 
-// // for testing OTP auth
-// OTPService auth = new OTPService("colincreasman@gmail.com");
+// for testing OTP auth
+OTPService auth = new OTPService("colincreasman@gmail.com");
 // auth.SendEmail();
 // Console.WriteLine("OTP Sent");
 // Console.WriteLine("Enter OTP:");
 // string pass = Console.ReadLine();
 
-// // testing 2min expiration
-// // Thread.Sleep(12001);
+// //testing 2min expiration
+// Thread.Sleep(12001);
 // auth.ValidateOTP(pass);
 
 // testing 2min expiration
 //  Thread.Sleep(12001);
-//app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 /*app.UseSpa(builder =>
 {

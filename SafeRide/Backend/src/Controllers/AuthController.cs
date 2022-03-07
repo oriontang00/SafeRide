@@ -22,11 +22,11 @@ namespace SafeRide.src.Services
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
         private readonly string ISSUER = "www.saferide.net";
 
-        public AuthController(ITokenService tokenService, IOTPService otpService, IUserRepository userRepository)
+        public AuthController(ITokenService tokenService, IUserRepository userRepository)
         {
             this.userRepository = userRepository;
             this.tokenService = tokenService;
-            this.otpService = otpService;
+            //this.otpService = otpService;
         }
 
         [HttpPost]
@@ -48,6 +48,7 @@ namespace SafeRide.src.Services
 
             if (valid && validUser != null)
             {
+                otpService = new OTPService(validUser);
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
 
                 if (generatedToken != null)
