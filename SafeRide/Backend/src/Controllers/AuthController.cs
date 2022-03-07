@@ -1,16 +1,12 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Cors;
+﻿using Backend.Attributes.AuthorizeAttribute;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using SafeRide.src.Interfaces;
 
 namespace SafeRide.src.Services
 {
-    [Microsoft.AspNetCore.Mvc.Route("api")]
-    [ApiController]
+    [Route("api")]
+    [Controller]
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
@@ -26,10 +22,9 @@ namespace SafeRide.src.Services
             this.tokenService = tokenService;
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [Route("login")]
-        public IActionResult Login([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
+        public IActionResult Login([FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
             var valid = true;
@@ -55,19 +50,18 @@ namespace SafeRide.src.Services
 
             return response;
         }
-
-        [AllowAnonymous]
+        
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
         [HttpPost]
-        [Route("getToken")]
-        public IActionResult GetToken([FromHeader] string authorization)
+        [Route("verifyToken")]
+        public IActionResult VerifyToken([FromHeader] string authorization)
         {
             authorization = authorization.Replace("Bearer ", "");
             authorization = authorization.Replace("\"", "");
             try
             {
-                var handler = new JwtSecurityTokenHandler();
-                var jsonToken = handler.ReadToken(authorization);
-                return Ok(new {jsonToken});
+                JwtDecoder.DecodeJwt(authorization);
+                return Ok();
 
             }
             catch (Exception e)

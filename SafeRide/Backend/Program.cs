@@ -1,15 +1,6 @@
-using SafeRide.src.Logging;
 using SafeRide.src.Interfaces;
 using SafeRide.src.DataAccess;
-using SafeRide.src.Models;
-using SafeRide.src.Managers;
-using SafeRide.src.Archiving;
-using System.IO.Compression;
-using Microsoft.AspNetCore.Identity;
-using SafeRide.src.Security;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 
 //https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
@@ -35,7 +26,7 @@ builder.Services.AddCors(options =>
 /*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";*/
 
 // Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {

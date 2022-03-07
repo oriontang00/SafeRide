@@ -34,6 +34,7 @@
    
   <ItemGroup>
     <Folder Include="obj\Debug\net6.0\staticwebassets\" />
+    <Folder Include="src\Attributes" />
     <Folder Include="src\Services\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
