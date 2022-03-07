@@ -8,7 +8,7 @@ namespace SafeRide.Controllers
     public class TestAuth : ControllerBase
     {
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "user")]
-        [HttpGet]
+        [HttpPost]
         [Route("test1")]
         public IActionResult Test1()
         {
@@ -16,14 +16,14 @@ namespace SafeRide.Controllers
         }
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
-        [HttpGet]
+        [HttpPost]
         [Route("test2")]
         public IActionResult Test2()
         {
             return Ok();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("test3")]
         public IActionResult Test3()
         {
@@ -31,7 +31,7 @@ namespace SafeRide.Controllers
         }
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "test")]
-        [HttpGet]
+        [HttpPost]
         [Route("test4")]
         public IActionResult Test4()
         {
