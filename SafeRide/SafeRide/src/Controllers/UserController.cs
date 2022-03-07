@@ -30,15 +30,16 @@ namespace SafeRide.Controllers
         {
             user.Role = "user";
             user.Valid = true;
-            string userPassphrase = user.Passphrase;
+       
 
             IActionResult response = BadRequest();
             if (_userSecurityDao.Create(user) )
             {
-  
-                if (!Regex.IsMatch(userPassphrase, "^[a-zA-Z0-9.,@!]*$") &&
-                    userPassphrase.Length >= 8)
-                    response = BadRequest();
+                if (!Regex.IsMatch(user.Email, @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"))
+                    return response;           
+                if (!Regex.IsMatch(user.Passphrase, "^[a-zA-Z0-9.,@!]*$") && user.Passphrase.Length > 8)
+                    return response;
                 else
                     response = Ok(response);
             }

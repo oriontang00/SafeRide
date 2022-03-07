@@ -32,7 +32,7 @@ export default {
           })
           .catch(function (error) {
             console.log(error)
-            window.alert('Incorrect Passphrase format')
+            window.alert('Incorrect Email/Passphrase format')
           })
       }
     }
