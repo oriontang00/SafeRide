@@ -3,6 +3,9 @@ using SafeRide.src.Models;
 using SafeRide.src.Security.Interfaces;
 using System.Net;  
 using System.Net.Mail; 
+using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace SafeRide.src.Security.UserSecurity;
 
@@ -11,17 +14,18 @@ public class OTPService : IOTPService
     private IUserSecurityDAO _userSecurityDao;
     private string _userEmail;
     private OTP _generatedOTP;
+    private int _attempts;
+    private Stopwatch _authTimer;
     
     public OTPService(string email) {
         //_userSecurityDao userSecurityDao= ;
         _userEmail = email;
         _generatedOTP = new OTP();
+        _attempts = 0;
+        _authTimer = new Stopwatch();
+        
 
-    //     // testing 2min expiration
-    //   //  Thread.Sleep(12001);
-    //     ValidateOTP(pass);
-    
-        //Console.WriteLine("here");
+
         // continously check OTP to see if it has expired or been used 
         // while (true) {
         //     // if so, create a new OTP
@@ -55,8 +59,8 @@ public class OTPService : IOTPService
                             SafeRide Security</p>
                         </body>
                     </html>";
-
             mail.IsBodyHtml = true;
+
             using (SmtpClient smtpServer = new SmtpClient(server, servPort)) {
                 smtpServer.UseDefaultCredentials = false;
                 smtpServer.Credentials = new System.Net.NetworkCredential(serverAddress, serverPass);
@@ -69,6 +73,13 @@ public class OTPService : IOTPService
 
     public bool ValidateOTP(string providedOTP)
     {
+        // // only start the timer on the first attempt
+        // if (_attempts == 0) {
+        //     _authTimer.Start();
+        // }
+        // _attempts += 1; //increment attempts every time Validate is called
+
+        // TimeSpan limit = _authTimer.Elapsed;
 
         // return _generatedOTP.Compare(providedOTP);
         if (_generatedOTP.Compare(providedOTP) && !_generatedOTP.IsExpired && !_generatedOTP.IsUsed) {
