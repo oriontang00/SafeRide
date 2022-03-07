@@ -4,7 +4,7 @@ namespace SafeRide.src.Security.Interfaces;
 
 public interface IOTPService
 {
-    public bool CreateOTP(UserSecurityModel user);
-    public bool ValidateOTP(string password, UserSecurityModel user);
+    public void SendEmail();
+    public bool ValidateOTP(string providedOTP);
 
 }

@@ -5,10 +5,14 @@ using SafeRide.src.Models;
 using SafeRide.src.Managers;
 using SafeRide.src.Archiving;
 using System.IO.Compression;
+using System.Threading;
+
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using SafeRide.src.Security;
+using SafeRide.src.Security.UserSecurity;
+
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -100,6 +104,20 @@ app.UseAuthorization(); // auth
 app.MapControllers();
 
 
+
+// for testing OTP auth
+OTPService auth = new OTPService("colincreasman@gmail.com");
+auth.SendEmail();
+Console.WriteLine("OTP Sent");
+Console.WriteLine("Enter OTP:");
+string pass = Console.ReadLine();
+
+// testing 2min expiration
+// Thread.Sleep(12001);
+auth.ValidateOTP(pass);
+
+// testing 2min expiration
+//  Thread.Sleep(12001);
 //app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 /*app.UseSpa(builder =>
