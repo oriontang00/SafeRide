@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.DataAccess;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
@@ -24,7 +23,6 @@ namespace SafeRide.Controllers
         }
         [Route("createUser")]
         [HttpPost]
-        [AllowAnonymous]
         public IActionResult CreateUser([FromBody] UserSecurityModel user)
         {
             user.Role = "user";

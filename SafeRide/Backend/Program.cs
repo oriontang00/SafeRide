@@ -1,4 +1,3 @@
-using SafeRide.src.Logging;
 using SafeRide.src.Interfaces;
 using SafeRide.src.DataAccess;
 using SafeRide.src.Models;
@@ -15,7 +14,7 @@ using SafeRide.src.Security.UserSecurity;
 
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 
 //https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
 
@@ -24,6 +23,8 @@ var ISSUER = "www.saferide.net";
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -40,7 +41,7 @@ builder.Services.AddCors(options =>
 /*var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";*/
 
 // Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -63,14 +64,22 @@ builder.Services.AddTransient<IUserSecurityDAO, UserSQLSecurityDAO>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 
-
 var env = builder.Environment;
 var app = builder.Build();
 
 if (env.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
+    
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
 }
+
 
 /*app.Use(async (context, next) =>
 {

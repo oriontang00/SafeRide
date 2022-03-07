@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Backend.Attributes.AuthorizeAttribute;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SafeRide.Controllers
@@ -10,30 +9,31 @@ namespace SafeRide.Controllers
     {
         [Authorize(Roles = "test")] // change to "admin"
         [HttpGet]
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "user")]
+        [HttpPost]
         [Route("test1")]
         public IActionResult Test1()
         {
             return Ok();
         }
-
-        [Authorize()]
-        [HttpGet]
+        
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
+        [HttpPost]
         [Route("test2")]
         public IActionResult Test2()
         {
             return Ok();
         }
 
-        [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("test3")]
         public IActionResult Test3()
         {
             return Ok();
         }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet]
+        
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "test")]
+        [HttpPost]
         [Route("test4")]
         public IActionResult Test4()
         {

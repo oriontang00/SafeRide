@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeRide", "SafeRide.csproj", "{33931BFA-3685-4F9B-8E21-364F9C975C12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend.csproj", "{33931BFA-3685-4F9B-8E21-364F9C975C12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SRUnitTests", "..\SRUnitTests\SRUnitTests.csproj", "{7A50E97C-1BC8-483B-B50F-7D4CAACB201A}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "vuetestfrontend", "..\vuetestfrontend\vuetestfrontend.esproj", "{B9081E2B-0B17-443A-9753-CDF9C392E081}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Frontend", "..\vuetestfrontend\Frontend.esproj", "{B9081E2B-0B17-443A-9753-CDF9C392E081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

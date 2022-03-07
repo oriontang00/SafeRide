@@ -34,6 +34,7 @@
    
   <ItemGroup>
     <Folder Include="obj\Debug\net6.0\staticwebassets\" />
+    <Folder Include="src\Attributes" />
     <Folder Include="src\Services\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -103,6 +104,8 @@
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.0" />
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
