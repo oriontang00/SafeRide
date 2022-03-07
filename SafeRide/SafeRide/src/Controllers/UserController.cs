@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.DataAccess;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
+using System.Text.RegularExpressions;
 
 namespace SafeRide.Controllers
 {
@@ -29,15 +30,23 @@ namespace SafeRide.Controllers
         {
             user.Role = "user";
             user.Valid = true;
-            
+            string userPassphrase = user.Passphrase;
+
             IActionResult response = BadRequest();
-            if (_userSecurityDao.Create(user))
+            if (_userSecurityDao.Create(user) )
             {
-                response = Ok();
+  
+                if (!Regex.IsMatch(userPassphrase, "^[a-zA-Z0-9.,@!]*$") &&
+                    userPassphrase.Length >= 8)
+                    response = BadRequest();
+                else
+                    response = Ok(response);
             }
 
             return response;
         }
+
+        
         /*[Route("getUser")]
         [HttpGet]
         public IActionResult GetUser([FromBody] string token, [FromBody] string userId)

@@ -2,6 +2,8 @@
   <div id="nav">
     <router-link to="/">Home</router-link>
     <br />
+    <router-link to="/createAccount">Registration</router-link>
+    <br />
     <router-link to="/login">Login</router-link>
     <br />
     <router-link to="/User">User</router-link>
