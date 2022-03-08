@@ -5,7 +5,7 @@ using SafeRide.src.Managers;
 using SafeRide.src.Archiving;
 using System.IO.Compression;
 using System.Threading;
-
+using SafeRide.src.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -63,6 +63,9 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 builder.Services.AddTransient<IUserSecurityDAO, UserSQLSecurityDAO>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IUserDAO, UserSQLServerDAO>();
+builder.Services.AddTransient<IViewEventDAO, ViewEventSQLServerDAO>();
+builder.Services.AddTransient<IAnalyticsService, AnalyticsService>();
 
 var env = builder.Environment;
 var app = builder.Build();
