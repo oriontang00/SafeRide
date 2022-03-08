@@ -6,10 +6,11 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Security.Interfaces;
+using System.Web.Http;
 
 namespace SafeRide.src.Services
 {
-    [Route("api")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     [Controller]
     public class AuthController : ControllerBase
     {
@@ -30,9 +31,9 @@ namespace SafeRide.src.Services
             //this.otpService = otpService;
         }
 
-        [HttpPost]
-        [Route("login")]
-        public IActionResult Login([FromBody] UserSecurityModel user)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("login")]
+        public IActionResult Login([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
             var valid = true;
@@ -75,20 +76,21 @@ namespace SafeRide.src.Services
         }
         
         
-        [HttpPost]
-        [Route("otp")]
-        public IActionResult Validate([FromBody] UserSecurityModel user, [FromUri] string providedOTP)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("otp")]
+        public IActionResult Validate([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user, [FromUri] string providedOTP)
         {
             IActionResult response = Unauthorized();
             if (otpService.ValidateOTP(providedOTP)) {
                 response = Ok();
-            return response;
+
             }
+            return response;
         }
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
-        [HttpPost]
-        [Route("verifyToken")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("verifyToken")]
         public IActionResult VerifyToken([FromHeader] string authorization)
         {
             authorization = authorization.Replace("Bearer ", "");

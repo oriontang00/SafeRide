@@ -77,17 +77,15 @@ public class OTPService : IOTPService
 
         if (_attempts > 5 && limit.TotalHours >= 24) {
             _disableAcct = true; 
-            return false;
+            //return false;
         }        
         
         if (_generatedOTP.Compare(providedOTP)) {
             _isValidated = true; 
             _generatedOTP.IsUsed = true;  // set IsUsed to true so that the OTP cannot be used again
-            return true;
+            //return true;
         }  
-        else {
-            return false;
-        }
+        return _isValidated;
     }
 
     public void SetUser(UserSecurityModel user) {
