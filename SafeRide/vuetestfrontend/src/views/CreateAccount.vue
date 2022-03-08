@@ -28,11 +28,11 @@ export default {
         })
           .then(function (response) {
             console.log(response)
-            window.alert('Email with OTP will be sent shortly!')
+            window.alert('Email confirmation pending')
           })
           .catch(function (error) {
             console.log(error)
-            window.alert('Incorrect Email/Passphrase format')
+            window.alert('Account creation error. Retry again or contact system administrator')
           })
       }
     }
