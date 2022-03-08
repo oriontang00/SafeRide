@@ -10,7 +10,7 @@ using SafeRide.src.Security.Interfaces;
 namespace SafeRide.src.Services
 {
     [Route("api")]
-    [Controller]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
