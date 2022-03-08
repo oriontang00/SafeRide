@@ -17,6 +17,7 @@ namespace SafeRide.src.Services
         private readonly ITokenService tokenService;
 
         private readonly IOTPService otpService;
+        
         private string generatedToken = null;
 
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
@@ -48,7 +49,42 @@ namespace SafeRide.src.Services
 
             if (valid && validUser != null)
             {
+                //promt user on frontend to input their otp
+                otpService.SetUser(validUser);
+
+                generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
+
+                if (generatedToken != null)
+                {
+                    response = Ok(new { token = generatedToken });
+                }
+            }
+
+            return response;
+        }
+        
+        
+        [HttpPost]
+        [Route("otp")]
+        public IActionResult Validate([FromBody] UserSecurityModel user, [FromUri] string providedOTP)
+        {
+            IActionResult response = Unauthorized();
+            //otpService = new OTPService(validUser);
+
+            try
+            {
+                validUser = this.userRepository.GetUser(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                valid = false;
+            }
+
+            if (valid && validUser != null)
+            {
                 otpService = new OTPService(validUser);
+                //promt user on frontend to input their otp
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
 
                 if (generatedToken != null)

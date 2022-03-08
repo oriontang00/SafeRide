@@ -7,7 +7,7 @@ namespace SafeRide.Controllers
     [ApiController]
     public class TestAuth : ControllerBase
     {
-        [Authorize(Roles = "test")] // change to "admin"
+        
         [HttpGet]
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "user")]
         [HttpPost]

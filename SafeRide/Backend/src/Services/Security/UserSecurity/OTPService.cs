@@ -16,26 +16,9 @@ public class OTPService : IOTPService
     private OTP _generatedOTP;
     private int _attempts;
     private Stopwatch _authTimer;
+    private bool _isValidated;
     
-    public OTPService(UserSecurityModel user) {
-        //_userSecurityDao userSecurityDao= ;
-        _userEmail = user.Email;
-        _generatedOTP = new OTP();
-        _attempts = 0;
-        _authTimer = new Stopwatch();
-        _disableAcct = false; 
-        _isValidated = ValidateOTP(_generatedOTP);  
-        
-        // continously check OTP to see if it has expired or been used 
-        while (true) {
-            // if so, create a new OTP
-            if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
-                _generatedOTP = new OTP();
-            }
-            else {
-                continue;
-            }
-        }
+    public OTPService() {
     }
 
     public void SendEmail() {
@@ -74,7 +57,7 @@ public class OTPService : IOTPService
         }
     }
 
-    public void ValidateOTP()
+    public void ValidateOTP(string providedOTP)
     {
         // if current otp is expired or has been used, create a new OTP before sending 
         if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
@@ -83,8 +66,8 @@ public class OTPService : IOTPService
 
         SendEmail();
 
-        Console.WriteLine("Please enter the OTP sent to your email: ");
-        string providedOTP = Console.ReadLine();
+        // Console.WriteLine("Please enter the OTP sent to your email: ");
+        // string providedOTP = Console.ReadLine();
         
         // only start the 24timer on the first attempt
         if (_attempts == 0) {
@@ -113,6 +96,27 @@ public class OTPService : IOTPService
             }
             else {
                 ValidateOTP();
+            }
+        }
+    }
+
+    public void SetUser(UserSecurityModel user) {
+//_userSecurityDao userSecurityDao= ;
+        _userEmail = user.Email;
+        _generatedOTP = new OTP();
+        _attempts = 0;
+        _authTimer = new Stopwatch();
+        _disableAcct = false; 
+        _isValidated = ValidateOTP(_generatedOTP);  
+        
+        // continously check OTP to see if it has expired or been used 
+        while (true) {
+            // if so, create a new OTP
+            if (_generatedOTP.IsExpired || _generatedOTP.IsUsed) {
+                _generatedOTP = new OTP();
+            }
+            else {
+                continue;
             }
         }
     }

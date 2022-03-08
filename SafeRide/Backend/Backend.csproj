@@ -16,8 +16,8 @@
 
   <ItemGroup>
     <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
-    <Compile Include="obj\Debug\net6.0\SafeRide.AssemblyInfo.cs" />
-    <Compile Include="obj\Debug\net6.0\SafeRide.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net6.0\Backend.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net6.0\Backend.GlobalUsings.g.cs" />
   </ItemGroup>
 
   <ItemGroup>
