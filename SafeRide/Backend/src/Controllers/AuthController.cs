@@ -1,15 +1,16 @@
-﻿using Backend.Attributes.AuthorizeAttribute;
-using Backend.Services;
+﻿using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Models;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Web.Http;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Security.Interfaces;
+using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttribute;
 
 namespace SafeRide.src.Services
 {
-    [Route("api")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -30,9 +31,9 @@ namespace SafeRide.src.Services
             //this.otpService = otpService;
         }
 
-        [HttpPost]
-        [Route("login")]
-        public IActionResult Login([FromBody] UserSecurityModel user)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("login")]
+        public IActionResult Login([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
         {
             IActionResult response = Unauthorized();
             var valid = true;
@@ -64,12 +65,13 @@ namespace SafeRide.src.Services
         }
         
         
-        [HttpPost]
-        [Route("otp")]
-        public IActionResult Validate([FromBody] UserSecurityModel user, [FromUri] string providedOTP)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("otp")]
+        public IActionResult Validate([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user, [FromUri] string providedOTP)
         {
             IActionResult response = Unauthorized();
             //otpService = new OTPService(validUser);
+            UserSecurityModel validUser = null;
 
             try
             {
@@ -78,27 +80,14 @@ namespace SafeRide.src.Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                valid = false;
-            }
-
-            if (valid && validUser != null)
-            {
-                otpService = new OTPService(validUser);
-                //promt user on frontend to input their otp
-                generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
-
-                if (generatedToken != null)
-                {
-                    response = Ok(new { token = generatedToken });
-                }
             }
 
             return response;
         }
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
-        [HttpPost]
-        [Route("verifyToken")]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("verifyToken")]
         public IActionResult VerifyToken([FromHeader] string authorization)
         {
             authorization = authorization.Replace("Bearer ", "");

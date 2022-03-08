@@ -78,7 +78,9 @@ public class OTPService : IOTPService
         TimeSpan limit = _authTimer.Elapsed;
 
         if (_attempts > 5 && limit.TotalHours >= 24) {
+            /*
             _disableAcct = true; 
+        */
         }        
         
 
@@ -89,14 +91,14 @@ public class OTPService : IOTPService
         // continue calling ValidateOTP until user successfuly completes validation 
         while (!_isValidated) {
             // stop validating if the user has reached the 24hr limit
-            if (_disableAcct) {
+            /*if (_disableAcct) {
                 Console.WriteLine("User has failed 5 consecutive authentication attempts in the last 24hrs. Account must be disabled");
                 // TODO: figure out how to disable the account at this point
                 break; 
             }
             else {
                 ValidateOTP();
-            }
+            }*/
         }
     }
 
@@ -106,8 +108,12 @@ public class OTPService : IOTPService
         _generatedOTP = new OTP();
         _attempts = 0;
         _authTimer = new Stopwatch();
+        /*
         _disableAcct = false; 
+        */
+        /*
         _isValidated = ValidateOTP(_generatedOTP);  
+        */
         
         // continously check OTP to see if it has expired or been used 
         while (true) {

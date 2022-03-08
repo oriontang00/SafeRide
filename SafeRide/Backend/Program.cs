@@ -115,7 +115,7 @@ app.MapControllers();
 
 
 // for testing OTP auth
-OTPService auth = new OTPService("colincreasman@gmail.com");
+OTPService auth = new OTPService();
 // auth.SendEmail();
 // Console.WriteLine("OTP Sent");
 // Console.WriteLine("Enter OTP:");
