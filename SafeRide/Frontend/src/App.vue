@@ -4,7 +4,7 @@
     <br />
     <router-link to="/login">Login</router-link>
     <br />
-    <router-link to="/UserRegistraion">UserRegistration</router-link>
+    <router-link to="/UserRegistration">UserRegistration</router-link>
     <br />
     <router-link to="/User">User</router-link>
     <br />
