@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Text.RegularExpressions;
+using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
@@ -24,19 +25,27 @@ namespace SafeRide.Controllers
         }
         [Microsoft.AspNetCore.Mvc.Route("createUser")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
-        public IActionResult CreateUser([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user)
+        public IActionResult CreateUser([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user,[FromUri]string passphrase)
         {
             user.Role = "user";
             user.Valid = true;
-            
+
+
             IActionResult response = BadRequest();
             if (_userSecurityDao.Create(user))
             {
-                response = Ok();
+                if (!Regex.IsMatch(user.Email, @"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$"))
+                    return response;
+                if (Regex.IsMatch(passphrase, "^[a-zA-Z0-9.,@!]*$") && passphrase.Length > 8)
+                    return response;
+                else
+                    response = Ok(response);
             }
 
             return response;
         }
+     
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
         [Microsoft.AspNetCore.Mvc.Route("updateUser")]
