@@ -51,7 +51,19 @@ namespace SafeRide.src.Services
             {
                 //promt user on frontend to input their otp
                 otpService.SetUser(validUser);
-
+                // continue calling ValidateOTP until user successfuly completes validation 
+                while (otpService._isValidated == false) {
+                    // stop validating if the user has reached the 24hr limit
+                    if (_disableAcct) {
+                        Console.WriteLine("User has failed 5 consecutive authentication attempts in the last 24hrs. Account must be disabled");
+                        // TODO: figure out how to disable the account at this point
+                        break; 
+                    }
+                    else {
+                        otpService.SendEmail();
+                        //ValidateOTP();
+                    }
+                }
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
 
                 if (generatedToken != null)
@@ -59,7 +71,6 @@ namespace SafeRide.src.Services
                     response = Ok(new { token = generatedToken });
                 }
             }
-
             return response;
         }
         
@@ -69,31 +80,10 @@ namespace SafeRide.src.Services
         public IActionResult Validate([FromBody] UserSecurityModel user, [FromUri] string providedOTP)
         {
             IActionResult response = Unauthorized();
-            //otpService = new OTPService(validUser);
-
-            try
-            {
-                validUser = this.userRepository.GetUser(user);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                valid = false;
-            }
-
-            if (valid && validUser != null)
-            {
-                otpService = new OTPService(validUser);
-                //promt user on frontend to input their otp
-                generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
-
-                if (generatedToken != null)
-                {
-                    response = Ok(new { token = generatedToken });
-                }
-            }
-
+            if (otpService.ValidateOTP(providedOTP)) {
+                response = Ok();
             return response;
+            }
         }
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
