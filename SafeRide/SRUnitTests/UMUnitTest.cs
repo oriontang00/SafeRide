@@ -26,7 +26,7 @@ namespace SRUnitTests
         [Fact]
         public void UserTest1()
         {
-            UserModel testUser = new UserModel("TFN", "TLN", "TUN", "TPW", "T_ID_0", "TPhoneNum", "0", "1");
+            UserModel testUser = new UserModel("TFN", "TLN", "TUN", "TPW", "T_ID_0", "TPhoneNum", "0", "1", new System.DateTime(2022, 3, 7, 0, 0, 0), new System.DateTime(2022, 3, 1, 0, 0, 0));
             var testDAO = new UserSQLServerDAO();
 
             bool createSuccess = testDAO.Create(testUser);
@@ -42,7 +42,7 @@ namespace SRUnitTests
             Assert.Equal("0", testUser2.IsAdmin);
             Assert.Equal("1", testUser2.Enabled);
 
-            UserModel testUser3 = new UserModel("TFN_NEW", "TLN_NEW", "TUN_NEW", "TPW", "T_ID_0", "TPhoneNum", "0", "0");
+            UserModel testUser3 = new UserModel("TFN_NEW", "TLN_NEW", "TUN_NEW", "TPW", "T_ID_0", "TPhoneNum", "0", "0", new System.DateTime(2022, 3, 7, 0, 0, 0), new System.DateTime(2022, 3, 1, 0, 0, 0));
             bool updateSuccess = testDAO.Update("T_ID_0", testUser3);
             Assert.True(updateSuccess);
 

@@ -7,6 +7,8 @@
     <router-link to="/User">User</router-link>
     <br />
     <router-link to="/Map">DefaultMap</router-link>
+    <br />
+    <router-link to="/analytics">AnalyticsDashboard</router-link>
   </div>
   <router-view/>
 </template>

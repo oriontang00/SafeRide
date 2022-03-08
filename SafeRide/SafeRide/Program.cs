@@ -5,6 +5,7 @@ using SafeRide.src.Models;
 using SafeRide.src.Managers;
 using SafeRide.src.Archiving;
 using System.IO.Compression;
+using SafeRide.src.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,7 @@ using SafeRide.src.Security;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using SafeRide.src.Controllers;
 
 //https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
 
@@ -58,6 +60,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddTransient<IUserSecurityDAO, UserSQLSecurityDAO>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IUserDAO, UserSQLServerDAO>();
+builder.Services.AddTransient<IViewEventDAO, ViewEventSQLServerDAO>();
+builder.Services.AddTransient<IAnalyticsService, AnalyticsService>();
 
 
 var env = builder.Environment;
@@ -221,5 +226,13 @@ if (userAuthorized)
 }
 */
 
+//IViewEventDAO viewDAO = new ViewEventSQLServerDAO();
+//IUserDAO userDAO = new UserSQLServerDAO();
 
+//IAnalyticsService analyticsService = new AnalyticsService(userDAO, viewDAO);
 
+//Dictionary<string, double> dict = analyticsService.GetTopFiveDurations();
+
+//foreach (KeyValuePair<string, double> d in dict){
+//    Console.WriteLine(d);
+//}
