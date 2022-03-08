@@ -1,6 +1,8 @@
 <template>
   <h1 v-if=loggedIn>
-    logged in, {{ loggedIn }}
+    <a href="#">Home </a>
+    <a href="#">AddRoute </a>
+    <a v-on:click="logout" href="#">LogOut</a>
   </h1>
   <h1 v-else>
     not logged in, {{ loggedIn }}
@@ -30,6 +32,13 @@ export default {
     getUserInfo().then((res) => {
       this.loggedIn = res
     })
+  },
+  name: 'UserProtected',
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$router.push({ name: 'Login' })
+    }
   }
 }
 </script>
