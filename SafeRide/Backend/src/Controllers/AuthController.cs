@@ -51,7 +51,7 @@ namespace SafeRide.src.Services
             if (valid && validUser != null)
             {
                 //promt user on frontend to input their otp
-                otpService.SetUser(validUser);
+                /*otpService.SetUser(validUser);*/
 
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
 
