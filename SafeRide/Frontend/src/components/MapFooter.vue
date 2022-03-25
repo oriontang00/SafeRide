@@ -2,12 +2,16 @@
   <div id="mapFooter">
     <button id="routeAnalysisButton" @click="doRouteAnalysisButtonClick">Route Analysis</button>
     <button id="hazardButton" @click="doHazardButtonClick">Report Hazard</button>
-
+    <MapOverlayButtons></MapOverlayButtons>
   </div>
 </template>
 
 <script>
+import MapOverlayButtons from "@components/MapOverlayButtons";
 export default { // OVERLAYS NEEDS TO BE PASSED DYNAMICALLY, cant do rn
+  components: {
+    MapOverlayButtons
+  },
   name: 'MapFooter',
   methods: {
     doRouteAnalysisButtonClick () {
