@@ -6,10 +6,6 @@
 </template>
 
 <script>
-import MapSearchRectangle from '@/components/MapSearchRectangle'
-import MapHeader from '@/components/MapHeader.vue'
-import MapFooter from '@/components/MapFooter'
-import json from '../../key.json'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl'
 export default {
@@ -20,7 +16,7 @@ export default {
   },
 
   mounted () {
-    mapboxgl.accessToken = json.mapbox_key_free
+    mapboxgl.accessToken = "" // fix later
     this.map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
