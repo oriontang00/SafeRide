@@ -10,6 +10,9 @@ namespace SafeRide.src.Interfaces
         public bool Delete(String UserId);
         public bool Enable(String UserId);
         public bool Disable(String UserId);
+        public Dictionary<String, int> GetLastThreeMonthLogins();
+        public Dictionary<String, int> GetLastThreeMonthRegistrations();
+        public int UpdateLastLogin(String UserId, DateTime dateTime);
 
     }
 }

@@ -2,7 +2,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import UserProtected from '../views/UserProtected.vue'
+import UserRegistration from '../views/UserRegistration.vue'
 import DefaultMap from '../views/DefaultMap.vue'
+import AnalysisDashboard from '../views/AnalysisDashboard.vue'
 
 const routes = [
   {
@@ -16,6 +18,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/UserRegistration',
+    name: 'UserRegistration',
+    component: UserRegistration
+  },
+  {
     path: '/user',
     name: 'User',
     component: UserProtected
@@ -24,7 +31,13 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: DefaultMap
+  },
+  {
+    path: '/analytics',
+    name: 'Analytics',
+    component: AnalysisDashboard
   }
+
 ]
 
 const router = createRouter({

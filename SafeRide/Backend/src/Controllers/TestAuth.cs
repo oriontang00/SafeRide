@@ -25,6 +25,8 @@ namespace SafeRide.Controllers
             return Ok();
         }
 
+        [AuthorizeAttribute.ClaimRequirementAttribute("active", "active")]
+        [AuthorizeAttribute.ClaimRequirementAttribute("role", "user")]
         [HttpPost]
         [Route("test3")]
         public IActionResult Test3()

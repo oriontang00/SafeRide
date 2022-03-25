@@ -1,8 +1,8 @@
+
+using System.Collections.Generic;
 using SafeRide.src.DataAccess;
-using SafeRide.src.Interfaces;
 using SafeRide.src.Managers;
 using SafeRide.src.Models;
-using System.Collections.Generic;
 using Xunit;
 
 namespace SRUnitTests

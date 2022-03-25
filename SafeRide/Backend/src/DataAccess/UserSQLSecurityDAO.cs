@@ -78,8 +78,8 @@ public class UserSQLSecurityDAO : IUserSecurityDAO
     public bool Update(string username, UserSecurityModel user)
     {
         string query = $"update {TABLE_NAME} set " +
-                       $"username='{user.UserName}',email='{user.Email} ',role= '{user.Role} ',valid= '{user.Valid}'," +
-                       $"where username= '{user.UserName}'";
+                       $"username='{user.UserName}', email='{user.Email}',role='{user.Role}', valid='{user.Valid}' " +
+                       $"where username='{user.UserName}';";
 
         Console.WriteLine(query);
         return ExecuteCommand(query);

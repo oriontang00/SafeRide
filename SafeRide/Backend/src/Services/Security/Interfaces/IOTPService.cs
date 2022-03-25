@@ -6,5 +6,5 @@ public interface IOTPService
 {
     public void SendEmail();
     public bool ValidateOTP(string providedOTP);
-
+    //public void SetUser(UserSecurityModel user);
 }

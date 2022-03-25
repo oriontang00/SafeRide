@@ -10,7 +10,8 @@ internal class TokenService : ITokenService
     {
         var claims = new[] {
             new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Role, user.Role)
+            new Claim(ClaimTypes.Role, user.Role),
+            new Claim("Active", user.Valid ? "active" : "non-active")
         };
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
