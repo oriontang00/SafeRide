@@ -17,6 +17,7 @@ namespace SafeRide.Controllers
 
         private readonly string SECRET_KEY = "this is my custom Secret key for authnetication"; //needs many characters
         private readonly string ISSUER = "www.saferide.net";
+        private readonly string MAPBOX_API_KEY = "pk.eyJ1IjoiYXBwbGVmdSIsImEiOiJja3p5dWV1eTkwM3gyM2lteGZqZGszNTBjIn0.CLc4mochtSCflbpW9BPH4Q";
 
         public UserController(IUserSecurityDAO userSecurityDao)
         {

@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import UserProtected from '../views/UserProtected.vue'
 import UserRegistration from '../views/UserRegistration.vue'
-import DefaultMap from '../views/DefaultMap.vue'
+import LoggedInInitialView from '../views/LoggedInInitialView.vue'
 import AnalysisDashboard from '../views/AnalysisDashboard.vue'
 
 const routes = [
@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/map',
     name: 'Map',
-    component: DefaultMap
+    component: LoggedInInitialView
   },
   {
     path: '/analytics',
