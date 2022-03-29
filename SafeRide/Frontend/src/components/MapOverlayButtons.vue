@@ -1,6 +1,6 @@
 <template>
-  <div id="overlayButtons" v-for="overlay in possibleOverlays" v-bind:key="overlay.key">
-    <Overlay overlay={{overlay}}></Overlay>
+  <div id="overlayButtons" >
+    <Overlay v-for="overlayName in possibleOverlays.overLayNames" v-bind:key="overlayName.key" :overlayNames="overlayName"></Overlay>
   </div>
 </template>
 
@@ -11,18 +11,24 @@ export default {
     Overlay
   },
   name: 'MapOverlayButtons',
-  props: {
-    possibleOverlays: {
-      type: Array
+  data () {
+    return {
+      possibleOverlays: { overLayNames: ['test1', 'test2'] }
     }
   },
   methods: {
-    getOverLays () {
-    }
+  },
+  beforeCreated () {
+  },
+  created () {
   }
 }
 </script>
 
 <style scoped>
-
+  #overlayButtons{
+    position: relative;
+    width: 100px;
+    bottom: 50px;
+  }
 </style>
