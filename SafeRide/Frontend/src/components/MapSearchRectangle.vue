@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div id="mapSearchBox">
     <form>
       <input type="text" id="startLocation" placeholder="Start Location"><br>

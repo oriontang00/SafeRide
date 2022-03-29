@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div id="mapHeader">
     <button id="homeButton" @click="doHomeButtonClick">Home Button</button>
     <button id="savedRoutesButton" @click="doSavedRoutesButtonClick">Saved Routes</button>

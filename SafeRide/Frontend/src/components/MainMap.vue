@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <MapHeader></MapHeader>
   <MapSearchRectangle id="MapSearchRec"></MapSearchRectangle>
   <div id='map'></div>

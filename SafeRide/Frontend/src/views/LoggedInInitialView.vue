@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <MainMap api_key="test123"></MainMap>
 </template>
 

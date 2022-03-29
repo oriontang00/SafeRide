@@ -7,9 +7,9 @@
 
 <script>
 export default {
-  name: "Overlay",
-  props:{
-    overlay:{
+  name: 'Overlay',
+  props: {
+    overlay: {
       type: Object,
       overLayName: String
     }
