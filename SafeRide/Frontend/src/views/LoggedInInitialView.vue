@@ -1,5 +1,5 @@
 <template>
-  <MainMap api_key="test123"></MainMap>
+  <MainMap api_key="pk.eyJ1IjoiYXBwbGVmdSIsImEiOiJja3p5dWV1eTkwM3gyM2lteGZqZGszNTBjIn0.CLc4mochtSCflbpW9BPH4Q"></MainMap>
 </template>
 
 <script>
