@@ -5,7 +5,7 @@ namespace SafeRide.src.Models;
 public class OverlayStructureModel
 {
     private string _overlayName;
-    private List<OverlayPoint> _overlayStructure;
+    public List<OverlayPoint> _overlayStructure { get; set; }
 
     public OverlayStructureModel(string overlayName)
     {

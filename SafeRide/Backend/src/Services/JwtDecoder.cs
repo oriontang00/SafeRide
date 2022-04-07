@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Backend.Services;
 
@@ -19,5 +20,13 @@ public static class JwtDecoder
         {
             return null;
         }
+    }
+
+    public static string? GetUser(string token)
+    {
+        var userName = DecodeJwt(token)?.Actor;
+        if (userName == null) return null;
+        
+        return userName;
     }
 }

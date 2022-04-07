@@ -66,6 +66,7 @@ builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IUserDAO, UserSQLServerDAO>();
 builder.Services.AddTransient<IViewEventDAO, ViewEventSQLServerDAO>();
 builder.Services.AddTransient<IAnalyticsService, AnalyticsService>();
+builder.Services.AddTransient<IOverlayStructureDAO, OverlayStructureDAO>();
 
 var env = builder.Environment;
 var app = builder.Build();

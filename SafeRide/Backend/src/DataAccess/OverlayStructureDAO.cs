@@ -11,16 +11,40 @@ public class OverlayStructureDAO : IOverlayStructureDAO
     private const string CONNECTION_STRING = @"server=(local)\SQLExpress;database=SafeRide_DB;integrated Security=SSPI;";
     private const string TABLE_NAME = "OverlayDimensions";
 
-    private string _overlay;
-    
-    public OverlayStructureDAO(string overlay)
+    public List<string> GetAvailableOverlays(string userName)
     {
-        _overlay = overlay;
-    }
+        List<string> overlays = new List<string>();
+        string query = $"SELECT OverlayName FROM {TABLE_NAME} WHERE UserName='{userName}'";
 
-    public OverlayStructureModel GetOverlay(string overlayName)
+        try
+        {
+            using (var sqlConn = new SqlConnection(CONNECTION_STRING))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, sqlConn))
+                {
+                    cmd.Connection.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var overlayName = reader["OverlayName"].ToString();
+
+                            overlays.Add(overlayName);
+                        }
+                    }
+                }
+            }
+        }catch
+        {
+            // log error
+        }
+
+        return overlays;
+    }
+    public OverlayStructureModel GetOverlay(string userName, string overlayName)
     {
-        string query = $"SELECT * FROM {TABLE_NAME} WHERE OverlayID='{overlayName}'";
+        string query = $"SELECT * FROM {TABLE_NAME} WHERE OverlayName='{overlayName}' AND UserName='{userName}'";
 
         OverlayStructureModel readModel = new OverlayStructureModel(overlayName);
         List<OverlayPoint> dimensions = new List<OverlayPoint>();
