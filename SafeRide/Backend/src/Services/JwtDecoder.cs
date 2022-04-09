@@ -24,9 +24,10 @@ public static class JwtDecoder
 
     public static string? GetUser(string token)
     {
-        var userName = DecodeJwt(token)?.Actor;
-        if (userName == null) return null;
+        var jwtToken = DecodeJwt(token);
+        if (jwtToken == null) return null;
         
+        var userName = jwtToken.Claims.First(claim => claim.Type.Equals(ClaimTypes.Name)).Value;
         return userName;
     }
 }

@@ -13,7 +13,7 @@ public class OverlayStructureDAO : IOverlayStructureDAO
 
     public List<string> GetAvailableOverlays(string userName)
     {
-        List<string> overlays = new List<string>();
+        var overlays = new HashSet<string>();
         string query = $"SELECT OverlayName FROM {TABLE_NAME} WHERE UserName='{userName}'";
 
         try
@@ -40,14 +40,14 @@ public class OverlayStructureDAO : IOverlayStructureDAO
             // log error
         }
 
-        return overlays;
+        return overlays.ToList();
     }
     public OverlayStructureModel GetOverlay(string userName, string overlayName)
     {
         string query = $"SELECT * FROM {TABLE_NAME} WHERE OverlayName='{overlayName}' AND UserName='{userName}'";
 
-        OverlayStructureModel readModel = new OverlayStructureModel(overlayName);
-        List<OverlayPoint> dimensions = new List<OverlayPoint>();
+        var readModel = new OverlayStructureModel(overlayName);
+        var dimensions = new List<OverlayPoint>();
 
         try
         {

@@ -1,11 +1,12 @@
 <template>
   <div id="overlayButtons" >
-    <Overlay v-for="overlayName in possibleOverlays.overLayNames" v-bind:key="overlayName.key" :overlayNames="overlayName"></Overlay>
+    <Overlay v-for="overlayName in possibleOverlays" v-bind:key="overlayName.key" :overlayNames="overlayName"></Overlay>
   </div>
 </template>
 
 <script>
 import Overlay from '@/components/Overlay.vue'
+import axios from 'axios'
 export default {
   components: {
     Overlay
@@ -13,14 +14,26 @@ export default {
   name: 'MapOverlayButtons',
   data () {
     return {
-      possibleOverlays: { overLayNames: ['test1', 'test2'] }
+      possibleOverlays: {}
     }
   },
   methods: {
-  },
-  beforeCreated () {
+    async getOverlays () {
+      let overlays = []
+      axios.defaults.headers.common.Authorization = localStorage.getItem('token')
+      await axios.get('https://localhost:5001/api/overlay/all')
+        .then(async function (res) { // do something with res here
+          overlays = await res
+        })
+        .catch(function () {
+        })
+      return overlays.data.overlays
+    }
   },
   created () {
+    this.getOverlays().then((res) => {
+      this.possibleOverlays = res
+    })
   }
 }
 </script>

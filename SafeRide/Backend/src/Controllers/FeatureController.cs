@@ -19,7 +19,12 @@ public class FeatureController : ControllerBase
     [Microsoft.AspNetCore.Mvc.Route("/api/overlay/all")]
     public IActionResult GetAvailableOverlays([FromHeader] string authorization)
     {
-        return Ok();
+        var user = JwtDecoder.GetUser(authorization);
+        if (user == null) return Unauthorized();
+
+        var overlays = _overlayStructureDao.GetAvailableOverlays(user);
+        
+        return Ok(new {overlays});
     }
     
     [Microsoft.AspNetCore.Mvc.HttpGet]
@@ -28,7 +33,9 @@ public class FeatureController : ControllerBase
     {
         var user = JwtDecoder.GetUser(authorization);
         if (user == null) return Unauthorized();
+
+        var overlayStructure = _overlayStructureDao.GetOverlay(user, overlayName)._overlayStructure;
         
-        return Ok(new {_overlayStructureDao.GetOverlay(user, overlayName)._overlayStructure});
+        return Ok(new {overlayStructure});
     }
 }
