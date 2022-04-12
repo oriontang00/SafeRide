@@ -2,6 +2,7 @@
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Interfaces;
+using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttribute;
 
 namespace Backend.Controllers;
 
@@ -14,7 +15,7 @@ public class FeatureController : ControllerBase
     {
         _overlayStructureDao = overlayStructureDao;
     }
-
+    
     [Microsoft.AspNetCore.Mvc.HttpGet]
     [Microsoft.AspNetCore.Mvc.Route("/api/overlay/all")]
     public IActionResult GetAvailableOverlays([FromHeader] string authorization)

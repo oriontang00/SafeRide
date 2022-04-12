@@ -1,4 +1,5 @@
 <template>
+  <!--  ""-->
   <MainMap api_key="pk.eyJ1IjoiYXBwbGVmdSIsImEiOiJja3p5dWV1eTkwM3gyM2lteGZqZGszNTBjIn0.CLc4mochtSCflbpW9BPH4Q"></MainMap>
 </template>
 
@@ -12,7 +13,6 @@ export default {
   name: 'LoggedInInitialView',
   created () {
     axios.defaults.headers.common.Authorization = localStorage.getItem('token')
-    axios.post('https://localhost:5001/getKey')
   }
 }
 </script>

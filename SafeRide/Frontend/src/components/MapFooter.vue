@@ -2,21 +2,24 @@
   <div id="mapFooter">
     <button id="routeAnalysisButton" @click="doRouteAnalysisButtonClick">Route Analysis</button>
     <button id="hazardButton" @click="doHazardButtonClick">Report Hazard</button>
-    <MapOverlayButtons></MapOverlayButtons>
+    <MapOverlay @selectedDim="onOverlaySelect"></MapOverlay>
   </div>
 </template>
 
 <script>
-import MapOverlayButtons from './MapOverlayButtons'
+import MapOverlay from './MapOverlay'
 export default { // OVERLAYS NEEDS TO BE PASSED DYNAMICALLY, cant do rn
   components: {
-    MapOverlayButtons
+    MapOverlay
   },
   name: 'MapFooter',
   methods: {
     doRouteAnalysisButtonClick () {
     },
     doHazardButtonClick () {
+    },
+    onOverlaySelect (value) {
+      this.$emit('selectedDimFooter', value)
     }
   }
 }
