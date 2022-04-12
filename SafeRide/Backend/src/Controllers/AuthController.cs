@@ -6,18 +6,20 @@ using System.Security.Claims;
 using System.Web.Http;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Security.Interfaces;
+using System.Web.Http;
 using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttribute;
 
 namespace SafeRide.src.Services
 {
     [Microsoft.AspNetCore.Mvc.Route("api")]
+    [Controller]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository userRepository;
         private readonly ITokenService tokenService;
 
-        private readonly IOTPService otpService;
+        //private readonly IOTPService otpService;
         
         private string generatedToken = null;
 
@@ -50,7 +52,21 @@ namespace SafeRide.src.Services
 
             if (valid && validUser != null)
             {
-                //promt user on frontend to input their otp
+                ////promt user on frontend to input their otp
+                //otpService.SetUser(validUser);
+                //// continue calling ValidateOTP until user successfuly completes validation 
+                //while (otpService._isValidated == false) {
+                //    // stop validating if the user has reached the 24hr limit
+                //    if (_disableAcct) {
+                //        Console.WriteLine("User has failed 5 consecutive authentication attempts in the last 24hrs. Account must be disabled");
+                //        // TODO: figure out how to disable the account at this point
+                //        break; 
+                //    }
+                //    else {
+                //        otpService.SendEmail();
+                //        //ValidateOTP();
+                //    }
+                //}
                 /*otpService.SetUser(validUser);*/
 
                 generatedToken = tokenService.BuildToken(SECRET_KEY, ISSUER, validUser);
@@ -60,30 +76,28 @@ namespace SafeRide.src.Services
                     response = Ok(new { token = generatedToken });
                 }
             }
-
             return response;
         }
         
         
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("otp")]
-        public IActionResult Validate([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user, [FromUri] string providedOTP)
-        {
-            IActionResult response = Unauthorized();
-            //otpService = new OTPService(validUser);
-            UserSecurityModel validUser = null;
+        //[Microsoft.AspNetCore.Mvc.HttpPost]
+        //[Microsoft.AspNetCore.Mvc.Route("otp")]
+        //public IActionResult Validate([Microsoft.AspNetCore.Mvc.FromBody] UserSecurityModel user, [FromUri] string providedOTP)
+        //{
+        //    IActionResult response = Unauthorized();
+        //    if (otpService.ValidateOTP(providedOTP)) {
+        //        response = Ok();
+        //    //otpService = new OTPService(validUser);
+        //    UserSecurityModel validUser = null;
 
-            try
-            {
-                validUser = this.userRepository.GetUser(user);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
 
-            return response;
-        }
+        //    return response;
+        //}
         
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "admin")]
         [Microsoft.AspNetCore.Mvc.HttpPost]

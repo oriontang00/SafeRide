@@ -1,11 +1,20 @@
 <template>
-  <div id='map' style='margin: auto;width: 70%; height: 700px;'></div>
+  <MapHeader></MapHeader>
+  <MapSearchRectangle id="MapSearchRec"></MapSearchRectangle>
+  <div id='map'></div>
+  <MapFooter></MapFooter>
 </template>
 
 <script>
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl'
 export default {
+  components: {
+    MapSearchRectangle,
+    MapFooter,
+    MapHeader
+  },
+
   mounted () {
     mapboxgl.accessToken = "" // fix later
     this.map = new mapboxgl.Map({
@@ -17,3 +26,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #map{
+    margin: auto;
+    width: 70%;
+    height: 600px;
+  }
+  #MapSearchRec{
+    position:fixed;
+    left:50px;
+  }
+</style>
