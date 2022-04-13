@@ -61,6 +61,9 @@ export default {
         this.$emit('selectedDim', res)
       })
     }
+    if (this.selectedOverlay === 'None') {
+      this.$emit('selectedDim', 'None')
+    }
   }
 }
 </script>
