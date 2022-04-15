@@ -8,8 +8,17 @@ namespace SafeRide.src.DataAccess;
 
 public class OverlayStructureDAO : IOverlayStructureDAO
 {
-    private const string CONNECTION_STRING = @"server=(local)\SQLExpress;database=SafeRide_DB;integrated Security=SSPI;";
+    private SqlConnectionStringBuilder builder;
     private const string TABLE_NAME = "OverlayDimensions";
+
+    public OverlayStructureDAO()
+    {
+        builder = new SqlConnectionStringBuilder();
+        builder.DataSource = "saferidesql.database.windows.net";
+        builder.UserID = "saferideapple";
+        builder.Password = "t^E~eT1+$~O5qjY6mS`PTVY=N$pOiNNR";
+        builder.InitialCatalog = "SafeRide_DB";
+    }
 
     public List<string> GetAvailableOverlays(string userName)
     {
@@ -18,7 +27,7 @@ public class OverlayStructureDAO : IOverlayStructureDAO
 
         try
         {
-            using (var sqlConn = new SqlConnection(CONNECTION_STRING))
+            using (var sqlConn = new SqlConnection(builder.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, sqlConn))
                 {
@@ -51,7 +60,7 @@ public class OverlayStructureDAO : IOverlayStructureDAO
 
         try
         {
-            using (var sqlConn = new SqlConnection(CONNECTION_STRING))
+            using (var sqlConn = new SqlConnection(builder.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, sqlConn))
                 {

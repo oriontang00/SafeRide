@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
-using SafeRide.src.Interfaces;
 
 
 namespace SafeRide.src.Models

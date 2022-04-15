@@ -7,6 +7,12 @@ namespace SafeRide.Controllers
     [ApiController]
     public class TestAuth : ControllerBase
     {
+        [HttpGet]
+        [Route("get_ok")]
+        public IActionResult TestOk()
+        {
+            return Ok();
+        }
         
         [HttpGet]
         [AuthorizeAttribute.ClaimRequirementAttribute("role", "user")]
