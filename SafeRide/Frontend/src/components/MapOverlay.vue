@@ -29,7 +29,7 @@ export default {
     async getOverlays () {
       let overlays = []
       axios.defaults.headers.common.Authorization = localStorage.getItem('token')
-      await axios.get('https://localhost:5001/api/overlay/all')
+      await axios.get('https://backendsaferideapi.azure-api.net/api/overlay/all')
         .then(async function (res) { // do something with res here
           overlays = await res
         })
@@ -40,7 +40,7 @@ export default {
     async getOverlayDim (selOverlay) {
       let overlayDim = []
       axios.defaults.headers.common.Authorization = localStorage.getItem('token')
-      await axios.get('https://localhost:5001/api/overlay/dim', { params: { overlayName: selOverlay } })
+      await axios.get('https://backendsaferideapi.azure-api.net/api/overlay/dim', { params: { overlayName: selOverlay } })
         .then(async function (res) {
           overlayDim = await res
         })
