@@ -15,7 +15,7 @@ import axios from 'axios'
 async function getUserInfo () {
   let res = false
   axios.defaults.headers.common.Authorization = localStorage.getItem('token')
-  await axios.post('https://localhost:5001/api/getToken')
+  await axios.post('https://backendsaferideapi.azure-api.net/api/getToken')
     .then(function () { // do something with res here
       res = true
     })

@@ -19,7 +19,7 @@ export default {
   methods: {
     doRegistration () {
       if (this.userName !== undefined && this.userEmail !== undefined && this.userOTP !== undefined) {
-        axios.post('https://localhost:5001/user/CreateUser', {
+        axios.post('https://backendsaferideapi.azure-api.net/user/CreateUser', {
           Username: this.userName,
           Email: this.userEmail,
           Passphrase: this.userTOP,
