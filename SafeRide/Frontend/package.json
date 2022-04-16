@@ -1,12 +1,11 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": false,
   "scripts": {
-    "export": "npm run now-build && next export",
-    "build": "npm run now-build && next export",
-    "lint": "vue-cli-service lint"
-  },
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "install": "npm install --save --legacy-peer-deps"
+    },
   "dependencies": {
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
