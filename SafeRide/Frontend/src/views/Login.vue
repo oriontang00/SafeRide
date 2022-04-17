@@ -22,6 +22,8 @@ export default {
           Email: this.emailLogin,
           Role: 'Admin',
           Valid: true
+        }, {
+          withCredentials: true
         })
           .then(function (response) {
             var token = response.data.token

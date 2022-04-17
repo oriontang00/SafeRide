@@ -19,22 +19,22 @@ export default {
   },
   methods: {
     removeOverlays () {
-      if (this.map.getLayer('maine')) {
-        this.map.removeLayer('maine')
+      if (this.map.getLayer('userLayer')) {
+        this.map.removeLayer('userLayer')
       }
       if (this.map.getLayer('outline')) {
         this.map.removeLayer('outline')
       }
-      if (this.map.getSource('maine')) {
-        this.map.removeSource('maine')
+      if (this.map.getSource('userLayer')) {
+        this.map.removeSource('userLayer')
       }
     },
     addOverlays (value) {
       const coords = []
-      value.forEach(function (coord) {
-        coords.push([coord.latPoint, coord.longPoint])
+      value.overlayStructure.forEach(function (coord) {
+        coords.push([coord.longPoint, coord.latPoint])
       })
-      this.map.addSource('maine', {
+      this.map.addSource('userLayer', {
         type: 'geojson',
         data: {
           type: 'Feature',
@@ -47,19 +47,19 @@ export default {
         }
       })
       this.map.addLayer({
-        id: 'maine',
+        id: 'userLayer',
         type: 'fill',
-        source: 'maine', // reference the data source
+        source: 'userLayer', // reference the data source
         layout: {},
         paint: {
-          'fill-color': '#0080ff', // blue color fill
+          'fill-color': value.overlayColor, // blue color fill
           'fill-opacity': 0.5
         }
       })
       this.map.addLayer({
         id: 'outline',
         type: 'line',
-        source: 'maine',
+        source: 'userLayer',
         layout: {},
         paint: {
           'line-color': '#000',
