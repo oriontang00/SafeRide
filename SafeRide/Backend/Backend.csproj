@@ -6,12 +6,27 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SafeRide' " />
   <ItemGroup>
     <Compile Remove="NewFolder\**" />
     <Content Remove="NewFolder\**" />
     <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="NewFolder\**" />
     <Content Remove="package-lock.json" />
+    <None Remove="Mapbox.AspNetCore" />
+    <None Remove="Common.Net.REST.Mapbox" />
+    <None Remove="Geo.MapBox" />
+    <None Remove="Mapbox.Directions" />
+    <None Remove="Mapbox.Geocoding" />
+    <None Remove="Mapbox.IO.Compression" />
+    <None Remove="Mapbox.Json" />
+    <None Remove="Mapbox.Map" />
+    <None Remove="Mapbox.Platform" />
+    <None Remove="Mapbox.Utils" />
+    <None Remove="Mapbox.VectorTile.ExtensionMethods" />
+    <None Remove="Mapbox.VectorTile.Geometry" />
+    <None Remove="Mapbox.VectorTile.PbfReader" />
+    <None Remove="Mapbox.VectorTile.VectorTileReader" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,27 +103,62 @@
 
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
 
-    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.8" />
 
-    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.4" />
 
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
 
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
 
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.24" />
 
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.4" />
 
-    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.1" />
 
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
 
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Mapbox.Directions">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Directions.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.Geocoding">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Geocoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.IO.Compression">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.Json">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.Map">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Map.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.Platform">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.Utils">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.VectorTile.ExtensionMethods">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.ExtensionMethods.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.VectorTile.Geometry">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.VectorTile.PbfReader">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.PbfReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Mapbox.VectorTile.VectorTileReader">
+      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.VectorTileReader.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
