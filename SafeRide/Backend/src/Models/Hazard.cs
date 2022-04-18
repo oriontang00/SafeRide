@@ -1,4 +1,9 @@
-﻿namespace Backend.src.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Backend.src.Models
 {
     /// <summary>
     /// Enum which represents type of hazard.
@@ -20,10 +25,16 @@
             get { return _type; }
         }
 
-        private Coordinate _location;
-        public Coordinate Location
+        private double _latitude;
+        public double Latitude
         {
-            get { return _location; }
+            get { return _latitude; }
+        }
+
+        private double _longitude;
+        public double Longitude
+        {
+            get { return _longitude; }
         }
 
         private DateTime _timeReported;
@@ -62,12 +73,12 @@
             get { return _reportedBy; }
         }
 
-        public Hazard(HazardType type, Coordinate location, UserHash reportedBy, DateTime timeReported, string state, int zip, string city)
+        public Hazard(HazardType type, double longitude, double latitude, UserHash reportedBy, string state, int zip, string city)
         {
             _type = type;
             _location = location;
             _reportedBy = reportedBy;
-            _timeReported = timeReported;
+            _timeReported = DateTime.Now;
             _state = state;
             _zip = zip;
             _city = city;
