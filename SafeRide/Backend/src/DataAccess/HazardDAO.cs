@@ -2,26 +2,27 @@ using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
 using System.Data;
 using System.Data.SqlClient;
+using SafeRide.src.Models;
 
 namespace SafeRide.src.DataAccess
 {
     public class HazardDAO : IHazardDAO
     {
         private string _cs = System.Configuration.ConfigurationManager.ConnectionStrings["SafeRideDB"].ConnectionString;
-        private UserModel _user;
+        private ApplicationUser _user;
         private Hazard _hazard;
 
         public HazardDAO() {
-            this._user = new UserModel();
-            this._hazard = new Hazard();
+            this._user = new ApplicationUser();
         }
 
-        public HazardDAO(UserModel user, Hazard hazard) {
+        public HazardDAO(ApplicationUser user, Hazard hazard) {
+
             this._user = user;
             this._hazard = hazard;
         }
 
-        public Dictionary<double, double> GetByHazardInRadius(HazardType hazardType, double searchX, double targetY, double radius) {
+        public Dictionary<double, double> FindHazardInRadius(HazardType hazardType, double searchX, double targetY, double radius) {
             // initialize empty dictionary of doubles to store the set of queried coordinates
             Dictionary<double, double> foundCoordinates = new Dictionary<double, double>();
             // convert meters from meters to miles
@@ -59,6 +60,9 @@ namespace SafeRide.src.DataAccess
                 return foundCoordinates;
             }
             return foundCoordinates;
+        }
+
+        public bool Report(ApplicationUser user, HazardType type, double hazardX, double hazardY) {
         }
     }
 }

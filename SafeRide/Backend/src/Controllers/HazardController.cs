@@ -7,20 +7,27 @@ using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttrib
 
 namespace SafeRide.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("api")]
-    [Controller]
-    [ApiController]
+    // [Microsoft.AspNetCore.Mvc.Route("api")]
+    // [Controller]
+    // [ApiController]
     public class HazardController : ControllerBase
     {
-        private readonly IUserRepository _user;
+        private readonly ApplicationUser _user;
         private readonly Route _route;
         private readonly IHazardExclusionService _hazardExclusionService;
+        //private readonly IHazardReportingService _hazardReportingService;
                 
-        [Microsoft.AspNetCore.Mvc.Route("excludeHazard")]
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public HazardController(IUserRepository user, Route route) {
+        // [Microsoft.AspNetCore.Mvc.Route("excludeHazard")]
+        // [Microsoft.AspNetCore.Mvc.HttpPost]
+        public HazardController(ApplicationUser user, Route route) {
             this._user = _user;
             this._route = route; 
+            this._hazardExclusionService = new HazardExclusionService(route);
+        }
+        // [HttpGet]
+        // [Route("exclude")]
+        public bool Exclude(List<HazardType> hazards) {
+            _hazardExclusionService.FindHazardsNearRoute(hazards);
         }
 
 

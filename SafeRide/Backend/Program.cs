@@ -251,5 +251,13 @@ if (userAuthorized)
 }
 */
 
+public enum HazardType
+{
+    Accident,
+    Obstruction,
+    BikeLane,
+    Vehicle,
+    Closure
+    }
 
 

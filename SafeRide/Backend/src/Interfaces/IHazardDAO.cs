@@ -1,11 +1,12 @@
 using SafeRide.src.Models;
+using SafeRide.src.Models;
 
 namespace SafeRide.src.Interfaces
 {
-    public interface IUserDAO
+    public interface IHazardDAO
     {
-        public Dictionary<double, double> GetByHazardInRadius(HazardType type, double radius);
+        public Dictionary<double, double> FindHazardInRadius(HazardType type, double searchX, double searchY, double radius);
 
-        public bool Report(UserModel user, HazardType type, Coordinate location);
+        public bool Report(ApplicationUser user, HazardType type, double hazardX, double hazardY);
     }
 }

@@ -1,10 +1,12 @@
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
+using SafeRide.src.DataAccess;
 
 namespace SafeRide.src.Services
 {
     public class HazardExclusionService : IHazardExclusionService
     {
+        private IHazardDAO _hazardDAO;
         private Route _route;
         private List<HazardType> _hazards;
         private Dictionary<double, double> _routeCoordinates;
@@ -14,6 +16,7 @@ namespace SafeRide.src.Services
         private const double RADIUS_METERS = 80467.12;
 
         public HazardExclusionService(Route route) {
+            this._hazardDAO = new HazardDAO();
             // the route arg is a JSON object passed in from the MapBox Directions API response on the frontend, it must first be converted to a JSON string so that its data can be extracted and processed
             this._route = new JavaScriptSerializer().Serialize(route);
             // the original Route object uses a "geometry" parameter to store a list of all of the locations routed through in its "coordinates" field 
@@ -28,10 +31,13 @@ namespace SafeRide.src.Services
             _searchCount = 0;
         }
         
-        public Dictionary<double, double> FindHazardsNearRoute(HazardType type) {
-            this._hazards.Add(type);
-            _searchCoordinates = FindSearchCoordinates();
-            RadialSearch(coordinates);
+        public Dictionary<double, double> FindHazardsNearRoute(List<HazardType> hazards) {
+            this._hazards = hazards;
+            this._searchCoordinates = FindSearchCoordinates();
+            for (int i = 0; i < _hazards.Count; i++) {
+                this._hazardCoordinates.add(RadialSearch(coordinates, _hazards[i]));
+            }
+            return(_hazardCoordinates);
         }
 
         public Dictionary<double, double> FindSearchCoordinates() {
@@ -75,7 +81,6 @@ namespace SafeRide.src.Services
                                 double prevY = results.ElementAt(_searchCount - j + 1).Value;                                
                                 double diffX = endX - prevX; 
                                 double diffY = endY - prevY;
-     
                                 double nextX = lastX + (ratio * diffX);
                                 double nextY = lastY + (ratio * diffY);
 
@@ -88,10 +93,14 @@ namespace SafeRide.src.Services
                 }
             }
             return results;
-
-            
         }
-        public Dictionary<double, double> RadialSearch(Dictionary<double, double> coordinates, HazardType type);
-        
+        public Dictionary<double, double> RadialSearch(Dictionary<double, double> coordinates, HazardType type) {
+            for (int i = 0; i < coordinates.Count; i++) {
+                double targetX = coordinates.ElementAt[i].Key;
+                double targetY = coordinates.ElementAt[i].Value;
+                Dictionary<double, double> foundHazards = _hazardDAO.FindHazardInRadius(type, targetX, targetY, RADIUS_METERS);
+                _hazardCoordinates.Add(foundHazards);
+            }
+        }        
     }
 }
