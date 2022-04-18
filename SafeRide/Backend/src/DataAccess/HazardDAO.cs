@@ -35,7 +35,7 @@ namespace SafeRide.src.DataAccess
                     conn.Open();
                     
                     // build query using trigonometry function to search for the coordinates of all hazards of the provided type within the set radius around a coordinate defined by the provided targetX and targetY values
-                    string queryString = $"SELECT longitude, latitude FROM Hazards WHERE type = '{hazardType}' AND (acos(sin(latitude * 0.0175) * sin({targetY} * 0.0175) + cos(latitude * 0.0175) * cos({targetY} * 0.0175) * cos(({targetX} * 0.0175) - ({targetX} * 0.0175)) * 3959 <= {RADIUS_MILES})";
+                    string queryString = $"SELECT latitude, longitude FROM Hazards WHERE type = '{hazardType}' AND (acos(sin(latitude * 0.0175) * sin({targetX} * 0.0175) + cos(latitude * 0.0175) * cos({targetX} * 0.0175) * cos(({targetY} * 0.0175) - ({targetY} * 0.0175)) * 3959 <= {RADIUS_MILES})";
 
                     using (SqlCommand cmd = new SqlCommand(queryString, conn)) 
                     {
@@ -44,8 +44,8 @@ namespace SafeRide.src.DataAccess
                             while (reader.Read())
                             {
                                 // add each set of queried coordinates to the return dictionary
-                                double hazardX = (double) (reader["longitude"] ?? 0);
-                                double hazardY = (double) (reader["latitude"] ?? 0);
+                                double hazardX = (double) (reader["latitude"] ?? 0);
+                                double hazardY = (double) (reader["longitude"] ?? 0);
                                 foundCoordinates.Add(hazardX, hazardY);
                             }
                         }
