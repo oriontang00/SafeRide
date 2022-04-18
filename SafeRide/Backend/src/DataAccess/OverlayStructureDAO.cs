@@ -106,4 +106,18 @@ public class OverlayStructureDAO : IOverlayStructureDAO
 
         return readModel;
     }
+
+    public bool AddOverlayPoint(string user, string overlayName, OverlayPoint newPoint)
+    {
+        string query =
+            $"INSERT INTO {TABLE_NAME} values ('{overlayName}', '{user}', {newPoint.LatPoint}, {newPoint.LongPoint})";
+
+        return ExecuteQuery.ExecuteCommand(builder.ConnectionString, query);
+    }
+
+    public bool RemoveOverlayPoint(string user, string overlayName, OverlayPoint newPoint)
+    {
+        string query = $"DELETE FROM {TABLE_NAME} where overlayName='{overlayName}' and UserName='{user}' and LatPoint='{newPoint.LatPoint}' and LongPoint='{newPoint.LongPoint}'";
+        return ExecuteQuery.ExecuteCommand(builder.ConnectionString, query);
+    }
 }
