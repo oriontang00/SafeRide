@@ -1,4 +1,15 @@
 <template>
+  <div id="overlayColors">
+    <h3>Overlay color selection</h3>
+    <select v-model="selectedColor">
+      <option v-for="overlayColor in possibleColors" v-bind:key="overlayColor.value">
+        {{overlayColor}}
+      </option>
+      <option>
+        Default
+      </option>
+    </select>
+  </div>
   <div id="overlayButtons" >
     <h1>Overlay</h1>
     <select v-model="selectedOverlay">
@@ -22,7 +33,9 @@ export default {
     return {
       possibleOverlays: {},
       selectedOverlay: '',
-      overlayDims: []
+      overlayDims: [],
+      selectedColor: '',
+      possibleColors: ['red', 'yellow', 'grey', 'blue', 'purple', 'green']
     }
   },
   methods: {
@@ -60,7 +73,12 @@ export default {
     if (this.selectedOverlay !== 'None' && this.selectedOverlay !== '') {
       console.log(this.selectedOverlay)
       this.getOverlayDim(this.selectedOverlay).then((res) => {
-        this.$emit('selectedDim', res)
+        if (this.selectedColor === 'Default') {
+          this.$emit('selectedDim', res)
+        } else {
+          res.overlayColor = this.selectedColor
+          this.$emit('selectedDim', res)
+        }
       })
     }
     if (this.selectedOverlay === 'None') {
@@ -75,5 +93,10 @@ export default {
     position: relative;
     width: 100px;
     bottom: 300px;
+  }
+  #overlayColors{
+    position: relative;
+    width: 100px;
+    bottom: 500px;
   }
 </style>

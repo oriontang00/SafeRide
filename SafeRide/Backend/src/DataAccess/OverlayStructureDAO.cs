@@ -10,13 +10,14 @@ public class OverlayStructureDAO : IOverlayStructureDAO
 {
     private SqlConnectionStringBuilder builder;
     private const string TABLE_NAME = "OverlayDimensions";
+    private const string SECOND_TABLE_NAME = "OverlaysColors";
 
-    public OverlayStructureDAO()
+    public OverlayStructureDAO(IConfiguration config)
     {
         builder = new SqlConnectionStringBuilder();
         builder.DataSource = "saferidesql.database.windows.net";
         builder.UserID = "saferideapple";
-        builder.Password = "t^E~eT1+$~O5qjY6mS`PTVY=N$pOiNNR";
+        builder.Password = config["AppKey:DBKey"];
         builder.InitialCatalog = "SafeRide_DB";
     }
 
@@ -54,6 +55,7 @@ public class OverlayStructureDAO : IOverlayStructureDAO
     public OverlayStructureModel GetOverlay(string userName, string overlayName)
     {
         string query = $"SELECT * FROM {TABLE_NAME} WHERE OverlayName='{overlayName}' AND UserName='{userName}'";
+        string query_two = $"SELECT OverlayColor FROM {SECOND_TABLE_NAME} WHERE OverlayName='{overlayName}'";
 
         var readModel = new OverlayStructureModel(overlayName);
         var dimensions = new List<OverlayPoint>();
@@ -78,6 +80,24 @@ public class OverlayStructureDAO : IOverlayStructureDAO
                     }
                 }
             }
+
+            using (var sqlConn = new SqlConnection(builder.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query_two, sqlConn))
+                {
+                    cmd.Connection.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var color = reader["OverlayColor"].ToString();
+                            readModel.overlayColor = color;
+                        }
+                    }
+                }
+            }
+
             readModel.SetStructure(dimensions);
         }catch
         {

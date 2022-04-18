@@ -2,7 +2,7 @@
   <div id="mapFooter">
     <button id="routeAnalysisButton" @click="doRouteAnalysisButtonClick">Route Analysis</button>
     <button id="hazardButton" @click="doHazardButtonClick">Report Hazard</button>
-    <MapOverlay @selectedDim="onOverlaySelect"></MapOverlay>
+    <MapOverlay @selectedColor="onOverlayColorChange" @selectedDim="onOverlaySelect"></MapOverlay>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default { // OVERLAYS NEEDS TO BE PASSED DYNAMICALLY, cant do rn
     },
     onOverlaySelect (value) {
       this.$emit('selectedDimFooter', value)
+    },
+    onOverlayColorChange (value) {
+      this.$emit('selectedOverlayColor', value)
     }
   }
 }

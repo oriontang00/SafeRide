@@ -21,13 +21,6 @@ public class CustomWebAppFactory : WebApplicationFactory<Program>
     {
         _environment = environment;
     }
-
-    protected override IHost CreateHost(IHostBuilder builder)
-    {
-        builder.UseEnvironment(_environment);
-
-        return base.CreateHost(builder);
-    }
 }
 
 public class MapOverlayAPI

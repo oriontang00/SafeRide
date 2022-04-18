@@ -35,8 +35,10 @@ public class FeatureController : ControllerBase
         var user = JwtDecoder.GetUser(authorization);
         if (user == null) return Unauthorized();
 
-        var overlayStructure = _overlayStructureDao.GetOverlay(user, overlayName)._overlayStructure;
+        var readStructure = _overlayStructureDao.GetOverlay(user, overlayName);
+        var overlayStructure = readStructure._overlayStructure;
+        var overlayColor = readStructure.overlayColor;
         
-        return Ok(new {overlayStructure});
+        return Ok(new {overlayStructure, overlayColor});
     }
 }

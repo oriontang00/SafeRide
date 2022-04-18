@@ -2,7 +2,7 @@
   <MapHeader></MapHeader>
   <MapSearchRectangle id="MapSearchRec"></MapSearchRectangle>
   <div id='map'></div>
-  <MapFooter @selectedDimFooter="onReceiveOverlay"></MapFooter>
+  <MapFooter @selectedOverlayColor="onOverlayColorChange" @selectedDimFooter="onReceiveOverlay"></MapFooter>
 </template>
 
 <script>
@@ -28,6 +28,9 @@ export default {
       if (this.map.getSource('userLayer')) {
         this.map.removeSource('userLayer')
       }
+    },
+    changeOverlayColor (value) {
+      this.map.getLayer('userLayer').paint = { 'fill-color': value }
     },
     addOverlays (value) {
       const coords = []
@@ -74,6 +77,11 @@ export default {
       } else {
         this.removeOverlays()
       }
+    },
+    onOverlayColorChange (value) {
+      if (value !== 'Default') {
+        this.changeOverlayColor(value)
+      }
     }
   },
   props: ['api_key'],
@@ -81,7 +89,7 @@ export default {
     mapboxgl.accessToken = this.api_key
     this.map = new mapboxgl.Map({
       container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/streets-v11', // style URL
+      style: 'mapbox://styles/mapbox/satellite-v9', // style URL
       center: [-118.1109043, 33.7827241], // starting position [lng, lat]
       zoom: 14 // starting zoom
     })

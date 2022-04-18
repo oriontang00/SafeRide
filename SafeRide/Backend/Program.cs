@@ -116,7 +116,6 @@ app.UseAuthorization(); // auth
 app.MapControllers();
 
 
-
 // for testing OTP auth
 OTPService auth = new OTPService();
 // auth.SendEmail();
@@ -143,6 +142,9 @@ app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 
 app.Run();
+public partial class Program { }
+
+
 
 /*
 IUserDAO testDao = new UserSQLServerDAO();
@@ -250,6 +252,5 @@ if (userAuthorized)
     Console.WriteLine(testDao.Read("myUserId123")); // test read
 }
 */
-
 
 
