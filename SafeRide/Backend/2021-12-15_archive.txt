@@ -1,0 +1,5 @@
+1/1/2013 12:00:00 AM Information: this log will be archived
+11/14/2020 12:00:00 AM Debug: this log will be archived
+11/13/2021 12:00:00 AM Information: this log will be archived
+11/14/2021 12:00:00 AM Warn: this log will be archived
+11/14/2021 12:00:00 AM Error: this log will be archived

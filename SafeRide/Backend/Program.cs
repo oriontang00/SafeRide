@@ -1,4 +1,4 @@
-using SafeRide.src.Interfaces;
+﻿using SafeRide.src.Interfaces;
 using SafeRide.src.DataAccess;
 using SafeRide.src.Models;
 using SafeRide.src.Managers;
@@ -15,6 +15,11 @@ using SafeRide.src.Security.UserSecurity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+
+using Mapbox.Directions;
+using Mapbox.Json;
+using Mapbox.Platform;
+
 
 //https://www.codemag.com/Article/2105051/Implementing-JWT-Authentication-in-ASP.NET-Core-5
 
