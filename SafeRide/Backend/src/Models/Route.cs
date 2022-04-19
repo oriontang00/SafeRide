@@ -11,12 +11,12 @@ namespace SafeRide.src.Models
     /// </summary>
     public class Route : IRoute
     {  
-        private string _weightName { get; set; }
-        private double _weight { get; set; }
-        private double _duration { get; set; }
-        private double _distance { get; set; }
-        private List<Object> _legs { get; set; }
-        private string _geometry { get; set; }
+        private string _weightName { get; }
+        private double _weight { get; }
+        private double _duration { get; }
+        private double _distance { get; }
+        private List<Object> _legs { get; }
+        private string _geometry { get; }
 
         public Route(string weightName, double weight, double duration, double distance, List<object> legs, string geometry, string weightName, double weight, double duration, double distance, List<Leg> legs, string geometry) {
             this._weightName = weightName;

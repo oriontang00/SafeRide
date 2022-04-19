@@ -10,10 +10,10 @@ namespace SafeRide.src.Models
     /// </summary>
     public class DirectionsResponse 
     {
-        private List<Route> _routes { get; set; }
-        private List<Object> _waypoints { get; set; }
-        private string _code { get; set; }
-        private string _uuid { get; set; }
+        private List<Route> _routes { get; }
+        private List<Object> _waypoints { get; }
+        private string _code { get; }
+        private string _uuid { get; }
         public DirectionsResponse(List<Route> routes, List<object> waypoints, string code, string uuid) {
             _routes = routes;
             _waypoints = waypoints;

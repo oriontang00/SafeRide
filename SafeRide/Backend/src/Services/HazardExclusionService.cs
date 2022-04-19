@@ -6,36 +6,33 @@ namespace SafeRide.src.Services
 {
     public class HazardExclusionService : IHazardExclusionService
     {
+//        private IViewEventDAO _viewEventDAO;
         private IHazardDAO _hazardDAO;
         private Route _route;
         private List<Int> _hazards;
-        private Dictionary<double, double> _routeCoordinates;
         private Dictionary<double, double>  _searchCoordinates; 
-        private Dictionary<double, double>  _hazardCoordinates;
-        private int searchCount;
+        private int _searchCount;
         private const double RADIUS_METERS = 80467.12;
 
         // initialize a HazardExclusionService by passing in a Route object its step coordinates along with the list of hazards that should be excluded from it
-        public HazardExclusionService(Route route, Dictionary<double, double>  routeCoordinates, List<Int> hazards) {
+        public HazardExclusionService() {
             this._hazardDAO = new HazardDAO();
             this._route = route;
-            this._routeCoordinates = routeCoordinates;
-            this._searchCoordinates = FindSearchCoordinates();
             this._distance = route._distance;
-            this._hazards = hazards;
-            _searchCount = 0;
+            this._searchCoordinates = FindSearchCoordinates();
+            this._searchCount = 0;
         }
         
         // performs RadialSearches of every excluded hazard types around each searchCoordinate on the route 
-        public Dictionary<double, double> FindHazardsNearRoute() {
+        public Dictionary<double, double> FindHazardsNearRoute(List<int> hazards) {
             // solution dict to store results
             Dictionary<double, double> results = new Dictionary<double, double>();
-            
+   
             // go to each searchCoordinate first
-            for (int i = 0; i < _hazardCoordinates.Count; i++) {
+            for (int i = 0; i < _searchCoordinates.Count; i++) {
                 // then do a RadialSearch for every type of excluded hazard around the searchCoordinate
-                for (int j = 0; j < _hazards.Count; j++) {
-                    results.add(RadialSearch(_searchCoordinates[i], _hazards[j]));
+                for (int j = 0; j < hazards.Count; j++) {
+                    results.add(RadialSearch(_searchCoordinates[i], hazards[j]));
                 }
             }
             return(results);
@@ -51,8 +48,8 @@ namespace SafeRide.src.Services
                 // get the x and y coordinates of the last location in each step
                 double endX = _route.legs.steps[steps.Count - 1].maneuver.location[0];
                 double endY = _route.legs.steps[steps.Count - 1].maneuver.location[1];
-                
                 double stepDistance = _route.legs.steps[i].distance;
+                
                 Dictionary<double, double> results = new Dictionary<double, double>(); // return variable
 
                 // automatically add first coordinate in the route to search coordinates 
@@ -97,13 +94,12 @@ namespace SafeRide.src.Services
             return results;
         }
 
-
-        public Dictionary<double, double> RadialSearch(List<double, double> coordinates, HazardType type) {
+        public Dictionary<double, double> RadialSearch(List<double, double> coordinates, int hazardType) {
             double targetX = coordinates.ElementAt[i].Key;
             double targetY = coordinates.ElementAt[i].Value;
             
             return _hazardDAO.
-            GetByTypeInRadius(type, targetX, targetY, RADIUS_METERS)    
+            GetByTypeInRadius(hazardType, targetX, targetY, RADIUS_METERS);  
         }
     }        
 }

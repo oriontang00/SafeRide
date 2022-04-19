@@ -11,13 +11,13 @@ namespace SafeRide.src.Models
     /// </summary>
     public class Leg 
     {
-        private List<Object> _viaWaypoints { get; set; }
-        private List<Object> _admins { get; set; }
-        private double _weight { get; set; }
-        private double _duration { get; set; }
-        private List<Step> _steps { get; set; }
-        private double _distance { get; set; }
-        private string _summary { get; set; }
+        private List<Object> _viaWaypoints { get; }
+        private List<Object> _admins { get; }
+        private double _weight { get; }
+        private double _duration { get; }
+        private List<Step> _steps { get; }
+        private double _distance { get; }
+        private string _summary { get; }
         
         public Leg(List<object> viaWaypoints, List<object> admins, double weight, double duration, List<Step> steps, double distance, string summary)
         {

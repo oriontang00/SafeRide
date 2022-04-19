@@ -17,8 +17,7 @@ namespace SafeRide.src.Models
         private double _bearing_before { get; }
         private List<double, double> _location { get; }
 
-        public Maneuver(string type, string instruction, string modifier, double bearing_after, double bearing_before, List<double, double> location)
-        {
+        public Maneuver(string type, string instruction, string modifier, double bearing_after, double bearing_before, List<double, double> location) {
             _type = type;
             _instruction = instruction;
             _modifier = modifier;

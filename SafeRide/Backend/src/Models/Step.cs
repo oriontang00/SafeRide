@@ -11,15 +11,15 @@ namespace SafeRide.src.Models
     /// each maneuver represents a part of the route where the direction has changed 
     /// </summary>
     public class Step {
-        private List<Object> _intersections { get; set; }
-        private Maneuver _maneuver { get; set; }
-        private string _name { get; set; }
-        private double _duration { get; set; }
-        private double _distance { get; set; }
-        private string _drivingSide { get; set; }
-        private double _weight { get; set; }
-        private string _mode { get; set; }
-        private string _geometry { get; set; }
+        private List<Object> _intersections { get; }
+        private Maneuver _maneuver { get; }
+        private string _name { get; }
+        private double _duration { get; }
+        private double _distance { get; }
+        private string _drivingSide { get; }
+        private double _weight { get; }
+        private string _mode { get; }
+        private string _geometry { get; }
         
         public Step(List<object> intersections, Maneuver maneuver, string name, double duration, double distance, string drivingSide, double weight, string mode, string geometry)
         {

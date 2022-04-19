@@ -15,20 +15,40 @@ namespace SafeRide.Controllers
         private readonly ApplicationUser _user;
         private readonly Route _route;
         private readonly IHazardExclusionService _hazardExclusionService;
-        //private readonly IHazardReportingService _hazardReportingService;
+        private readonly IParseResponseService _parseResponseService;
                 
-        // [Microsoft.AspNetCore.Mvc.Route("excludeHazard")]
-        // [Microsoft.AspNetCore.Mvc.HttpPost]
-        public HazardController(ApplicationUser user, Route route) {
+
+        public HazardController(ApplicationUser user, string jsonResponse) {
             this._user = _user;
-            this._route = route; 
-            this._hazardExclusionService = new HazardExclusionService(route);
+            this._parseResponseService = new parseResponseService(jsonResponse);
+            this._route = _parseResponseService.ParseFirstRoute();
+            this._hazardExclusionService = new HazardExclusionService(_route);
         }
-        // [HttpGet]
-        // [Route("exclude")]
-        public bool Exclude(List<HazardType> hazards) {
+        
+        /* 
+        on frontend: 
+        Ajax.BeginForm("Exclude", 
+                            new AjaxOptions { UpdateTargetId = "divHazards" }))
+       
+        [HttpGet]
+        [Route("exclude")] 
+        */
+        public bool Exclude(List<int> hazards) {
+            Dictionary<double, double>  coordinates = this._parseResponseService.ParseStepCoordinates();
+
             _hazardExclusionService.FindHazardsNearRoute(hazards);
         }
+        
+  
+        
+         
+        [HttpPost]
+        [Route("exclude")]
+        public bool Report(List<int> hazards) {
+            _hazardExclusionService.FindHazardsNearRoute(hazards);
+        }
+
+
 
 
 
