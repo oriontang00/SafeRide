@@ -30,11 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj" />
-    <ProjectReference Include="..\SafeRide\Backend.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Mapbox.Directions" />
     <None Remove="Mapbox.Geocoding" />
     <None Remove="Mapbox.IO.Compression" />
@@ -46,40 +41,5 @@
     <None Remove="Mapbox.Platform" />
     <None Remove="Mapbox.Map" />
     <None Remove="Mapbox.Json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Mapbox.Directions">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Directions.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.Geocoding">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Geocoding.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.IO.Compression">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.IO.Compression.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.VectorTile.VectorTileReader">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.VectorTileReader.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.VectorTile.PbfReader">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.PbfReader.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.VectorTile.ExtensionMethods">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.ExtensionMethods.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.VectorTile.Geometry">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.VectorTile.Geometry.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.Utils">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.Platform">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.Map">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Map.dll</HintPath>
-    </Reference>
-    <Reference Include="Mapbox.Json">
-      <HintPath>..\..\..\mapbox-sdk-cs\bin\Debug\net35\Mapbox.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
