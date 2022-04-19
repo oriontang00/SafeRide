@@ -8,49 +8,51 @@ namespace SafeRide.src.Services
     {
         private IHazardDAO _hazardDAO;
         private Route _route;
-        private List<HazardType> _hazards;
+        private List<Int> _hazards;
         private Dictionary<double, double> _routeCoordinates;
-        private Dictionary<double, double> _hazardCoordinates;
-        private Dictionary<double, double> _searchCoordinates; 
+        private Dictionary<double, double>  _searchCoordinates; 
+        private Dictionary<double, double>  _hazardCoordinates;
         private int searchCount;
         private const double RADIUS_METERS = 80467.12;
 
-        public HazardExclusionService(Route route) {
+        // initialize a HazardExclusionService by passing in a Route object its step coordinates along with the list of hazards that should be excluded from it
+        public HazardExclusionService(Route route, Dictionary<double, double>  routeCoordinates, List<Int> hazards) {
             this._hazardDAO = new HazardDAO();
-            // the route arg is a JSON object passed in from the MapBox Directions API response on the frontend, it must first be converted to a JSON string so that its data can be extracted and processed
-            this._route = new JavaScriptSerializer().Serialize(route);
-            // the original Route object uses a "geometry" parameter to store a list of all of the locations routed through in its "coordinates" field 
-            // iterate through each location stored in "coordinates" and add them to _routeCoordinates
-            for (int i = 0; i < _route.geometry().coordinates().Count; i++) {
-                double currentLat = _route.geometry().coordinates().get(i)[0];
-                double currentLong= _route.geometry().coordinates().get(i)[1];
-                this._routeCoordinates.Add(currentLat, currentLong);
-            }
-
-            this.Distance = route.distance();
+            this._route = route;
+            this._routeCoordinates = routeCoordinates;
+            this._searchCoordinates = FindSearchCoordinates();
+            this._distance = route._distance;
+            this._hazards = hazards;
             _searchCount = 0;
         }
         
-        public Dictionary<double, double> FindHazardsNearRoute(List<HazardType> hazards) {
-            this._hazards = hazards;
-            this._searchCoordinates = FindSearchCoordinates();
-            for (int i = 0; i < _hazards.Count; i++) {
-                this._hazardCoordinates.add(RadialSearch(coordinates, _hazards[i]));
+        // performs RadialSearches of every excluded hazard types around each searchCoordinate on the route 
+        public Dictionary<double, double> FindHazardsNearRoute() {
+            // solution dict to store results
+            Dictionary<double, double> results = new Dictionary<double, double>();
+            
+            // go to each searchCoordinate first
+            for (int i = 0; i < _hazardCoordinates.Count; i++) {
+                // then do a RadialSearch for every type of excluded hazard around the searchCoordinate
+                for (int j = 0; j < _hazards.Count; j++) {
+                    results.add(RadialSearch(_searchCoordinates[i], _hazards[j]));
+                }
             }
-            return(_hazardCoordinates);
+            return(results);
         }
 
         public Dictionary<double, double> FindSearchCoordinates() {
-            for (int i = 0; i < _route.legs().steps().Count; i++) {
+            
+            for (int i = 0; i < _route._legs._steps.Count; i++) {
                 // get the x and y coordinates of the starting location of each step
-                double startX = _route.legs().steps().get(i).geometry().coordinates().get(0).get(0);
-                double startY = _route.legs().steps().get(i).geometry().coordinates().get(0).get(1);
+                double startX = _route.legs.steps[i].maneuver.location[0];
+                double startY = _route.legs.steps[i].maneuver.location[1];
                 
                 // get the x and y coordinates of the last location in each step
-                double endX = _route.legs().steps().get(i).geometry().coordinates().get(coordinates().Count - 1).get(0);
-                double endX = _route.legs().steps().get(i).geometry().coordinates().get(coordinates().Count - 1).get(1);
-
-                double stepDistance = _route.legs().steps().get(i).distnace();
+                double endX = _route.legs.steps[steps.Count - 1].maneuver.location[0];
+                double endY = _route.legs.steps[steps.Count - 1].maneuver.location[1];
+                
+                double stepDistance = _route.legs.steps[i].distance;
                 Dictionary<double, double> results = new Dictionary<double, double>(); // return variable
 
                 // automatically add first coordinate in the route to search coordinates 
@@ -63,11 +65,11 @@ namespace SafeRide.src.Services
                 else {
                     if ((startX, startY).IsInside(results[_searchCount - 1],RADIUS_SIZE) == False) {
                         // if not covered by previous radius, create a new one at that coord
-                        results.Add(startY, startX);
+                        results.Add(startX, startY);
                         _searchCount += 1;
                     }
                     else {
-                        // if the leg distance is greater than the search radius, then we need to calculate the number of additional radii needed to cover the rest of the leg
+                        // if the step distance is greater than the search radius, then we need to calculate the number of additional radii needed to span the rest of the leg
                         if (stepDistance > SEARCH_RADIUS) {
                             int reqSearches = (stepDistance + RADIUS_METERS - 1) / RADIUS_METERS; // round up to prevent search gaps
                             
@@ -94,13 +96,15 @@ namespace SafeRide.src.Services
             }
             return results;
         }
-        public Dictionary<double, double> RadialSearch(Dictionary<double, double> coordinates, HazardType type) {
-            for (int i = 0; i < coordinates.Count; i++) {
-                double targetX = coordinates.ElementAt[i].Key;
-                double targetY = coordinates.ElementAt[i].Value;
-                Dictionary<double, double> foundHazards = _hazardDAO.FindHazardInRadius(type, targetX, targetY, RADIUS_METERS);
-                _hazardCoordinates.Add(foundHazards);
-            }
-        }        
-    }
+
+
+        public Dictionary<double, double> RadialSearch(List<double, double> coordinates, HazardType type) {
+            double targetX = coordinates.ElementAt[i].Key;
+            double targetY = coordinates.ElementAt[i].Value;
+            
+            return _hazardDAO.
+            GetByTypeInRadius(type, targetX, targetY, RADIUS_METERS)    
+        }
+    }        
 }
+

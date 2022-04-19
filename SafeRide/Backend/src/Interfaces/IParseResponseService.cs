@@ -4,8 +4,8 @@ namespace SafeRide.src.Interfaces
 {
     public interface IParseResponseService
     {
-        public List<Maneuver> ParseForManeuvers() {}
-        public List<Coordinate> ParseForCoordinates() {} 
-
+        public Route ParseFirstRoute() {}
+        
+        public Dictionary<double, double> ParseStepCoordinates() {} 
     }
 }

@@ -5,7 +5,7 @@ namespace SafeRide.src.Interfaces
 {
     public interface IHazardDAO
     {
-        public Dictionary<double, double> FindHazardInRadius(HazardType type, double searchX, double searchY, double radius);
+        public Dictionary<double, double> GetByTypeInRadius(HazardType type, double searchX, double searchY, double radius);
 
         public int Report(Hazard hazard);
     }

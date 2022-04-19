@@ -22,9 +22,9 @@ namespace SafeRide.src.DataAccess
             this._hazard = hazard;
         }
 
-        public Dictionary<double, double> FindHazardInRadius(HazardType hazardType, double searchX, double targetY, double radius) {
+        public Dictionary<double, double> GetByTypeInRadius(HazardType hazardType, double searchX, double targetY, double radius) {
             // initialize empty dictionary of doubles to store the set of queried coordinates
-            Dictionary<double, double> foundCoordinates = new Dictionary<double, double>();
+            Dictionary<double, double> results = new Dictionary<double, double>();
             // convert meters from meters to miles
             const float RADIUS_MILES = radius * 0.000621371;
 
@@ -47,7 +47,7 @@ namespace SafeRide.src.DataAccess
                                 // add each set of queried coordinates to the return dictionary
                                 double hazardX = (double) (reader["latitude"] ?? 0);
                                 double hazardY = (double) (reader["longitude"] ?? 0);
-                                foundCoordinates.Add(hazardX, hazardY);
+                                results.Add(hazardX, hazardY);
                             }
                         }
                     }
@@ -57,9 +57,9 @@ namespace SafeRide.src.DataAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return foundCoordinates;
+                return results;
             }
-            return foundCoordinates;
+            return results;
         }
 
         public int Report(Hazard hazard) {
