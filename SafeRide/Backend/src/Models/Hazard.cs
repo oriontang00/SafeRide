@@ -13,26 +13,60 @@ namespace SafeRide.src.Models
     /// </summary>
     public class Hazard
     {
-        private HazardType _type { get; set; }
-        
+        private HazardType _type;
+        public HazardType Type
+        {
+            get { return _type; }
+        }
 
-        private double _latitude { get; set; }
-        private double _longitude { get; set; }
+        private double _latitude;
+        public double Latitude
+        {
+            get { return _latitude; }
+        }
+        private double _longitude;
+        public double Longitude
+        {
+            get { return _longitude; }
+        }
 
-        private DateTime _timeReported { get; set; }
-    
+        private DateTime _timeReported;
+        public DateTime TimeReported
+        {
+            get { return _timeReported; }
+        }
 
-        private string _state { get; set; }
-        private int _zip { get; set; }
-    
-        private string _city { get; set; }
-        
+        private string _state;
+        public string State
+        {
+            get { return _state; }
+        }
 
-        private bool _isCleared { get; set; }
- 
-        private ApplicationUser _reportedBy { get; set; }
+        private int _zip;
+        public int Zip
+        {
+            get { return _zip; }
+        }
 
-        public Hazard(HazardType type, double hazardX, double hazardY, ApplicationUser reportedBy, string state, int zip, string city)
+        private string _city;
+        public string City
+        {
+            get { return _city; }
+        }
+
+        private bool _expired;
+        public bool Expired
+        {
+            get { return _expired; }
+        }
+
+        private string _reportedBy;
+        public string ReportedBy
+        {
+            get { return _reportedBy; }
+        }
+
+        public Hazard(HazardType type, double hazardX, double hazardY, string reportedBy, string state, int zip, string city)
         {
             _type = type;
             _latitude = hazardX;
@@ -42,7 +76,7 @@ namespace SafeRide.src.Models
             _state = state;
             _zip = zip;
             _city = city;
-            _isCleared = false;
+            _expired = false;
         }
     }
 }

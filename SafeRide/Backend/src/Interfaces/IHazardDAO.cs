@@ -7,6 +7,6 @@ namespace SafeRide.src.Interfaces
     {
         public Dictionary<double, double> FindHazardInRadius(HazardType type, double searchX, double searchY, double radius);
 
-        public bool Report(ApplicationUser user, HazardType type, double hazardX, double hazardY);
+        public int Report(Hazard hazard);
     }
 }
