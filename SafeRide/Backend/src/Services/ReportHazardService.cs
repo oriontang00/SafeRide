@@ -1,4 +1,4 @@
-﻿namespace Backend.src.Services
+﻿namespace SafeRide.src.Services
 {
     public class ReportHazardService
     {
