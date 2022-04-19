@@ -1,0 +1,9 @@
+input coordinates: 
+<-73.99045550189928,40.73225479503364;-73.97962084116241,40.73551564560131;-73.9886679569091,40.72716860725768
+
+token:
+pk.eyJ1IjoiY29saW5jcmVhc21hbiIsImEiOiJjbDIxbGhnZ2QxMW1pM2Jwamp4YW42M25zIn0.WJD2zPxATbnf2utML0OOCQ
+
+request URL: 
+https://api.mapbox.com/directions/v5/mapbox/driving/-73.99045550189928%2C40.73225479503364%3B-73.97962084116241%2C40.73551564560131%3B-73.9886679569091%2C40.72716860725768?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=pk.eyJ1IjoiY29saW5jcmVhc21hbiIsImEiOiJjbDIxbGhnZ2QxMW1pM2Jwamp4YW42M25zIn0.WJD2zPxATbnf2utML0OOCQ
+
