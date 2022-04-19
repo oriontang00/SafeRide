@@ -1,8 +1,9 @@
-﻿CREATE TABLE Overlays
+﻿CREATE TABLE OverlaysColors
 (
-    OverlayID int NOT NULL IDENTITY(1,1),
-    OverlayName varchar(50),
-    PRIMARY KEY (OverlayID)
+    OverlayDimID int NOT NULL IDENTITY(1,1),
+    OverlayName varchar(50) NOT NULL,
+    OverlayColor varchar(50) NOT NULL,
+    PRIMARY KEY (OverlayName)
 );
 
 CREATE TABLE OverlayDimensions
