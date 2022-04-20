@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,15 +10,23 @@ namespace SafeRide.src.Models
     /// </summary>
     public class DirectionsResponse 
     {
-        private List<Route> _routes { get; }
-        private List<Object> _waypoints { get; }
-        private string _code { get; }
-        private string _uuid { get; }
-        public DirectionsResponse(List<Route> routes, List<object> waypoints, string code, string uuid) {
-            _routes = routes;
-            _waypoints = waypoints;
-            _code = code;
-            _uuid = uuid;
+        private List<MapRoute> routes;
+        private List<Object> waypoints;
+        private string code;
+        private string uuid;
+
+
+        public DirectionsResponse(List<MapRoute> routes, List<object> waypoints, string code, string uuid)
+        {
+            this.routes = routes;
+            this.waypoints = waypoints;
+            this.code = code;
+            this.uuid = uuid;
         }
+
+        public List<MapRoute> Routes { get => routes; set => routes = value; }
+        public List<object> Waypoints { get => waypoints; set => waypoints = value; }
+        public string Code { get => code; set => code = value; }
+        public string Uuid { get => uuid; set => uuid = value; }
     }
 }

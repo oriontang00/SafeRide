@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,16 +9,16 @@ namespace SafeRide.src.Models
     /// Holds data for the Route object from the API response; 
     /// each maneuver represents a part of the route where the direction has changed 
     /// </summary>
-    public class Leg 
+    public class Leg
     {
-        private List<Object> _viaWaypoints { get; }
-        private List<Object> _admins { get; }
-        private double _weight { get; }
-        private double _duration { get; }
-        private List<Step> _steps { get; }
-        private double _distance { get; }
-        private string _summary { get; }
-        
+        private List<Object> _viaWaypoints;
+        private List<Object> _admins;
+        private double _weight;
+        private double _duration;
+        private List<Step> _steps;
+        private double _distance;
+        private string _summary;
+
         public Leg(List<object> viaWaypoints, List<object> admins, double weight, double duration, List<Step> steps, double distance, string summary)
         {
             _viaWaypoints = viaWaypoints;
@@ -29,5 +29,14 @@ namespace SafeRide.src.Models
             _distance = distance;
             _summary = summary;
         }
+
+        public List<object> ViaWaypoints { get => _viaWaypoints; set => _viaWaypoints = value; }
+        public List<object> Admins { get => _admins; set => _admins = value; }
+        public double Weight { get => _weight; set => _weight = value; }
+        public double Duration { get => _duration; set => _duration = value; }
+        public List<Step> Steps { get => _steps; set => _steps = value; }
+        public double Distance { get => _distance; set => _distance = value; }
+        public string Summary { get => _summary; set => _summary = value; }
     }
 }
+

@@ -1,8 +1,7 @@
-using SafeRide.src.Interfaces;
+﻿using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
 using System.Data;
 using System.Data.SqlClient;
-using SafeRide.src.Models;
 
 namespace SafeRide.src.DataAccess
 {
@@ -10,23 +9,16 @@ namespace SafeRide.src.DataAccess
     {
         private string _cs = System.Configuration.ConfigurationManager.ConnectionStrings["SafeRideDB"].ConnectionString;
         private ApplicationUser _user;
-        private Hazard _hazard;
 
         public HazardDAO() {
             this._user = new ApplicationUser();
         }
 
-        public HazardDAO(ApplicationUser user, Hazard hazard) {
-
-            this._user = user;
-            this._hazard = hazard;
-        }
-
-        public Dictionary<double, double> GetByTypeInRadius(HazardType hazardType, double searchX, double targetY, double radius) {
+        public Dictionary<double, double> GetByTypeInRadius(int hazardType, double targetX, double targetY, double radius) {
             // initialize empty dictionary of doubles to store the set of queried coordinates
             Dictionary<double, double> results = new Dictionary<double, double>();
             // convert meters from meters to miles
-            const float RADIUS_MILES = radius * 0.000621371;
+            double RADIUS_MILES = radius * 0.000621371;
 
             // attempt connecting to the database to query for mathing hazards
             try

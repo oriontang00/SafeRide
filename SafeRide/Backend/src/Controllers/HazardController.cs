@@ -1,9 +1,8 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Web.Http;
 using Microsoft.AspNetCore.Mvc;
 using SafeRide.src.Interfaces;
 using SafeRide.src.Models;
-using AuthorizeAttribute = Backend.Attributes.AuthorizeAttribute.AuthorizeAttribute;
 
 namespace SafeRide.Controllers
 {
@@ -13,14 +12,14 @@ namespace SafeRide.Controllers
     public class HazardController : ControllerBase
     {
         private readonly ApplicationUser _user;
-        private readonly Route _route;
+        private readonly MapRoute _route;
         private readonly IHazardExclusionService _hazardExclusionService;
         private readonly IParseResponseService _parseResponseService;
                 
 
         public HazardController(ApplicationUser user, string jsonResponse) {
             this._user = _user;
-            this._parseResponseService = new parseResponseService(jsonResponse);
+            this._parseResponseService = new ParseResponseService(jsonResponse);
             this._route = _parseResponseService.ParseFirstRoute();
             this._hazardExclusionService = new HazardExclusionService(_route);
         }
